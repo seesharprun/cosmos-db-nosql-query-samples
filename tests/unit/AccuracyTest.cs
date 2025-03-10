@@ -1,12 +1,4 @@
-using System.Configuration;
-using Microsoft.Azure.Cosmos;
-using Newtonsoft.Json.Linq;
-using Validate.Test.Fixtures;
-using Validate.Test.Providers;
-using Xunit;
-using Xunit.Sdk;
-
-namespace Validate.Test;
+﻿namespace Microsoft.Learn.NoSQLValidation.UnitTests;
 
 public sealed class AccuracyTest : IClassFixture<CosmosDbFixture>
 {
@@ -56,7 +48,7 @@ public sealed class AccuracyTest : IClassFixture<CosmosDbFixture>
 
         using FeedIterator<dynamic> feed = _container.GetItemQueryIterator<dynamic>(query);
 
-        JArray result = new();
+        JArray result = [];
         while (feed.HasMoreResults)
         {
             FeedResponse<dynamic> response = await feed.ReadNextAsync();

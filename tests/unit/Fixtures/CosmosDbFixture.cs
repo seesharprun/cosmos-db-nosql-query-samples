@@ -1,6 +1,4 @@
-using Microsoft.Azure.Cosmos;
-
-namespace Validate.Test.Fixtures;
+namespace Microsoft.Learn.NoSQLValidation.UnitTests.Fixtures;
 
 public sealed class CosmosDbFixture : IDisposable
 {

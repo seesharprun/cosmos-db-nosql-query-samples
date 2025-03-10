@@ -1,15 +1,12 @@
-using System.IO;
-using System.Reflection;
-
-namespace Validate.Test.Providers;
+namespace Microsoft.Learn.NoSQLValidation.UnitTests.Providers;
 
 internal static class FolderSource
 {
-    public static IEnumerable<object[]> TestData
+    public static TheoryData<string> TestData
     {
         get
         {
-            List<string> directories = new List<string>();
+            List<string> directories = [];
 
             string? toolDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly()?.Location);
             if (toolDirectory is not null)
@@ -35,7 +32,12 @@ internal static class FolderSource
                 }
             }
 
-            return directories.Select(d => new object[] { d });
+            TheoryData<string> result = [];
+            foreach (string directory in directories)
+            {
+                result.Add(directory);
+            }
+            return result;
         }
     }
 }

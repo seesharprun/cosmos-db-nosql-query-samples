@@ -1,26 +1,17 @@
 {
-    "name": "NoSQL query script development",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "dev",
-    "workspaceFolder": "/workspace",
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "ms-dotnettools.csharp",
-                "adpyke.vscode-sql-formatter",
-                "ms-dotnettools.csdevkit"
-            ],
-            "settings": {
-                "[json]": {
-                    "editor.insertSpaces": true,
-                    "editor.tabSize": 2
-                }
-            }
-        }
-    },
-    "containerEnv": {
-        "DOTNET_ENVIRONMENT": "Development",
-        "COSMOSDB__CONNECTIONSTRING": "AccountEndpoint=https://cosmosdb.domain:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
-    },
-    "postStartCommand": "bash ./.devcontainer/postStartCommand.sh"
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "adpyke.vscode-sql-formatter",
+        "ms-dotnettools.csdevkit"
+      ]
+    }
+  },
+  "containerEnv": {
+    "COSMOSDB__CONNECTIONSTRING": "AccountEndpoint=https://cosmosdb.domain:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
+  }
 }

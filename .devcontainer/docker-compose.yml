@@ -1,14 +1,14 @@
 services:
   dev:
-    build:
-      context: .
+    image: mcr.microsoft.com/dotnet/sdk:9.0
     command: sleep infinity
     volumes:
       - ..:/workspace
     depends_on:
       - cosmosdb
   cosmosdb:
-    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:latest
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
     hostname: cosmosdb.domain
     ports:
       - 8081
+      - 1234
