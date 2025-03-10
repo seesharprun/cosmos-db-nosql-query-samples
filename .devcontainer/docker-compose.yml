@@ -9,6 +9,7 @@ services:
   cosmosdb:
     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
     hostname: cosmosdb.domain
+    environment:
+      - PROTOCOL=https
     ports:
       - 8081
-      - 1234
