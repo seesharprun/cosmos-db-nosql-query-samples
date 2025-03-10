@@ -6,7 +6,6 @@ jobs:
   validate:
     name: Validate query samples
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/sdk:9.0
     services:
       cosmosdb:
         image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
@@ -17,6 +16,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
       - name: Run unit tests
         working-directory: ./tests/unit/
         run: dotnet test --logger "console" --logger "trx;verbosity=detailed"
