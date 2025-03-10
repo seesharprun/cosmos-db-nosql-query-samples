@@ -4,12 +4,15 @@ services:
     command: sleep infinity
     volumes:
       - ..:/workspace
+    environment:
+      COSMOSDB_CONNECTIONSTRING: "AccountEndpoint=https://cosmosdb:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
     depends_on:
       - cosmosdb
   cosmosdb:
     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
-    hostname: cosmosdb.domain
     environment:
-      - PROTOCOL=https
+      PROTOCOL: "https"
+      ENABLE_EXPLORER: "false"
+      GATEWAY_PUBLIC_ENDPOINT: "cosmosdb"
     ports:
       - 8081

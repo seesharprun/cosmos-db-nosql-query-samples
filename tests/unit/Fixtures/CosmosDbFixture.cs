@@ -2,26 +2,37 @@ namespace Microsoft.Learn.NoSQLValidation.UnitTests.Fixtures;
 
 public sealed class CosmosDbFixture : IDisposable
 {
+    private readonly CosmosClientOptions clientOptions = new()
+    {
+        HttpClientFactory = () => new HttpClient(
+            new HttpClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+            }
+        ),
+        ConnectionMode = ConnectionMode.Gateway
+    };
+
     private CosmosClient Client { get; set; }
 
     public Container Container { get; private set; }
 
     public CosmosDbFixture()
     {
-        string connectionString = Environment.GetEnvironmentVariable("COSMOSDB__CONNECTIONSTRING")
+        string connectionString = Environment.GetEnvironmentVariable("COSMOSDB_CONNECTIONSTRING")
             ?? throw new InvalidOperationException("Missing connection string");
 
-        this.Client = new CosmosClient(connectionString);
+        Client = new CosmosClient(connectionString, clientOptions);
 
-        var databaseTask = this.Client.CreateDatabaseIfNotExistsAsync($"validation-automated", 400);
+        var databaseTask = Client.CreateDatabaseIfNotExistsAsync($"validation-automated", 400);
         Database database = databaseTask.Result;
 
         var containerTask = database.CreateContainerIfNotExistsAsync($"data-automated", "/pk");
-        this.Container = containerTask.Result;
+        Container = containerTask.Result;
     }
 
     public void Dispose()
     {
-        this.Client?.Dispose();
+        Client?.Dispose();
     }
 }

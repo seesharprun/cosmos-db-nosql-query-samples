@@ -11,6 +11,8 @@ jobs:
         image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
         ports:
           - 8081:8081
+          - 1234:1234 
+          - 10250-10255:10250-10255
         env:
           PROTOCOL: https
     steps:
@@ -24,7 +26,9 @@ jobs:
         working-directory: ./tests/unit/
         run: dotnet test --logger "console" --logger "trx;verbosity=detailed"
         env:
-          COSMOSDB__CONNECTIONSTRING: "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
+          PROTOCOL: "https"
+          ENABLE_EXPLORER: "false"
+          COSMOSDB_CONNECTIONSTRING: "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
       - name: Upload TRX test results
         uses: actions/upload-artifact@v4
         with:
