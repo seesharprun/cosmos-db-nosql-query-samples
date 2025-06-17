@@ -1,0 +1,91 @@
+---
+title: {{ name }}
+titleSuffix: Azure Cosmos DB for NoSQL
+description: {{ description }}
+author: seesharprun
+ms.author: sidandrews
+ms.reviewer: jacodel
+ms.topic: generated-reference
+ms.date: {{ date }}
+ai-usage: ai-assisted
+appliesto:
+  - Azure Cosmos DB for NoSQL
+  - Cosmos DB in Fabric
+---
+
+# `{{{ name }}}` (NoSQL query)
+
+{{ description }}
+{{ #renderSummary }}
+
+{{ summary }}
+{{ /renderSummary }}
+
+## Syntax
+
+```nosql
+{{{ syntax }}}
+```
+{{ #renderArguments }}
+
+## Arguments
+
+| | Description |
+| --- | --- |
+{{ #arguments }}
+| **`{{{ name }}}`** | {{ description }} |
+{{ /arguments }}
+{{ /renderArguments }}
+
+## Return types
+
+{{ returns }}
+{{ #renderExamples }}
+
+## Examples
+
+This section contains examples of how to use this query language construct.
+{{ #useSample }}
+
+Consider this sample set of documents within the `{{ examples.sample.set }}` collection for these examples.
+
+```json
+{{{ sampleJson }}}
+```
+{{ /useSample }}
+{{ #examples.items }}
+
+### {{ title }}
+{{ #explanation }}
+
+{{ explanation }}
+{{ /explanation }}
+{{ #description }}
+
+{{ description }}
+{{ /description }}
+
+```nosql
+{{{ query }}}
+```
+
+```json
+{{{ result }}}
+```
+{{ /examples.items }}
+{{ /renderExamples }}
+{{ #renderRemarks }}
+
+## Remarks
+
+{{ #remarksList }}
+- {{ . }}
+{{ /remarksList }}
+{{ /renderRemarks }}
+
+## Related content
+
+- [NoSQL query reference](index.md)
+{{ #resources }}
+- [`{{ title }}`]({{ file }}.md)
+{{ /resources }}

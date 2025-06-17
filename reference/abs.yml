@@ -1,0 +1,34 @@
+name: ABS
+group: mathematical
+description: |-
+  The `ABS` function returns the absolute (positive) value of the specified numeric expression.
+syntax: |-
+  ABS(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  items:
+    - title: Absolute value of numbers
+      description: In this example, the `ABS` function is used on negative, zero, and positive numbers.
+      query: |-
+        SELECT VALUE { 
+            absoluteNegativeOne: ABS(-1),
+            absoluteZero: ABS(0),
+            absoluteOne: ABS(1) 
+        }
+      result: |-
+        [
+          {
+            "absoluteNegativeOne": 1,
+            "absoluteZero": 0,
+            "absoluteOne": 1
+          }
+        ]
+remarks:
+  - This function benefits from the use of a range index.
+related:
+  - reference: is-number.yml

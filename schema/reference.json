@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NoSQLQueryReference",
+  "type": "object",
+  "required": [
+    "name",
+    "group",
+    "description",
+    "syntax",
+    "arguments",
+    "returns",
+    "examples"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string",
+      "enum": [
+        "aggregation",
+        "array",
+        "conditional",
+        "date-and-time",
+        "full-text-search",
+        "item",
+        "mathematical",
+        "spatial",
+        "string",
+        "type-checking"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "syntax": {
+      "type": "string"
+    },
+    "arguments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "required"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "returns": {
+      "type": "string"
+    },
+    "examples": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "sample": {
+          "type": "object",
+          "required": [
+            "set",
+            "query"
+          ],
+          "properties": {
+            "set": {
+              "type": "string",
+              "enum": [
+                "products",
+                "employees"
+              ]
+            },
+            "query": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "description",
+              "query",
+              "result"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "explanation": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string",
+                "pattern": "^In this example, .*"
+              },
+              "query": {
+                "type": "string"
+              },
+              "result": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "remarks": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "enum": [
+              "STATIC-RECOMMEND-RANGE-INDEX"
+            ]
+          }
+        ]
+      },
+      "description": "A list of remarks, each can be a custom string or one of the predefined enum values."
+    },
+    "related": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "reference"
+        ],
+        "properties": {
+          "reference": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

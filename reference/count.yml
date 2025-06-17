@@ -1,0 +1,67 @@
+name: COUNT
+group: aggregation
+description: |-
+  The `COUNT` function returns the count of the values in the expression.
+syntax: |-
+  COUNT(<scalar_expr>)
+arguments:
+  - name: scalar_expr
+    required: true
+    description: A scalar expression to count.
+returns: |-
+  Returns a numeric scalar value.
+examples:
+  sample:
+    set: products
+    query: |-
+      SELECT
+        p.name,
+        p.category
+      FROM
+        products p
+      WHERE
+        p.category = "socks"
+  items:
+    - title: Count using a scalar value and an expression
+      description: In this example, COUNT is used with a scalar and an expression. Both return 1.
+      query: |-
+        SELECT VALUE {
+            countScalar: COUNT(1),
+            countExpression: COUNT(2 + 3)
+        }
+      result: |-
+        [
+          {
+            "countScalar": 1,
+            "countExpression": 1
+          }
+        ]
+    - title: Count occurrences of a field
+      description: In this example, the function counts the number of times the `name` field occurs in filtered data.
+      query: |-
+        SELECT VALUE
+            COUNT(p.name)
+        FROM
+            products p
+        WHERE
+            p.category = "socks"
+      result: |-
+        [
+          2
+        ]
+    - title: Count all items in a container
+      description: In this example, the function is used to count every item within a container.
+      query: |-
+        SELECT VALUE
+            COUNT(1)
+        FROM
+            items
+      result: |-
+        [
+          3
+        ]
+remarks:
+  - This function benefits from a range index for any properties in the query's filter.
+related:
+  - reference: avg.yml
+  - reference: sum.yml

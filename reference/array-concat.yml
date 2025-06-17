@@ -1,0 +1,38 @@
+name: ARRAY_CONCAT
+group: array
+description: |-
+  The `ARRAY_CONCAT` function returns an array that is the result of concatenating two or more array values.
+syntax: |-
+  ARRAY_CONCAT(<array_expr_1>, <array_expr_2> [, <array_expr_N>])
+arguments:
+  - name: array_expr_1
+    required: true
+    description: The first array expression in the list.
+  - name: array_expr_2
+    required: true
+    description: The second array expression in the list.
+  - name: array_expr_N
+    required: false
+    description: Optional additional array expressions to concatenate.
+returns: |-
+  Returns an array expression.
+examples:
+  items:
+    - title: Concatenate two arrays
+      description: In this example, the `ARRAY_CONCAT` function concatenates two arrays.
+      query: |-
+        SELECT ARRAY_CONCAT(["apples", "strawberries"], ["bananas"]) AS arrayConcat
+      result: |-
+        [
+          {
+            "arrayConcat": [
+              "apples",
+              "strawberries",
+              "bananas"
+            ]
+          }
+        ]
+remarks:
+  - This function doesn't utilize the index.
+related:
+  - reference: array-slice.yml

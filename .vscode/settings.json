@@ -1,0 +1,10 @@
+{
+  "yaml.schemas": {
+    "./schema/reference.json": [
+      "reference/**/*.{yml,yaml}"
+    ],
+    "./schema/remarks.json": [
+      "resources/remarks.{yml,yaml}"
+    ]
+  }
+}
