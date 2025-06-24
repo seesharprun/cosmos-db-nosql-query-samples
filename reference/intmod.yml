@@ -1,0 +1,41 @@
+### YamlMime:NoSQLQueryReference
+name: INTMOD
+group: mathematical
+description: |
+  The `INTMOD` function returns the remainder of dividing the first integer value by the second.
+syntax: |
+  INTMOD(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The numerator numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The denominator numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Modulo of integer values
+    description: In this example, the `INTMOD` function is used to return the remainder of two numbers.
+    query: |
+      SELECT VALUE {
+        mod: INTMOD(12, 5),
+        positiveResult: INTMOD(12, -5),
+        negativeResult: INTMOD(-12, -5),
+        resultZero: INTMOD(15, 5),
+        modZero: INTMOD(12, 0),
+        modDecimal: INTMOD(12, 0.2)
+      }
+    result: |
+      [
+        {
+          "mod": 2,
+          "positiveResult": 2,
+          "negativeResult": -2,
+          "resultZero": 0
+        }
+      ]
+remarks: []
+related:
+  - reference: intdiv.yml
+  - reference: intmul.yml

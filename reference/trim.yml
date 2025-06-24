@@ -1,0 +1,49 @@
+### YamlMime:NoSQLQueryReference
+name: TRIM
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string with leading or trailing whitespace trimmed.
+description: |
+  The `TRIM` function returns a string expression after it removes leading and trailing whitespace or custom characters.
+syntax: |
+  TRIM(<string_expr_1> [, <string_expr_2>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: A string expression.
+  - name: string_expr_2
+    required: false
+    description: An optional string expression with a string to trim from `string_expr_1`. If not specified, the default is to trim whitespace.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Trim whitespace and characters
+    description: In this example, the `TRIM` function is used to trim whitespace and custom characters from strings.
+    query: |
+      SELECT VALUE {
+        trimPrefix: TRIM("   AdventureWorks"),
+        trimSuffix: TRIM("AdventureWorks   "),
+        trimWhitespace: TRIM("   AdventureWorks   "),
+        trimWrongCharacter: TRIM("---AdventureWorks---"),
+        trimUnderscores: TRIM("___AdventureWorks___", "_"),
+        trimHyphens: TRIM("---AdventureWorks---", "-"),
+        trimSubsetCharacters: TRIM("-- AdventureWorks --", "-"),
+        trimMultipleCharacters: TRIM("-_-AdventureWorks-_-", "-_")
+      }
+    result: |
+      [
+        {
+          "trimPrefix": "AdventureWorks",
+          "trimSuffix": "AdventureWorks",
+          "trimWhitespace": "AdventureWorks",
+          "trimWrongCharacter": "---AdventureWorks---",
+          "trimUnderscores": "AdventureWorks",
+          "trimHyphens": "AdventureWorks",
+          "trimSubsetCharacters": " AdventureWorks ",
+          "trimMultipleCharacters": "AdventureWorks"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: substring.yml
+  - reference: ltrim.yml

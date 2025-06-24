@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: INTBITAND
+group: mathematical
+description: |
+  The `INTBITAND` function returns a comparison of the bits of each operand using an inclusive AND operator.
+syntax: |
+  INTBITAND(<int_expr_1>, <int_expr_2>)
+arguments:
+  - name: int_expr_1
+    required: true
+    description: An integer expression, which is used as the left-hand operand.
+  - name: int_expr_2
+    required: true
+    description: An integer expression, which is used as the right-hand operand.
+returns: |
+  Returns a 64-bit integer.
+examples:
+  - title: Bitwise AND operation
+    description: In this example, the `INTBITAND` function is used to perform a bitwise AND operation.
+    query: |
+      SELECT VALUE {
+        compareNumbers: INTBITAND(15, 25),
+        compareZero: INTBITAND(15, 0),
+        compareSameNumber: INTBITAND(15, 15),
+        compareDecimal: INTBITAND(15, 1.5)
+      }
+    result: |
+      [
+        {
+          "compareNumbers": 9,
+          "compareZero": 0,
+          "compareSameNumber": 15
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks: []
+related:
+  - reference: intbitor.yml
+  - reference: intbitxor.yml

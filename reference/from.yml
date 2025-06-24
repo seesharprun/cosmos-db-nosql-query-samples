@@ -1,0 +1,64 @@
+### YamlMime:NoSQLQueryReference
+name: FROM
+group: clause
+description: |-
+  The `FROM` clause identifies the source of data for a query.
+syntax: |-
+  FROM <from_specification>
+
+  <from_specification> ::= <from_source> {[ JOIN <from_source>][,...n]}
+  <from_source> ::= <container_expression> [[AS] input_alias] | input_alias IN <container_expression>
+  <container_expression> ::= ROOT | container_name | input_alias | <container_expression> '.' property_name | <container_expression> '[' "property_name" | array_index ']'
+arguments:
+  - name: from_source
+    required: true
+    description: Specifies a data source, with or without an alias.
+  - name: AS input_alias
+    required: false
+    description: Specifies that the input_alias is a set of values returned by the underlying container expression.
+  - name: input_alias IN
+    required: false
+    description: Specifies that the input_alias should represent the set of values obtained by iterating over all array elements of each array returned by the underlying container expression.
+  - name: container_expression
+    required: true
+    description: Specifies the container expression to be used to retrieve the items.
+  - name: ROOT
+    required: false
+    description: Specifies that the item should be retrieved from the default, currently connected container.
+  - name: container_name
+    required: false
+    description: Specifies that the item should be retrieved from the provided container.
+  - name: input_alias
+    required: false
+    description: Specifies that the item should be retrieved from the other source defined by the provided alias.
+  - name: <container_expression> '.' property_name
+    required: false
+    description: Specifies that the item should be retrieved by accessing the property_name property.
+  - name: <container_expression> '[' "property_name" | array_index ']'
+    required: false
+    description: Specifies that the item should be retrieved by accessing the property_name property or array_index array element for all items retrieved by specified container expression.
+returns: |-
+  Returns the set of items from the specified source.
+examples:
+  - title: FROM clause with container alias
+    description: In this example, the `FROM` clause is used to specify the current container as a source, give it a unique name, and then alias it. The alias is then used to project specific fields in the query results.
+    query: |-
+      -- Example query not available (script file missing)
+    result: |-
+      -- Example result not available (script file missing)
+  - title: FROM clause with subroot as source
+    description: In this example, the `FROM` clause is used to enumerate only a subtree in each item, using an array or object subroot as a source.
+    query: |-
+      -- Example query not available (script file missing)
+    result: |-
+      -- Example result not available (script file missing)
+remarks:
+  - All aliases provided or inferred in the `<from_source>`(s) must be unique.
+  - If a container expression accesses properties or array elements and that value doesn't exist, that value is ignored and not processed further.
+  - |-
+    A container expression may be container-scoped or item-scoped.
+    - An expression is container-scoped, if the underlying source of the container expression is either `ROOT` or `container_name`. Such an expression represents a set of items retrieved from the container directly, and isn't dependent on the processing of other container expressions.
+    - An expression is item-scoped, if the underlying source of the container expression is `input_alias` introduced earlier in the query. Such an expression represents a set of items obtained by evaluating the container expression. This evaluation is performed in the scope of each item belonging to the set associated with the aliased container. The resulting set is a union of sets obtained by evaluating the container expression for each of the items in the underlying set.
+related:
+  - reference: select.yml
+  - reference: where.yml

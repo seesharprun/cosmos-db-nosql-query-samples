@@ -1,0 +1,38 @@
+### YamlMime:NoSQLQueryReference
+name: REPLICATE
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string value repeated a specific number of times.
+description: |
+  The `REPLICATE` function returns a string value repeated a specific number of times.
+syntax: |
+  REPLICATE(<string_expr>, <numeric_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Repeat string value
+    description: In this example, the function builds a repeating string.
+    query: |
+      SELECT VALUE {
+        catchPhrase: REPLICATE("Cosmic", 3)
+      }
+    result: |
+      [
+        {
+          "catchPhrase": "CosmicCosmicCosmic"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - The maximum length of the result is **10,000** characters.
+    - `(length(string_expr) * numeric_expr) <= 10,000`
+  - If `numeric_expr` is *negative* or *nonfinite*, the result is `undefined`.
+related:
+  - reference: replace.yml
+  - reference: length.yml

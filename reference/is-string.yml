@@ -1,0 +1,48 @@
+### YamlMime:NoSQLQueryReference
+name: IS_STRING
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a string.
+description: |
+  The `IS_STRING` function returns a boolean value indicating if the type of the specified expression is a string.
+syntax: |
+  IS_STRING(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is string
+    description: In this example, the `IS_STRING` function is used to check various values to see if they're a string.
+    query: |
+      SELECT VALUE {
+        isBooleanAString: IS_STRING(true),
+        isNumberAString: IS_STRING(1),
+        isStringAString: IS_STRING("value"),
+        isArrayAString: IS_STRING([ "green", "red", "yellow" ]),
+        isNullAString: IS_STRING(null),
+        isObjectAString: IS_STRING({ "name": "Tecozow coat" }),
+        isObjectStringPropertyAString: IS_STRING({ "name": "Tecozow coat" }.name),
+        isObjectBooleanPropertyAString: IS_STRING({ "onSale": false }.onSale),
+        isUndefinedAString: IS_STRING({}.category)
+      }
+    result: |
+      [
+        {
+          "isBooleanAString": false,
+          "isNumberAString": false,
+          "isStringAString": true,
+          "isArrayAString": false,
+          "isNullAString": false,
+          "isObjectAString": false,
+          "isObjectStringPropertyAString": true,
+          "isObjectBooleanPropertyAString": false,
+          "isUndefinedAString": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-number.yml
+  - reference: is-array.yml

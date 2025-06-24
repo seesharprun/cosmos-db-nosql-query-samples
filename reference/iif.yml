@@ -1,0 +1,46 @@
+### YamlMime:NoSQLQueryReference
+name: IIF
+group: conditional
+description: |
+  The `IIF` function returns one of two values, depending on whether the Boolean expression evaluates to true or false.
+syntax: |
+  IIF(<boolean_expr>, <true_expr>, <false_expr>)
+arguments:
+  - name: boolean_expr
+    required: true
+    description: The Boolean expression to evaluate.
+  - name: true_expr
+    required: true
+    description: The value returned if the Boolean expression evaluates to true.
+  - name: false_expr
+    required: true
+    description: The value returned if the Boolean expression evaluates to false.
+returns: |
+  Returns the value of `true_expr` if the Boolean expression is true; otherwise, returns the value of `false_expr`.
+examples:
+  - title: Conditional evaluation
+    description: In this example, the `IIF` function is used to return different values based on the Boolean expression.
+    query: |
+      SELECT VALUE {
+        evalTrue: IIF(true, 123, 456),
+        evalFalse: IIF(false, 123, 456),
+        evalNumberNotTrue: IIF(123, 123, 456),
+        evalStringNotTrue: IIF("ABC", 123, 456),
+        evalArrayNotTrue: IIF([1,2,3], 123, 456),
+        evalObjectNotTrue: IIF({"name": "Alice", "age": 20}, 123, 456)
+      }
+    result: |
+      [
+        {
+          "evalTrue": 123,
+          "evalFalse": 456,
+          "evalNumberNotTrue": 456,
+          "evalStringNotTrue": 456,
+          "evalArrayNotTrue": 456,
+          "evalObjectNotTrue": 456
+        }
+      ]
+remarks: []
+related:
+  - reference: choose.yml
+  - reference: intadd.yml

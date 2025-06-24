@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: UPPER
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with lowercase characters converted to uppercase.
+description: |
+  The `UPPER` function returns a string expression after converting lowercase character data to uppercase.
+syntax: |
+  UPPER(<string_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Convert strings to uppercase
+    description: In this example, the `UPPER` function is used to convert various string cases to uppercase.
+    query: |
+      SELECT VALUE {
+        lowercase: UPPER("adventureworks"),
+        uppercase: UPPER("ADVENTUREWORKS"),
+        camelCase: UPPER("adventureWorks"),
+        pascalCase: UPPER("AdventureWorks"),
+        upperSnakeCase: UPPER("ADVENTURE_WORKS")
+      }
+    result: |
+      [
+        {
+          "lowercase": "ADVENTUREWORKS",
+          "uppercase": "ADVENTUREWORKS",
+          "camelCase": "ADVENTUREWORKS",
+          "pascalCase": "ADVENTUREWORKS",
+          "upperSnakeCase": "ADVENTURE_WORKS"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: concat.yml
+  - reference: contains.yml

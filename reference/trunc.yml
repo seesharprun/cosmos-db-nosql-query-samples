@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: TRUNC
+group: mathematical
+summary: An Azure Cosmos DB for NoSQL system function that returns a truncated numeric value.
+description: |
+  The `TRUNC` function returns a numeric value truncated to the closest integer value.
+syntax: |
+  TRUNC(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Truncate numbers to integer
+    description: In this example, the `TRUNC` function is used to truncate various numbers to their integer part.
+    query: |
+      SELECT VALUE {
+        truncateFloatingPoint: TRUNC(2.37),
+        truncateNegative: TRUNC(-2.78),
+        truncateInteger: TRUNC(2),
+        truncateSmallNumber: TRUNC(0.0000714),
+        truncatePi: TRUNC(PI())
+      }
+    result: |
+      [
+        {
+          "truncateFloatingPoint": 2,
+          "truncateNegative": -2,
+          "truncateInteger": 2,
+          "truncateSmallNumber": 0,
+          "truncatePi": 3
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: round.yml
+  - reference: floor.yml

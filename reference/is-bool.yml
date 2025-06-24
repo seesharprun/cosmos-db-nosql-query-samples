@@ -1,0 +1,48 @@
+### YamlMime:NoSQLQueryReference
+name: IS_BOOL
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether an expression is a boolean.
+description: |
+  The `IS_BOOL` function returns a boolean value indicating if the type of the specified expression is a boolean.
+syntax: |
+  IS_BOOL(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is boolean
+    description: In this example, the `IS_BOOL` function is used to check objects of various types.
+    query: |
+      SELECT VALUE {
+        booleanIsBool: IS_BOOL(true),
+        numberIsBool: IS_BOOL(65),
+        stringIsBool: IS_BOOL("AdventureWorks"),
+        nullIsBool: IS_BOOL(null),
+        objectIsBool: IS_BOOL({size: "small"}),
+        arrayIsBool: IS_BOOL([25344, 82947]),
+        arrayObjectPropertyIsBool: IS_BOOL({skus: [25344, 82947], vendors: null}.skus),
+        invalidObjectPropertyIsBool: IS_BOOL({skus: [25344, 82947], vendors: null}.size),
+        nullObjectPropertyIsBool: IS_BOOL({skus: [25344, 82947], vendors: null}.vendor)
+      }
+    result: |
+      [
+        {
+          "booleanIsBool": true,
+          "numberIsBool": false,
+          "stringIsBool": false,
+          "nullIsBool": false,
+          "objectIsBool": false,
+          "arrayIsBool": false,
+          "arrayObjectPropertyIsBool": false,
+          "invalidObjectPropertyIsBool": false,
+          "nullObjectPropertyIsBool": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-number.yml
+  - reference: is-array.yml

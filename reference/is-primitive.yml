@@ -1,0 +1,48 @@
+### YamlMime:NoSQLQueryReference
+name: IS_PRIMITIVE
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a primitive (string, boolean, numeric, or null).
+description: |
+  The `IS_PRIMITIVE` function returns a boolean value indicating if the type of the specified expression is a primitive (string, boolean, numeric, or null).
+syntax: |
+  IS_PRIMITIVE(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is primitive
+    description: In this example, the `IS_PRIMITIVE` function is used to check various values to see if they're a primitive.
+    query: |
+      SELECT VALUE {
+        isBooleanAPrimitive: IS_PRIMITIVE(true),
+        isNumberAPrimitive: IS_PRIMITIVE(1),
+        isStringAPrimitive: IS_PRIMITIVE("value"),
+        isArrayAPrimitive: IS_PRIMITIVE([ "green", "red", "yellow" ]),
+        isNullAPrimitive: IS_PRIMITIVE(null),
+        isObjectAPrimitive: IS_PRIMITIVE({ "name": "Tecozow coat" }),
+        isObjectStringPropertyAPrimitive: IS_PRIMITIVE({ "name": "Tecozow coat" }.name),
+        isObjectBooleanPropertyAPrimitive: IS_PRIMITIVE({ "onSale": false }.onSale),
+        isUndefinedAPrimitive: IS_PRIMITIVE({}.category)
+      }
+    result: |
+      [
+        {
+          "isBooleanAPrimitive": true,
+          "isNumberAPrimitive": true,
+          "isStringAPrimitive": true,
+          "isArrayAPrimitive": false,
+          "isNullAPrimitive": true,
+          "isObjectAPrimitive": false,
+          "isObjectStringPropertyAPrimitive": true,
+          "isObjectBooleanPropertyAPrimitive": true,
+          "isUndefinedAPrimitive": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-object.yml
+  - reference: is-array.yml

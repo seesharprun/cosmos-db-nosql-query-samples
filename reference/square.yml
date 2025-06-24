@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: SQUARE
+group: mathematical
+description: |
+  The `SQUARE` function returns the square of the specified numeric value.
+summary: The `SQUARE` function returns the square of a numeric value in Azure Cosmos DB for NoSQL.
+syntax: |
+  SQUARE(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Return squares of numbers
+    description: |
+      In this example, the `SQUARE` function is used to return the squares of various numbers.
+    query: |
+      SELECT VALUE {
+        squareZero: SQUARE(0),
+        squareOne: SQUARE(1),
+        squareTwo: SQUARE(2),
+        squareThree: SQUARE(3),
+        squareNull: SQUARE(null)
+      }
+    result: |
+      [
+        {
+          "squareZero": 0,
+          "squareOne": 1,
+          "squareTwo": 4,
+          "squareThree": 9
+        }
+      ]
+remarks:
+  - This function doesn't use the index.
+related:
+  - reference: sqrt.yml
+  - reference: power.yml

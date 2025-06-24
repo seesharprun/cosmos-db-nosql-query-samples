@@ -1,0 +1,41 @@
+### YamlMime:NoSQLQueryReference
+name: ST_ISVALID
+group: spatial
+description: |
+  The `ST_ISVALID` function returns a boolean value indicating whether the specified GeoJSON Point, Polygon, MultiPolygon, or LineString expression is valid.
+summary: The `ST_ISVALID` function returns a boolean indicating if a GeoJSON object is valid in Azure Cosmos DB for NoSQL.
+syntax: |
+  ST_ISVALID(<spatial_expr>)
+arguments:
+  - name: spatial_expr
+    required: true
+    description: Any valid GeoJSON Point, Polygon, MultiPolygon, or LineString expression.
+returns: |
+  Returns a boolean value.
+examples:
+  - title: Check validity of GeoJSON objects
+    description: |
+      In this example, the `ST_ISVALID` function is used to check the validity of multiple GeoJSON objects.
+    query: |
+      SELECT VALUE {
+        valid: ST_ISVALID({ 
+            "type": "Point",
+            "coordinates": [-84.38876194345323, 33.75682784306348] 
+        }),
+        invalid: ST_ISVALID({ 
+            "type": "Point",
+            "coordinates": [133.75682784306348, -184.38876194345323] 
+        })
+      }
+    result: |
+      [
+        {
+          "valid": true,
+          "invalid": false
+        }
+      ]
+remarks:
+  - The GeoJSON specification requires that points within a Polygon be specified in counter-clockwise order. A Polygon specified in clockwise order represents the inverse of the region within it.
+related:
+  - reference: st-isvaliddetailed.yml
+  - reference: st-within.yml

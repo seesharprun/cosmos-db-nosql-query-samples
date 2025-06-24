@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: INTBITXOR
+group: mathematical
+description: |
+  The `INTBITXOR` function returns the result of a bitwise exclusive OR operation on two integer values.
+syntax: |
+  INTBITXOR(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The first numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The second numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Bitwise exclusive OR
+    description: In this example, the `INTBITXOR` function is used to perform a bitwise exclusive OR operation.
+    query: |
+      SELECT VALUE {
+        exclusiveOr: INTBITXOR(56, 100),
+        exclusiveOrSame: INTBITXOR(56, 56),
+        exclusiveOrZero: INTBITXOR(56, 0),
+        exclusiveOrDecimal: INTBITXOR(56, 0.1)
+      }
+    result: |
+      [
+        {
+          "exclusiveOr": 92,
+          "exclusiveOrSame": 0,
+          "exclusiveOrZero": 56
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks: []
+related:
+  - reference: intbitor.yml
+  - reference: intbitand.yml

@@ -1,0 +1,45 @@
+### YamlMime:NoSQLQueryReference
+name: POWER
+group: mathematical
+description: |
+  The `POWER` function returns the value of the specified expression multipled by itself the given number of times.
+syntax: |
+  POWER(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: A numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: A numeric expression indicating the power to raise `numeric_expr_1`.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Raise a number to a power
+    description: In this example, the `POWER` function is used to raise numbers to various powers.
+    query: |
+      SELECT VALUE {
+        oneFirstPower: POWER(1, 1),
+        twoSquared: POWER(2, 2),
+        threeCubed: POWER(3, 3),
+        fourFourthPower: POWER(4, 4),
+        fiveFithPower: POWER(5, 5),
+        zeroSquared: POWER(0, 2),
+        nullCubed: POWER(null, 3),
+        twoNullPower: POWER(2, null)
+      }
+    result: |
+      [
+        {
+          "oneFirstPower": 1,
+          "twoSquared": 4,
+          "threeCubed": 27,
+          "fourFourthPower": 256,
+          "fiveFithPower": 3125,
+          "zeroSquared": 0
+        }
+      ]
+remarks: []
+related:
+  - reference: pi.yml
+  - reference: rand.yml

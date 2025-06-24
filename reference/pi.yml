@@ -1,0 +1,24 @@
+### YamlMime:NoSQLQueryReference
+name: PI
+group: mathematical
+description: |
+  The `PI` function returns the constant value of Pi.
+syntax: |
+  PI()
+arguments: []
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Return the constant value of Pi
+    description: In this example, the `PI` function is used to return the constant value of Pi.
+    query: |
+      SELECT VALUE
+        PI()
+    result: |
+      [
+        3.141592653589793
+      ]
+remarks: []
+related:
+  - reference: radians.yml
+  - reference: power.yml

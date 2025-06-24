@@ -1,0 +1,46 @@
+### YamlMime:NoSQLQueryReference
+name: OFFSET-LIMIT
+group: clause
+description: |
+  The `OFFSET LIMIT` clause returns a subset of the result set by skipping a specified number of results and then taking a specified number of results.
+syntax: |
+  OFFSET <offset_amount> LIMIT <limit_amount>
+arguments:
+  - name: offset_amount
+    required: true
+    description: Specifies the integer number of items that the query results should skip.
+  - name: limit_amount
+    required: true
+    description: Specifies the integer number of items that the query results should include.
+returns: |
+  Returns a subset of the result set after skipping and taking the specified number of results.
+examples:
+  - title: Skip and take results
+    description: In this example, the `OFFSET LIMIT` clause is used to skip one result and take the next three.
+    query: |
+      SELECT VALUE {
+        name: e.name
+      }
+      FROM
+        employees e
+      WHERE
+        e.team = "Leadership team"
+      ORDER BY
+        e.name
+      OFFSET 1 LIMIT 3
+    result: |
+      [
+        {
+          "name": "Isaac Talbot"
+        },
+        {
+          "name": "Jennifer Wilkins"
+        },
+        {
+          "name": "Riley Johnson"
+        }
+      ]
+remarks: []
+related:
+  - reference: order-by.yml
+  - reference: group-by.yml

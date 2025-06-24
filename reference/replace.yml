@@ -1,0 +1,38 @@
+### YamlMime:NoSQLQueryReference
+name: REPLACE
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string with all occurrences of a specified string replaced.
+description: |
+  The `REPLACE` function returns a string with all occurrences of a specified string replaced.
+syntax: |
+  REPLACE(<string_expr_1>, <string_expr_2>, <string_expr_3>)
+arguments:
+  - name: string_expr_1
+    required: true
+    description: A string expression to be searched.
+  - name: string_expr_2
+    required: true
+    description: A string expression to be found within `string_expr_1`.
+  - name: string_expr_3
+    required: true
+    description: A string expression with the text to replace all occurrences of `string_expr_2` within `string_expr_1`.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Replace substring in string
+    description: In this example, a static value is replaced in the string.
+    query: |
+      SELECT VALUE {
+        replaceSubstring: REPLACE("AdventureWorksLT", "LT", "LT2")
+      }
+    result: |
+      [
+        {
+          "replaceSubstring": "AdventureWorksLT2"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: substring.yml
+  - reference: replicate.yml

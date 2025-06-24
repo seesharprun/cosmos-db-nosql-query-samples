@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: IS_FINITE_NUMBER
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating if a number is a countable (finite) number.
+description: |
+  The `IS_FINITE_NUMBER` function returns a boolean indicating if a number is a finite number (not infinite).
+syntax: |
+  IS_FINITE_NUMBER(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a boolean.
+examples:
+  - title: Check if number is finite
+    description: In this example, the `IS_FINITE_NUMBER` function is demonstrated with various static values.
+    query: |
+      SELECT VALUE {
+        finiteValue: IS_FINITE_NUMBER(1234.567),
+        infiniteValue: IS_FINITE_NUMBER(8.9 / 0.0),
+        nanValue: IS_FINITE_NUMBER(SQRT(-1.0))
+      }
+    result: |
+      [
+        {
+          "finiteValue": true,
+          "infiniteValue": false,
+          "nanValue": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-number.yml
+  - reference: is-array.yml

@@ -1,0 +1,43 @@
+### YamlMime:NoSQLQueryReference
+name: ROUND
+group: mathematical
+summary: An Azure Cosmos DB for NoSQL system function that returns the number rounded to the closest integer.
+description: |
+  The `ROUND` function returns a numeric value rounded to the closest integer value.
+syntax: |
+  ROUND(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Round numbers to nearest integer
+    description: In this example, positive and negative numbers are rounded to the nearest integer.
+    query: |
+      SELECT VALUE {
+        roundTwoPointFour: ROUND(2.4),
+        roundTwoPointSix: ROUND(2.6),
+        roundTwoPointFive: ROUND(2.5),
+        roundNegativeTwoPointFour: ROUND(-2.4),
+        roundNegativeTwoPointSix: ROUND(-2.6)
+      }
+    result: |
+      [
+        {
+          "roundTwoPointFour": 2,
+          "roundTwoPointSix": 3,
+          "roundTwoPointFive": 3,
+          "roundNegativeTwoPointFour": -2,
+          "roundNegativeTwoPointSix": -3
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+  - The rounding operation performed follows midpoint rounding away from zero. If the input is a numeric expression which falls exactly between two integers, the result is the closest integer value away from 0. For example `-6.5 to -7, -0.5 to -1, 0.5 to 1, 6.5 to 7`.
+related:
+  - reference: ceiling.yml
+  - reference: floor.yml
+  - reference: trunc.yml
+  - reference: power.yml

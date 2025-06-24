@@ -1,0 +1,50 @@
+### YamlMime:NoSQLQueryReference
+name: ST_DISTANCE
+group: spatial
+description: |
+  The `ST_DISTANCE` function returns the distance between two GeoJSON Point, Polygon, MultiPolygon or LineString expressions.
+summary: The `ST_DISTANCE` function returns a numeric value representing the distance between two GeoJSON objects in Azure Cosmos DB for NoSQL.
+syntax: |
+  ST_DISTANCE(<spatial_expr_1>, <spatial_expr_2>)
+arguments:
+  - name: spatial_expr_1
+    required: true
+    description: Any valid GeoJSON Point, Polygon, MultiPolygon or LineString expression.
+  - name: spatial_expr_2
+    required: true
+    description: Any valid GeoJSON Point, Polygon, MultiPolygon or LineString expression.
+returns: |
+  Returns a numeric expression that enumerates the distance between two expressions.
+examples:
+  - title: Calculate distance between points
+    description: |
+      In this example, the `ST_DISTANCE` function is used to calculate the distance between an office location and a reference point, returning the result in kilometers.
+    query: |
+      SELECT
+          o.name,
+          ST_DISTANCE(o.location, {
+              "type": "Point", 
+              "coordinates": [-122.11758113953535, 47.66901087006131]
+          }) / 1000 AS distanceKilometers
+      FROM
+          offices o
+      WHERE
+          o.category = "business-offices"
+    result: |
+      [
+        {
+          "name": "Headquarters",
+          "distanceKilometers": 3.345269817267368
+        },
+        {
+          "name": "Research and development",
+          "distanceKilometers": 1907.438421299902
+        }
+      ]
+remarks:
+  - The result is expressed in meters for the default reference system.
+  - This function benefits from a geospatial index except in queries with aggregates.
+  - The GeoJSON specification requires that points within a Polygon be specified in counter-clockwise order. A Polygon specified in clockwise order represents the inverse of the region within it.
+related:
+  - reference: st-intersects.yml
+  - reference: st-within.yml

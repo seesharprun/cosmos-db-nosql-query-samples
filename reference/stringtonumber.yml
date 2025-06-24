@@ -1,0 +1,47 @@
+### YamlMime:NoSQLQueryReference
+name: STRINGTONUMBER
+group: type-checking
+description: |
+  The `STRINGTONUMBER` function converts a string expression to a number.
+summary: The `STRINGTONUMBER` function converts a string expression to a number in Azure Cosmos DB for NoSQL.
+syntax: |
+  STRINGTONUMBER(<string_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+returns: |
+  Returns a number value.
+examples:
+  - title: Convert string to number
+    description: |
+      In this example, the `STRINGTONUMBER` function is used to convert various string expressions to numbers.
+    query: |
+      SELECT VALUE {
+        parseIntegerString: STRINGTONUMBER("100"),
+        parseDecimalString: STRINGTONUMBER("3.14"),
+        parseWithWhitespace: STRINGTONUMBER("   60   "),
+        parseScientific: STRINGTONUMBER("-1.79769e+308"),
+        parseInvalid: STRINGTONUMBER("Hello"),
+        parseUndefined: STRINGTONUMBER(undefined),
+        parseNull: STRINGTONUMBER(null),
+        parseNaN: STRINGTONUMBER(NaN),
+        parseInfinity: STRINGTONUMBER(Infinity)
+      }
+    result: |
+      [
+        {
+          "parseIntegerString": 100,
+          "parseDecimalString": 3.14,
+          "parseWithWhitespace": 60,
+          "parseScientific": -1.79769e+308
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - String expressions are parsed as a JSON number expression.
+  - Numbers in JSON must be an integer or a floating point.
+  - If the expression can't be converted, the function returns `undefined`.
+related:
+  - reference: stringtoboolean.yml
+  - reference: stringtoobject.yml

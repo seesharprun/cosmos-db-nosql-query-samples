@@ -1,0 +1,43 @@
+### YamlMime:NoSQLQueryReference
+name: RIGHT
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a substring from the right side of a string.
+description: |
+  The `RIGHT` function returns the right part of a string up to the specified number of characters.
+syntax: |
+  RIGHT(<string_expr>, <numeric_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+  - name: numeric_expr
+    required: true
+    description: A numeric expression specifying the number of characters to extract from `string_expr`.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Get right part of string
+    description: In this example, the `RIGHT` function is used to return the right part of the string `AdventureWorks` for various length values.
+    query: |
+      SELECT VALUE {
+        lastZero: RIGHT("AdventureWorks", 0),
+        lastOne: RIGHT("AdventureWorks", 1),
+        lastFive: RIGHT("AdventureWorks", 5),
+        fullLength: RIGHT("AdventureWorks", LENGTH("AdventureWorks")),
+        beyondMaxLength: RIGHT("AdventureWorks", 100)
+      }
+    result: |
+      [
+        {
+          "lastZero": "",
+          "lastOne": "s",
+          "lastFive": "Works",
+          "fullLength": "AdventureWorks",
+          "beyondMaxLength": "AdventureWorks"
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: left.yml
+  - reference: substring.yml

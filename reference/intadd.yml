@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: INTADD
+group: mathematical
+description: |
+  The `INTADD` function returns the sum of two integer values.
+syntax: |
+  INTADD(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The first numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The second numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Add integer values
+    description: In this example, the `INTADD` function is used to add two numbers.
+    query: |
+      SELECT VALUE {
+        addNumber: INTADD(20, 10),
+        addZero: INTADD(20, 0),
+        addDecimal: INTADD(20, 0.10)
+      }
+    result: |
+      [
+        {
+          "addNumber": 30,
+          "addZero": 20
+        }
+      ]
+remarks: []
+related:
+  - reference: intsub.yml
+  - reference: intmul.yml

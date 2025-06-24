@@ -1,0 +1,41 @@
+### YamlMime:NoSQLQueryReference
+name: INTDIV
+group: mathematical
+description: |
+  The `INTDIV` function returns the result of dividing the first integer value by the second.
+syntax: |
+  INTDIV(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The numerator numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The denominator numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Divide integer values
+    description: In this example, the `INTDIV` function is used to divide two numbers.
+    query: |
+      SELECT VALUE {
+        divide: INTDIV(10, 2),
+        negativeResult: INTDIV(10, -2),
+        positiveResult: INTDIV(-10, -2),
+        resultOne: INTDIV(10, 10),
+        divideZero: INTDIV(10, 0),
+        divideDecimal: INTDIV(10, 0.1)
+      }
+    result: |
+      [
+        {
+          "divide": 5,
+          "negativeResult": -5,
+          "positiveResult": 5,
+          "resultOne": 1
+        }
+      ]
+remarks: []
+related:
+  - reference: intmul.yml
+  - reference: intmod.yml

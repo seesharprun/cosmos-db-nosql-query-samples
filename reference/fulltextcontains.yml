@@ -1,0 +1,39 @@
+### YamlMime:NoSQLQueryReference
+name: FULLTEXTCONTAINS
+group: full-text-search
+description: |-
+  The `FULLTEXTCONTAINS` function returns a boolean indicating whether the keyword string expression is contained in a specified property path.
+syntax: |-
+  FULLTEXTCONTAINS(<property_path>, <string_expr>)
+arguments:
+  - name: property_path
+    required: true
+    description: The property path to search.
+  - name: string_expr
+    required: true
+    description: The string to find.
+returns: |-
+  Returns a boolean expression.
+examples:
+  - title: Full text contains simple example
+    description: In this example, the `FULLTEXTCONTAINS` function is used to return 10 results that contain "search phrase" in the `c.text` property.
+    query: |-
+      SELECT TOP 10 *
+      FROM c
+      WHERE FULLTEXTCONTAINS(c.text, "search phrase")
+    result: |-
+      -- Example result not available (result not provided in markdown)
+  - title: Full text contains with logical operators
+    description: In this example, the `FULLTEXTCONTAINS` function is used with logical operators to ensure multiple keywords or phrases are included.
+    query: |-
+      SELECT *
+      FROM c
+      WHERE FULLTEXTCONTAINS(c.text, "keyword1") AND FULLTEXTCONTAINS(c.text, "keyword2")
+    result: |-
+      -- Example result not available (result not provided in markdown)
+remarks:
+  - This function requires enrollment in the Azure Cosmos DB NoSQL Full Text Search feature.
+  - This function benefits from a Full Text Index.
+related:
+  - reference: system-functions.yml
+  - reference: ../../gen-ai/full-text-search.md

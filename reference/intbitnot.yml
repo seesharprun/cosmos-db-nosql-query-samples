@@ -1,0 +1,35 @@
+### YamlMime:NoSQLQueryReference
+name: INTBITNOT
+group: mathematical
+description: |
+  The `INTBITNOT` function returns the result of a bitwise NOT operation on an integer value.
+syntax: |
+  INTBITNOT(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: The numeric expression to complement.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Bitwise NOT
+    description: In this example, the `INTBITNOT` function is used to perform a bitwise NOT operation.
+    query: |
+      SELECT VALUE {
+        complementNumber: INTBITNOT(65),
+        complementZero: INTBITNOT(0),
+        complementDecimal: INTBITNOT(0.1)
+      }
+    result: |
+      [
+        {
+          "complementNumber": -66,
+          "complementZero": -1
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks: []
+related:
+  - reference: intbitxor.yml
+  - reference: intbitor.yml

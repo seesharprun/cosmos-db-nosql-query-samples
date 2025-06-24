@@ -1,0 +1,47 @@
+### YamlMime:NoSQLQueryReference
+name: ARRAY_CONTAINS_ANY
+group: array
+description: |-
+  The `ARRAY_CONTAINS_ANY` function returns a boolean indicating whether the array contains any of the specified values.
+syntax: |-
+  ARRAY_CONTAINS_ANY(<array_expr>, <expr> [, exprN])
+arguments:
+  - name: array_expr
+    required: true
+    description: An array expression.
+  - name: expr
+    required: true
+    description: Expression to search for within the array.
+  - name: exprN
+    required: false
+    description: One or more extra expressions to search for within the array.
+returns: |-
+  Returns a boolean value.
+examples:
+  - title: Array contains any examples
+    description: In this example, the `ARRAY_CONTAINS_ANY` function is used to check for specific values or objects in an array.
+    query: |-
+      SELECT VALUE {
+        matchesEntireArray: ARRAY_CONTAINS_ANY([1, true, "3", [1,2,3]], 1, true, "3", [1,2,3]),
+        matchesSomeValues: ARRAY_CONTAINS_ANY([1, 2, 3, 4], 2, 3, 4, 5),
+        matchSingleValue: ARRAY_CONTAINS_ANY([1, 2, 3, 4], 1, undefined),
+        noMatches: ARRAY_CONTAINS_ANY([1, 2, 3, 4], 5, 6, 7, 8),
+        emptyArray: ARRAY_CONTAINS_ANY([], 1, 2, 3),
+        noMatchesUndefined: ARRAY_CONTAINS_ANY([1, 2, 3, 4], 5, undefined)
+      }
+    result: |-
+      [
+        {
+          "matchesEntireArray": true,
+          "matchesSomeValues": true,
+          "matchSingleValue": true,
+          "noMatches": false,
+          "emptyArray": false
+        }
+      ]
+remarks:
+  - STATIC-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: array-contains.yml
+  - reference: array-contains-all.yml
+  - reference: array-length.yml

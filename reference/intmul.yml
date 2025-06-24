@@ -1,0 +1,44 @@
+### YamlMime:NoSQLQueryReference
+name: INTMUL
+group: mathematical
+description: |
+  The `INTMUL` function returns the product of two integer values.
+syntax: |
+  INTMUL(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The first numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The second numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Multiply integer values
+    description: In this example, the `INTMUL` function is used to multiply two numbers.
+    query: |
+      SELECT VALUE {
+        multiply: INTMUL(5, 2),
+        negativeResult: INTMUL(5, -2),
+        positiveResult: INTMUL(-5, -2),
+        square: INTMUL(5, 5),
+        cube: INTMUL(5, INTMUL(5, 5)),
+        multiplyZero: INTMUL(5, 0),
+        multiplyDecimal: INTMUL(5, 0.5)
+      }
+    result: |
+      [
+        {
+          "multiply": 10,
+          "negativeResult": -10,
+          "positiveResult": 10,
+          "square": 25,
+          "cube": 125,
+          "multiplyZero": 0
+        }
+      ]
+remarks: []
+related:
+  - reference: intadd.yml
+  - reference: intsub.yml

@@ -1,0 +1,49 @@
+### YamlMime:NoSQLQueryReference
+name: RTRIM
+summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with trailing whitespace or specified characters removed.
+description: |
+  The `RTRIM` function returns a string expression after it removes trailing whitespace or specified characters.
+group: string
+syntax: |
+  RTRIM(<string_expr_1> [, <string_expr_2>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: A string expression.
+  - name: string_expr_2
+    required: false
+    description: An optional string expression to be trimmed from `string_expr_1`. If not set, the default is to trim whitespace.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Remove trailing whitespace or characters
+    description: In this example, the `RTRIM` function is used with various parameters inside a query.
+    query: |
+      SELECT VALUE {
+        whitespaceStart: RTRIM("  AdventureWorks"),
+        whitespaceStartEnd: RTRIM("  AdventureWorks  "),
+        whitespaceEnd: RTRIM("AdventureWorks  "),
+        noWhitespace: RTRIM("AdventureWorks"),
+        trimSuffix: RTRIM("AdventureWorks", "Works"),
+        trimPrefix: RTRIM("AdventureWorks", "Adventure"),
+        trimEntireTerm: RTRIM("AdventureWorks", "AdventureWorks"),
+        trimEmptyString: RTRIM("AdventureWorks", "")
+      }
+    result: |
+      [
+        {
+          "whitespaceStart": "  AdventureWorks",
+          "whitespaceStartEnd": "  AdventureWorks",
+          "whitespaceEnd": "AdventureWorks",
+          "noWhitespace": "AdventureWorks",
+          "trimSuffix": "Adventure",
+          "trimPrefix": "AdventureWorks",
+          "trimEntireTerm": "",
+          "trimEmptyString": "AdventureWorks"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: ltrim.yml
+  - reference: trim.yml

@@ -1,0 +1,48 @@
+### YamlMime:NoSQLQueryReference
+name: IS_ARRAY
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether an expression is an array.
+description: |
+  The `IS_ARRAY` function returns a boolean value indicating if the type of the specified expression is an array.
+syntax: |
+  IS_ARRAY(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is array
+    description: In this example, the `IS_ARRAY` function is used to check objects of various types.
+    query: |
+      SELECT VALUE {
+        booleanIsArray: IS_ARRAY(true),
+        numberIsArray: IS_ARRAY(65),
+        stringIsArray: IS_ARRAY("AdventureWorks"),
+        nullIsArray: IS_ARRAY(null),
+        objectIsArray: IS_ARRAY({size: "small"}),
+        arrayIsArray: IS_ARRAY([25344, 82947]),
+        arrayObjectPropertyIsArray: IS_ARRAY({skus: [25344, 82947], vendors: null}.skus),
+        invalidObjectPropertyIsArray: IS_ARRAY({skus: [25344, 82947], vendors: null}.size),
+        nullObjectPropertyIsArray: IS_ARRAY({skus: [25344, 82947], vendors: null}.vendor)
+      }
+    result: |
+      [
+        {
+          "booleanIsArray": false,
+          "numberIsArray": false,
+          "stringIsArray": false,
+          "nullIsArray": false,
+          "objectIsArray": false,
+          "arrayIsArray": true,
+          "arrayObjectPropertyIsArray": true,
+          "invalidObjectPropertyIsArray": false,
+          "nullObjectPropertyIsArray": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-object.yml
+  - reference: is-bool.yml

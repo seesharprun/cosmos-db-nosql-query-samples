@@ -1,0 +1,42 @@
+### YamlMime:NoSQLQueryReference
+name: FULLTEXTCONTAINSALL
+group: full-text-search
+description: |-
+  The `FULLTEXTCONTAINSALL` function returns a boolean indicating whether all of the provided string expressions are contained in a specified property path.
+syntax: |-
+  FULLTEXTCONTAINSALL(<property_path>, <string_expr1>, <string_expr2>, ...)
+arguments:
+  - name: property_path
+    required: true
+    description: The property path to search.
+  - name: string_expr1
+    required: true
+    description: A string to find.
+  - name: string_expr2
+    required: false
+    description: A string to find.
+returns: |-
+  Returns a boolean expression.
+examples:
+  - title: Full text contains all simple example
+    description: In this example, the `FULLTEXTCONTAINSALL` function is used to find all documents that contain both "search phrase" and "keyword" in the path `c.text`, projects the path, and returns only the TOP 10.
+    query: |-
+      SELECT TOP 10 c.text
+      FROM c
+      WHERE FULLTEXTCONTAINSALL(c.text, "search phrase", "keyword")
+    result: |-
+      -- Example result not available (result not provided in markdown)
+  - title: Full text contains all with multiple keywords
+    description: In this example, the `FULLTEXTCONTAINSALL` function is used to return all documents that contain "keyword1", "keyword2", and "keyword3" in the path `c.text`.
+    query: |-
+      SELECT *
+      FROM c
+      WHERE FULLTEXTCONTAINSALL(c.text, "keyword1", "keyword2", "keyword3")
+    result: |-
+      -- Example result not available (result not provided in markdown)
+remarks:
+  - This function requires enrollment in the Azure Cosmos DB NoSQL Full Text Search feature.
+  - This function benefits from a Full Text Index.
+related:
+  - reference: system-functions.yml
+  - reference: ../../gen-ai/full-text-search.md

@@ -1,0 +1,43 @@
+### YamlMime:NoSQLQueryReference
+name: STRINGJOIN
+group: string
+description: |
+  The `STRINGJOIN` function returns a string, which concatenates the elements of a specified array, using the specified separator between each element.
+summary: The `STRINGJOIN` function returns a string by concatenating the elements of an array using a specified separator in Azure Cosmos DB for NoSQL.
+syntax: |
+  STRINGJOIN(<array_expr>, <string_expr>)
+arguments:
+  - name: array_expr
+    required: true
+    description: An array expression with all string items inside.
+  - name: string_expr
+    required: true
+    description: A string expression to use as the separator.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Join array elements into a string
+    description: |
+      In this example, the `STRINGJOIN` function is used to combine multiple strings from an array using various separators.
+    query: |
+      SELECT VALUE {
+        joinUsingSpaces: STRINGJOIN(["Iropa", "Mountain", "Bike"], " "),
+        joinUsingEmptyString: STRINGJOIN(["Iropa", "Mountain", "Bike"], ""),
+        joinUsingUndefined: STRINGJOIN(["Iropa", "Mountain", "Bike"], undefined),
+        joinUsingCharacter: STRINGJOIN(["6", "7", "4", "3"], "A"),
+        joinUsingPhrase: STRINGJOIN(["Adventure", "LT"], "Works")
+      }
+    result: |
+      [
+        {
+          "joinUsingSpaces": "Iropa Mountain Bike",
+          "joinUsingEmptyString": "IropaMountainBike",
+          "joinUsingCharacter": "6A7A4A3",
+          "joinUsingPhrase": "AdventureWorksLT"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: stringsplit.yml
+  - reference: concat.yml

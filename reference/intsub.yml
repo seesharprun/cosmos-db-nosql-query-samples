@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: INTSUB
+group: mathematical
+description: |
+  The `INTSUB` function returns the result of subtracting the second integer value from the first.
+syntax: |
+  INTSUB(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The first numeric expression.
+  - name: numeric_expr_2
+    required: true
+    description: The second numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Subtract integer values
+    description: In this example, the `INTSUB` function is used to subtract two numbers.
+    query: |
+      SELECT VALUE {
+        negativeResult: INTSUB(25, 50),
+        positiveResult: INTSUB(25, 15),
+        subtractSameNumber: INTSUB(25, 25),
+        subtractZero: INTSUB(25, 0),
+        subtractDecimal: INTSUB(25, 2.5)
+      }
+    result: |
+      [
+        {
+          "negativeResult": -25,
+          "positiveResult": 10,
+          "subtractSameNumber": 0,
+          "subtractZero": 25
+        }
+      ]
+remarks: []
+related:
+  - reference: intadd.yml
+  - reference: intmul.yml

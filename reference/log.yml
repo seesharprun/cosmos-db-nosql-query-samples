@@ -1,0 +1,37 @@
+### YamlMime:NoSQLQueryReference
+name: LOG
+group: mathematical
+summary: An Azure Cosmos DB for NoSQL system function that returns the natural logarithm of the specified numeric expression.
+description: |
+  The `LOG` function returns the natural logarithm of the specified numeric expression.
+syntax: |
+  LOG(<numeric_expr> [, <numeric_base>])
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+  - name: numeric_base
+    required: false
+    description: An optional numeric value that sets the base for the logarithm. If not set, the default value is the natural logarithm approximately equal to `2.718281828`.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Get logarithm of values
+    description: In this example, the `LOG` function is used to return the logarithm value of various values.
+    query: |
+      SELECT VALUE {
+        logFive: LOG(5),
+        logTwoBaseTen: LOG(2, 10)
+      }
+    result: |
+      [
+        {
+          "logFive": 1.6094379124341003,
+          "logTwoBaseTen": 0.3010299956639812
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: log10.yml
+  - reference: exp.yml

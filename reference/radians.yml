@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: RADIANS
+group: mathematical
+description: |
+  The `RADIANS` function returns the corresponding angle in radians for an angle specified in degrees.
+syntax: |
+  RADIANS(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Convert degrees to radians
+    description: In this example, the `RADIANS` function is used to convert degree values to radians.
+    query: |
+      SELECT VALUE {
+        degrees90ToRadians: RADIANS(90),
+        degrees180ToRadians: RADIANS(180),
+        degrees270ToRadians: RADIANS(270),
+        degrees360ToRadians: RADIANS(360)
+      }
+    result: |
+      [
+        {
+          "degrees90ToRadians": 1.5707963267948966,
+          "degrees180ToRadians": 3.141592653589793,
+          "degrees270ToRadians": 4.71238898038469,
+          "degrees360ToRadians": 6.283185307179586
+        }
+      ]
+remarks: []
+related:
+  - reference: pi.yml
+  - reference: degrees.yml

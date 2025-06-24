@@ -1,0 +1,44 @@
+### YamlMime:NoSQLQueryReference
+name: ST_AREA
+group: spatial
+description: |
+  The `ST_AREA` function returns the total area of a GeoJSON Polygon or MultiPolygon expression.
+summary: The `ST_AREA` function returns a numeric value representing the total area of a GeoJSON Polygon or MultiPolygon in Azure Cosmos DB for NoSQL.
+syntax: |
+  ST_AREA(<spatial_expr>)
+arguments:
+  - name: spatial_expr
+    required: true
+    description: Any valid GeoJSON Polygon or MultiPolygon expression.
+returns: |
+  Returns a numeric expression that enumerates the total area of a set of points.
+examples:
+  - title: Calculate area of a polygon
+    description: |
+      In this example, the `ST_AREA` function is used to return the area of a GeoJSON polygon.
+    query: |
+      SELECT VALUE {
+        areaPolygon: ST_AREA({
+            "type": "Polygon",
+            "coordinates": [ [
+                [ 31.8, -5 ],
+                [ 32, -5 ],
+                [ 32, -4.7 ],
+                [ 31.8, -4.7 ],
+                [ 31.8, -5 ]
+            ] ]
+        })
+      }
+    result: |
+      [
+        {
+          "areaPolygon": 735970283.0522614
+        }
+      ]
+remarks:
+  - The result is expressed in square meters for the default reference system.
+  - Using this function to calculate the area of zero or one-dimensional figures like GeoJSON Points and LineStrings results in an area of `0`.
+  - The GeoJSON specification requires that points within a Polygon be specified in counter-clockwise order. A Polygon specified in clockwise order represents the inverse of the region within it.
+related:
+  - reference: st-within.yml
+  - reference: st-distance.yml

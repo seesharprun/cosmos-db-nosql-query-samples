@@ -1,0 +1,42 @@
+### YamlMime:NoSQLQueryReference
+name: GROUP-BY
+group: clause
+description: |
+  The `GROUP BY` clause collects rows that have the same values into summary rows.
+syntax: |
+  GROUP BY <expression>
+arguments:
+  - name: expression
+    required: true
+    description: The expression to group by.
+returns: |
+  Returns grouped rows based on the specified expression.
+examples:
+  - title: Group by a property
+    description: In this example, the `GROUP BY` clause is used to group employees by their software development language.
+    query: |
+      SELECT 
+        e.capabilities.softwareDevelopment AS developmentLang
+      FROM
+        employees e
+      WHERE
+        e.team = "Cloud software engineering"
+      GROUP BY
+        e.capabilities.softwareDevelopment
+    result: |
+      [
+        {},
+        {
+          "developmentLang": "c-sharp"
+        },
+        {
+          "developmentLang": "javascript"
+        },
+        {
+          "developmentLang": "python"
+        }
+      ]
+remarks: []
+related:
+  - reference: count.yml
+  - reference: avg.yml

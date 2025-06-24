@@ -1,0 +1,41 @@
+### YamlMime:NoSQLQueryReference
+name: STRINGTOBOOLEAN
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string expression converted to a boolean.
+description: |
+  The `STRINGTOBOOLEAN` function converts a string expression to a boolean.
+syntax: |
+  STRINGTOBOOLEAN(<string_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+returns: |
+  Returns a boolean value.
+examples:
+  - title: Convert string to boolean
+    description: In this example, the `STRINGTOBOOLEAN` function is used to parse various string values into booleans.
+    query: |
+      SELECT VALUE {
+        parseBooleanString: STRINGTOBOOLEAN("true"),
+        parseWithPrefix: STRINGTOBOOLEAN("true  "),
+        parseWithSuffix: STRINGTOBOOLEAN("  false"),
+        parseWithWhitespace: STRINGTOBOOLEAN("  false  "),
+        parseBoolean: STRINGTOBOOLEAN(true),
+        parseUndefined: STRINGTOBOOLEAN(undefined),
+        parseNull: STRINGTOBOOLEAN(null)
+      }
+    result: |
+      [
+        {
+          "parseBooleanString": true,
+          "parseWithPrefix": true,
+          "parseWithSuffix": false,
+          "parseWithWhitespace": false
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: stringtonumber.yml
+  - reference: stringtonull.yml

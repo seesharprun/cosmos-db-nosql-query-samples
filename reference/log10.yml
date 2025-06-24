@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: LOG10
+group: mathematical
+summary: An Azure Cosmos DB for NoSQL system function that returns the base-10 logarithm of the specified numeric expression.
+description: |
+  The `LOG10` function returns the base-10 logarithm of the specified numeric expression.
+syntax: |
+  LOG10(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Get base-10 logarithm of values
+    description: In this example, the `LOG10` function is used to return the logarithm value of various values.
+    query: |
+      SELECT VALUE {
+        logFiveBaseTen: LOG10(5),
+        logTwoBaseTen: LOG10(2),
+        logHundredBaseTen: LOG10(100)
+      }
+    result: |
+      [
+        {
+          "logFiveBaseTen": 0.6989700043360189,
+          "logTwoBaseTen": 0.3010299956639812,
+          "logHundredBaseTen": 2
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: log.yml
+  - reference: exp.yml

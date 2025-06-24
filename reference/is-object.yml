@@ -1,0 +1,48 @@
+### YamlMime:NoSQLQueryReference
+name: IS_OBJECT
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a JSON object.
+description: |
+  The `IS_OBJECT` function returns a boolean value indicating if the type of the specified expression is a JSON object.
+syntax: |
+  IS_OBJECT(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is object
+    description: In this example, the `IS_OBJECT` function is used to check various values to see if they're an object.
+    query: |
+      SELECT VALUE {
+        isBooleanAnObject: IS_OBJECT(true),
+        isNumberAnObject: IS_OBJECT(1),
+        isStringAnObject: IS_OBJECT("value"),
+        isArrayAnObject: IS_OBJECT([ "green", "red", "yellow" ]),
+        isNullAnObject: IS_OBJECT(null),
+        isObjectAnObject: IS_OBJECT({ "name": "Tecozow coat" }),
+        isObjectStringPropertyAnObject: IS_OBJECT({ "name": "Tecozow coat" }.name),
+        isObjectObjectPropertyAnObject: IS_OBJECT({ "quantity": { "count": 0 } }.quantity),
+        isUndefinedAnObject: IS_OBJECT({}.category)
+      }
+    result: |
+      [
+        {
+          "isBooleanAnObject": false,
+          "isNumberAnObject": false,
+          "isStringAnObject": false,
+          "isArrayAnObject": false,
+          "isNullAnObject": false,
+          "isObjectAnObject": true,
+          "isObjectStringPropertyAnObject": false,
+          "isObjectObjectPropertyAnObject": true,
+          "isUndefinedAnObject": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-primitive.yml
+  - reference: is-array.yml

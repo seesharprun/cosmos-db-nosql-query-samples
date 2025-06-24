@@ -1,0 +1,34 @@
+### YamlMime:NoSQLQueryReference
+name: TAN
+group: mathematical
+summary: An Azure Cosmos DB for NoSQL system function that returns the trigonometric tangent of the specified angle.
+description: |
+  The `TAN` function returns the trigonometric tangent of the specified angle in radians.
+syntax: |
+  TAN(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Calculate tangent of angles
+    description: In this example, the `TAN` function is used to calculate the tangent of various angles.
+    query: |
+      SELECT VALUE {
+        tangentSquareRootPi: TAN(PI()/2),
+        tangentArbitraryNumber: TAN(124.1332)
+      }
+    result: |
+      [
+        {
+          "tangentSquareRootPi": 16331239353195370,
+          "tangentArbitraryNumber": -24.80651023035602
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: cot.yml
+  - reference: atan.yml

@@ -1,0 +1,44 @@
+### YamlMime:NoSQLQueryReference
+name: STARTSWITH
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether one string expression starts with another.
+description: |
+  The `STARTSWITH` function returns a boolean value indicating whether the first string expression starts with the second.
+syntax: |
+  STARTSWITH(<string_expr_1>, <string_expr_2> [, <bool_expr>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: A string expression.
+  - name: string_expr_2
+    required: true
+    description: A string expression to be compared to the beginning of `string_expr_1`.
+  - name: bool_expr
+    required: false
+    description: Optional value for ignoring case. When set to `true`, `STARTSWITH` does a case-insensitive search. When unspecified, this default value is `false`.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if string starts with another string
+    description: In this example, the `STARTSWITH` function is used to check if a string starts with a given prefix, with and without case sensitivity.
+    query: |
+      SELECT VALUE {
+        startsWithWrongPrefix: STARTSWITH("AdventureWorks", "Works"),
+        startsWithCorrectPrefix: STARTSWITH("AdventureWorks", "Adventure"),
+        startsWithPrefixWrongCase: STARTSWITH("AdventureWorks", "adventure"),
+        startsWithPrefixCaseInsensitive: STARTSWITH("AdventureWorks", "adventure", true)
+      }
+    result: |
+      [
+        {
+          "startsWithWrongPrefix": false,
+          "startsWithCorrectPrefix": true,
+          "startsWithPrefixWrongCase": false,
+          "startsWithPrefixCaseInsensitive": true
+        }
+      ]
+remarks:
+  - This function performs a precise index scan.
+related:
+  - reference: endswith.yml
+  - reference: substring.yml

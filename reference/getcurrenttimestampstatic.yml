@@ -1,0 +1,49 @@
+### YamlMime:NoSQLQueryReference
+name: GETCURRENTTIMESTAMPSTATIC
+group: date-and-time
+description: |
+  The `GETCURRENTTIMESTAMPSTATIC` function returns a static timestamp value (milliseconds since the Unix epoch) for all items in the same partition.
+syntax: |
+  GETCURRENTTIMESTAMPSTATIC()
+arguments: []
+returns: |
+  Returns a signed numeric value that represents the current number of milliseconds that have elapsed since the Unix epoch (`00:00:00 Thursday, 1 January 1970`).
+examples:
+  - title: Static timestamp per partition
+    description: In this example, the `GETCURRENTTIMESTAMPSTATIC` function returns the same static timestamp for items within the same partition.
+    query: |
+      SELECT
+        i.id,
+        i.pk AS partitionKey,
+        GETCURRENTTIMESTAMP() AS nonStaticTimestamp,
+        GETCURRENTTIMESTAMPSTATIC() AS staticTimestamp
+      FROM
+        items i
+    result: |
+      [
+        {
+          "id": "1",
+          "partitionKey": "A",
+          "nonStaticTimestamp": 1687977636235,
+          "staticTimestamp": 1687977636232
+        },
+        {
+          "id": "2",
+          "partitionKey": "A",
+          "nonStaticTimestamp": 1687977636235,
+          "staticTimestamp": 1687977636232
+        },
+        {
+          "id": "3",
+          "partitionKey": "B",
+          "nonStaticTimestamp": 1687977636238,
+          "staticTimestamp": 1687977636237
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks:
+  - INCLUDE-NOTIFY-BINDING-STATIC
+related:
+  - reference: getcurrenttimestamp.yml
+  - reference: getcurrentticksstatic.yml

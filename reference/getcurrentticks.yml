@@ -1,3 +1,4 @@
+### YamlMime:NoSQLQueryReference
 name: GETCURRENTTICKS
 group: date-and-time
 description: |-

@@ -1,0 +1,49 @@
+### YamlMime:NoSQLQueryReference
+name: GETCURRENTTICKSSTATIC
+group: date-and-time
+description: |
+  The `GETCURRENTTICKSSTATIC` function returns a static nanosecond ticks value (100-nanosecond intervals since the Unix epoch) for all items in the same partition.
+syntax: |
+  GETCURRENTTICKSSTATIC()
+arguments: []
+returns: |
+  Returns a signed numeric value that represents the current number of 100-nanosecond ticks that have elapsed since the Unix epoch (`00:00:00 Thursday, 1 January 1970`).
+examples:
+  - title: Static ticks per partition
+    description: In this example, the `GETCURRENTTICKSSTATIC` function returns the same static ticks for items within the same partition.
+    query: |
+      SELECT
+        i.id,
+        i.pk AS partitionKey,
+        GETCURRENTTICKS() AS nonStaticTicks,
+        GETCURRENTTICKSSTATIC() AS staticTicks
+      FROM
+        items i
+    result: |
+      [
+        {
+          "id": "1",
+          "partitionKey": "A",
+          "nonStaticTicks": 16879779663422236,
+          "staticTicks": 16879779663415572
+        },
+        {
+          "id": "2",
+          "partitionKey": "A",
+          "nonStaticTicks": 16879779663422320,
+          "staticTicks": 16879779663415572
+        },
+        {
+          "id": "3",
+          "partitionKey": "B",
+          "nonStaticTicks": 16879779663422380,
+          "staticTicks": 16879779663421680
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks:
+  - INCLUDE-NOTIFY-BINDING-STATIC
+related:
+  - reference: getcurrentticks.yml
+  - reference: getcurrenttimestampstatic.yml

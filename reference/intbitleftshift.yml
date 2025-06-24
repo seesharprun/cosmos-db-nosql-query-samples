@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: INTBITLEFTSHIFT
+group: mathematical
+description: |
+  The `INTBITLEFTSHIFT` function returns the result of a bitwise left shift operation on an integer value.
+syntax: |
+  INTBITLEFTSHIFT(<numeric_expr_1>, <numeric_expr_2>)
+arguments:
+  - name: numeric_expr_1
+    required: true
+    description: The numeric expression to shift.
+  - name: numeric_expr_2
+    required: true
+    description: The number of bits to shift.
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Bitwise left shift
+    description: In this example, the `INTBITLEFTSHIFT` function is used to perform a bitwise left shift operation.
+    query: |
+      SELECT VALUE {
+        shiftInteger: INTBITLEFTSHIFT(16, 4),
+        shiftDecimal: INTBITLEFTSHIFT(16, 0.4)
+      }
+    result: |
+      [
+        {
+          "shiftInteger": 256
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks: []
+related:
+  - reference: intbitrightshift.yml
+  - reference: intbitand.yml

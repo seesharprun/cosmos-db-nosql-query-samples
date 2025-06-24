@@ -1,0 +1,40 @@
+### YamlMime:NoSQLQueryReference
+name: LOWER
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with uppercase characters converted to lowercase.
+description: |
+  The `LOWER` function returns a string expression after converting uppercase character data to lowercase.
+syntax: |
+  LOWER(<string_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Convert string to lowercase
+    description: In this example, the `LOWER` function is used to modify various strings.
+    query: |
+      SELECT VALUE {
+        lowercase: LOWER("adventureworks"),
+        uppercase: LOWER("ADVENTUREWORKS"),
+        camelCase: LOWER("adventureWorks"),
+        pascalCase: LOWER("AdventureWorks"),
+        upperSnakeCase: LOWER("ADVENTURE_WORKS")
+      }
+    result: |
+      [
+        {
+          "lowercase": "adventureworks",
+          "uppercase": "adventureworks",
+          "camelCase": "adventureworks",
+          "pascalCase": "adventureworks",
+          "upperSnakeCase": "adventure_works"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: upper.yml
+  - reference: trim.yml

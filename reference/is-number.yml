@@ -1,0 +1,46 @@
+### YamlMime:NoSQLQueryReference
+name: IS_NUMBER
+group: type-checking
+summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a number.
+description: |
+  The `IS_NUMBER` function returns a boolean value indicating if the type of the specified expression is a number.
+syntax: |
+  IS_NUMBER(<expr>)
+arguments:
+  - name: expr
+    required: true
+    description: Any expression.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Check if value is number
+    description: In this example, the `IS_NUMBER` function is used to check various values to see if they're a number.
+    query: |
+      SELECT VALUE {
+        isBooleanANumber: IS_NUMBER(true),
+        isNumberANumber: IS_NUMBER(1),
+        isStringANumber: IS_NUMBER("value"),
+        isNullANumber: IS_NUMBER(null),
+        isObjectANumber: IS_NUMBER({ "name": "Tecozow coat" }),
+        isObjectStringPropertyANumber: IS_NUMBER({ "name": "Tecozow coat" }.name),
+        isObjectNumberPropertyANumber: IS_NUMBER({ "quantity": 0 }.quantity),
+        isUndefinedANumber: IS_NUMBER({}.category)
+      }
+    result: |
+      [
+        {
+          "isBooleanANumber": false,
+          "isNumberANumber": true,
+          "isStringANumber": false,
+          "isNullANumber": false,
+          "isObjectANumber": false,
+          "isObjectStringPropertyANumber": false,
+          "isObjectNumberPropertyANumber": true,
+          "isUndefinedANumber": false
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-finite-number.yml
+  - reference: is-integer.yml

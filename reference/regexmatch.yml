@@ -1,0 +1,52 @@
+### YamlMime:NoSQLQueryReference
+name: REGEXMATCH
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that provides regular expression capabilities.
+description: |
+  The `REGEXMATCH` function returns a boolean indicating whether the provided string matches the specified regular expression. Regular expressions are a concise and flexible notation for finding patterns of text.
+syntax: |
+  REGEXMATCH(<string_expr_1>, <string_expr_2>[, <string_expr_3>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: A string expression to be searched.
+  - name: string_expr_2
+    required: true
+    description: A string expression with a regular expression defined to use when searching `string_expr_1`.
+  - name: string_expr_3
+    required: false
+    description: An optional string expression with the selected modifiers to use with the regular expression (`string_expr_2`). If not provided, the default is to run the regular expression match with no modifiers.
+returns: |
+  Returns a boolean expression.
+examples:
+  - title: Regular expression matches with modifiers
+    description: In this example, the `REGEXMATCH` function is used to match various patterns and modifiers.
+    query: |
+      SELECT VALUE {
+        noModifiers: REGEXMATCH("abcd", "ABC"),
+        caseInsensitive: REGEXMATCH("abcd", "ABC", "i"),
+        wildcardCharacter: REGEXMATCH("abcd", "ab.", ""),
+        ignoreWhiteSpace: REGEXMATCH("abcd", "ab c", "x"),
+        caseInsensitiveAndIgnoreWhiteSpace: REGEXMATCH("abcd", "aB c", "ix"),
+        containNumberBetweenZeroAndNine: REGEXMATCH("03a", "[0-9]"),
+        containPrefix: REGEXMATCH("salt3824908", "salt{1}"),
+        containsFiveLetterWordStartingWithS: REGEXMATCH("shame", "s....", "i")
+      }
+    result: |
+      [
+        {
+          "noModifiers": false,
+          "caseInsensitive": true,
+          "wildcardCharacter": true,
+          "ignoreWhiteSpace": true,
+          "caseInsensitiveAndIgnoreWhiteSpace": true,
+          "containNumberBetweenZeroAndNine": true,
+          "containPrefix": true,
+          "containsFiveLetterWordStartingWithS": true
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: is-string.yml
+  - reference: system-functions.yml

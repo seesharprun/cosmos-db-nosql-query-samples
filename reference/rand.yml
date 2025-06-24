@@ -1,0 +1,31 @@
+### YamlMime:NoSQLQueryReference
+name: RAND
+group: mathematical
+description: |
+  The `RAND` function returns a randomly generated numeric value from zero to one.
+syntax: |
+  RAND()
+arguments: []
+returns: |
+  Returns a numeric expression.
+examples:
+  - title: Randomly generated values
+    description: In this example, the `RAND` function is used to return random values.
+    query: |
+      SELECT VALUE {
+        randomOneToOne: RAND(),
+        randomeOneToHundred: RAND() * 100
+      }
+    result: |
+      [
+        {
+          "randomOneToOne": 0.134644033620134,
+          "randomeOneToHundred": 57.51777137629688
+        }
+      ]
+system:
+  - SKIP-VALIDATION
+remarks: []
+related:
+  - reference: pi.yml
+  - reference: power.yml

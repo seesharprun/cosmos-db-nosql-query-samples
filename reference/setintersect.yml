@@ -1,0 +1,64 @@
+### YamlMime:NoSQLQueryReference
+name: SETINTERSECT
+group: array
+description: |
+  The `SETINTERSECT` function returns the set of expressions that is contained in both input arrays with no duplicates.
+summary: The `SETINTERSECT` function returns the set of expressions that exist in both input arrays, with no duplicates, in Azure Cosmos DB for NoSQL.
+syntax: |
+  SETINTERSECT(<array_expr_1>, <array_expr_2>)
+arguments:
+  - name: array_expr_1
+    required: true
+    description: An array of expressions.
+  - name: array_expr_2
+    required: true
+    description: An array of expressions.
+returns: |
+  Returns an array of expressions.
+examples:
+  - title: Intersect static arrays
+    description: |
+      In this example, the `SETINTERSECT` function is used with static arrays to demonstrate the intersect functionality.
+    query: |
+      SELECT VALUE {
+        simpleIntersect: SETINTERSECT([1, 2, 3, 4], [3, 4, 5, 6]),
+        emptyIntersect: SETINTERSECT([1, 2, 3, 4], []),
+        duplicatesIntersect: SETINTERSECT([1, 2, 3, 4], [1, 1, 1, 1]),
+        noMatchesIntersect: SETINTERSECT([1, 2, 3, 4], ["A", "B"]),
+        unorderedIntersect: SETINTERSECT([1, 2, "A", "B"], ["A", 1])
+      }
+    result: |
+      [
+        {
+          "simpleIntersect": [3, 4],
+          "emptyIntersect": [],
+          "duplicatesIntersect": [1],
+          "noMatchesIntersect": [],
+          "unorderedIntersect": ["A", 1]
+        }
+      ]
+  - title: Intersect array fields in documents
+    description: |
+      In this example, the `SETINTERSECT` function is used to find the intersection of two array fields in a document.
+    query: |
+      SELECT
+          p.name,
+          SETINTERSECT(p.colors, p.inStockColors) AS availableColors
+      FROM
+          products p
+      WHERE
+          p.category = "modern-vests"
+    result: |
+      [
+        {
+          "name": "Snowilla vest",
+          "availableColors": ["Rhino", "Finch"]
+        }
+      ]
+remarks:
+  - This function doesn't return duplicates.
+  - This function doesn't use the index.
+  - SKIP-VALIDATION
+related:
+  - reference: array-contains.yml
+  - reference: array-concat.yml

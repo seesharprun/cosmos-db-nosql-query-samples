@@ -1,0 +1,36 @@
+### YamlMime:NoSQLQueryReference
+name: REVERSE
+group: string
+summary: An Azure Cosmos DB for NoSQL system function that returns a reversed string.
+description: |
+  The `REVERSE` function returns the reverse order of a string value.
+syntax: |
+  REVERSE(<string_expr>)
+arguments:
+  - name: string_expr
+    required: true
+    description: A string expression.
+returns: |
+  Returns a string expression.
+examples:
+  - title: Reverse string value
+    description: In this example, the function reverses multiple strings.
+    query: |
+      SELECT VALUE {
+        reverseAdventureWorks: REVERSE("AdventureWorks"),
+        reverseAdventureWorksBack: REVERSE("skroWerutnevdA"),
+        doubleReverseAdventureWorks: REVERSE(REVERSE("AdventureWorks"))
+      }
+    result: |
+      [
+        {
+          "reverseAdventureWorks": "skroWerutnevdA",
+          "reverseAdventureWorksBack": "AdventureWorks",
+          "doubleReverseAdventureWorks": "AdventureWorks"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: length.yml
+  - reference: left.yml
