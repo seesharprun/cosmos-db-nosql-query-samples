@@ -27,7 +27,8 @@
         "mathematical",
         "spatial",
         "string",
-        "type-checking"
+        "type-checking",
+        "clause"
       ]
     },
     "description": {
