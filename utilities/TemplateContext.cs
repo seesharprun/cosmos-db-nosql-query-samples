@@ -31,6 +31,10 @@ record ReferenceTemplateContext : NoSQLQueryReference
 
     public required bool RenderArguments { get; init; }
 
+    public required bool RenderArgumentsNote { get; init; }
+
+    public required bool RenderReturnsNote { get; init; }
+
     public required bool RenderExamples { get; init; }
 
     public required bool UseSample { get; init; }
@@ -40,8 +44,6 @@ record ReferenceTemplateContext : NoSQLQueryReference
     public required bool RenderRemarks { get; init; }
 
     public required bool RenderSummary { get; init; }
-
-    public required IEnumerable<string> RemarksList { get; init; }
 }
 
 record ReferenceTemplateContextResource

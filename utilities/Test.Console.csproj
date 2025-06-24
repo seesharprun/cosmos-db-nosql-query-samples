@@ -12,6 +12,8 @@
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.52.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Spectre.Console" Version="0.50.0" />
     <PackageReference Include="Spectre.Console.Json" Version="0.50.0" />
@@ -27,9 +29,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="../templates/landing.mustache.tmpl">
       <LogicalName>utilities.templates.landing.mustache.tmpl</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="../resources/remarks.yml">
-      <LogicalName>utilities.resources.remarks.yml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

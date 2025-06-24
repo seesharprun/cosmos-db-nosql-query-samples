@@ -1,12 +1,21 @@
-﻿using System.Reflection;
+﻿using System.Configuration;
+using System.Reflection;
 using AutoMapper;
 using Humanizer;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Configuration;
 using Spectre.Console;
 using Stubble.Compilation;
 using Stubble.Compilation.Builders;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+
+IConfigurationRoot configuration = new ConfigurationBuilder()
+    .AddUserSecrets<Program>()
+    .Build();
+
+string databaseCredential = configuration["AZURE_COSMOS_DB_CREDENTIAL"]
+    ?? throw new InvalidOperationException("Database credential is not set. Please set the AZURE_COSMOS_DB_CREDENTIAL user secret.");
 
 MapperConfiguration mapperConfiguration = new(config => config.CreateMap<NoSQLQueryReference, ReferenceTemplateContext>());
 IMapper mapper = mapperConfiguration.CreateMapper();
@@ -48,15 +57,6 @@ Func<ReferenceTemplateContext, string> referenceRenderer = await compiler.Compil
 
 Func<LandingTemplateContext, string> landingRenderer = await compiler.CompileAsync<LandingTemplateContext>(landingTemplateMustache);
 
-using Stream remarksStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.resources.remarks.yml")
-    ?? throw new FileNotFoundException("Remarks file not found in embedded resources. Ensure the remarks file is correctly embedded in the assembly and named \"utilities.resources.remarks.yml\".");
-
-using StreamReader remarksReader = new(remarksStream);
-
-string remarksYaml = await remarksReader.ReadToEndAsync();
-
-Dictionary<string, string> remarksDictionary = yamlDeserializer.Deserialize<Dictionary<string, string>>(remarksYaml);
-
 CosmosClientOptions options = new()
 {
     SerializerOptions = new CosmosSerializationOptions
@@ -71,7 +71,7 @@ CosmosClientOptions options = new()
     //ServerCertificateCustomValidationCallback = (_, _, _) => true
 };
 
-using CosmosClient client = new(Environment.GetEnvironmentVariable("AZURE_COSMOS_DB_CREDENTIAL"), options);
+using CosmosClient client = new(databaseCredential, options);
 
 Container container = client.GetContainer("cosmicworks", "products");
 
@@ -121,19 +121,18 @@ await AnsiConsole.Live(tree)
                         File = Path.ChangeExtension(r.Reference, extension: default),
                         Title = referenceDictionary.TryGetValue(Path.GetFileNameWithoutExtension(r.Reference).ToLowerInvariant(), out NoSQLQueryReference? relatedReference) ? relatedReference.Name : "<error>",
                     }) ?? [],
-                    RenderArguments = reference.Parameters?.Any() ?? false,
-                    RenderExamples = reference.Examples?.Items?.Any() ?? false,
-                    UseSample = reference.Examples?.Sample is not null,
+                    RenderArguments = reference.Arguments?.Any() ?? false,
+                    RenderExamples = reference.Examples?.Any() ?? false,
+                    UseSample = reference.ExamplesSample is not null,
                     RenderRemarks = reference.Remarks?.Any() ?? false,
-                    RenderSummary = reference.Summary is not null,
-                    RemarksList = reference.Remarks?.Select(r => remarksDictionary.TryGetValue(r, out string? remark) ? remark : r) ?? [],
+                    RenderSummary = reference.Summary is not null
                 };
 
-                if (context.UseSample && context.Examples?.Sample?.Query is not null)
+                if (context.UseSample && context.ExamplesSample?.Query is not null)
                 {
                     context = context with
                     {
-                        SampleJson = await container.GetResultJsonAsync(context.Examples.Sample.Query)
+                        SampleJson = await container.GetResultJsonAsync(context.ExamplesSample.Query)
                     };
                 }
 
