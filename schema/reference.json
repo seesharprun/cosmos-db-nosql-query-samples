@@ -33,7 +33,7 @@
     },
     "description": {
       "type": "string",
-      "pattern": "^The `[A-Za-z0-9_]+` function (returns|calculates|converts) .*"
+      "pattern": "^The `[A-Za-z0-9_]+` (function|clause|keyword) (returns|calculates|converts|identifies) .*"
     },
     "summary": {
       "type": "string"
