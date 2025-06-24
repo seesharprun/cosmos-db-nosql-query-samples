@@ -2,9 +2,9 @@
 name: TRIM
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string with leading or trailing whitespace trimmed.
-description: |
+description: |-
   The `TRIM` function returns a string expression after it removes leading and trailing whitespace or custom characters.
-syntax: |
+syntax: |-
   TRIM(<string_expr_1> [, <string_expr_2>])
 arguments:
   - name: string_expr_1
@@ -13,12 +13,12 @@ arguments:
   - name: string_expr_2
     required: false
     description: An optional string expression with a string to trim from `string_expr_1`. If not specified, the default is to trim whitespace.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Trim whitespace and characters
     description: In this example, the `TRIM` function is used to trim whitespace and custom characters from strings.
-    query: |
+    query: |-
       SELECT VALUE {
         trimPrefix: TRIM("   AdventureWorks"),
         trimSuffix: TRIM("AdventureWorks   "),
@@ -29,7 +29,7 @@ examples:
         trimSubsetCharacters: TRIM("-- AdventureWorks --", "-"),
         trimMultipleCharacters: TRIM("-_-AdventureWorks-_-", "-_")
       }
-    result: |
+    result: |-
       [
         {
           "trimPrefix": "AdventureWorks",

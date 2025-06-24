@@ -1,27 +1,27 @@
 ### YamlMime:NoSQLQueryReference
 name: MIN
 group: aggregation
-description: |
+description: |-
   The `MIN` function returns the minimum value of the specified expression.
-syntax: |
+syntax: |-
   MIN(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric scalar value.
 examples:
   - title: Minimum value for a property
     description: In this example, the `MIN` function is used to return the minimum value of the `price` property.
-    query: |
+    query: |-
       SELECT
         MIN(p.price) AS minPrice
       FROM 
         products p
       WHERE
         p.category = "fashion-bracelet"
-    result: |
+    result: |-
       [
         {
           "minPrice": 27.6

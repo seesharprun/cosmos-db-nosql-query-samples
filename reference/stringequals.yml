@@ -2,9 +2,9 @@
 name: STRINGEQUALS
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether two strings are equivalent.
-description: |
+description: |-
   The `STRINGEQUALS` function returns a boolean indicating whether the first string expression matches the second.
-syntax: |
+syntax: |-
   STRINGEQUALS(<string_expr_1>, <string_expr_2> [, <boolean_expr>])
 arguments:
   - name: string_expr_1
@@ -16,18 +16,18 @@ arguments:
   - name: boolean_expr
     required: false
     description: An optional boolean expression for ignoring case. When set to `true`, this function performs a case-insensitive search. If not specified, the default value is `false`.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Compare string equality
     description: In this example, the `STRINGEQUALS` function is used to check if two strings are equal, with and without case sensitivity.
-    query: |
+    query: |-
       SELECT VALUE {
         compareSameCase: STRINGEQUALS("AdventureWorks", "AdventureWorks"),
         compareDifferentCase: STRINGEQUALS("AdventureWorks", "adventureworks"),
         compareIgnoreCase: STRINGEQUALS("AdventureWorks", "adventureworks", true)
       }
-    result: |
+    result: |-
       [
         {
           "compareSameCase": true,

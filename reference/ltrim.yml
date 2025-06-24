@@ -2,9 +2,9 @@
 name: LTRIM
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with leading whitespace or specified characters removed.
-description: |
+description: |-
   The `LTRIM` function returns a string expression after it removes leading whitespace or specified characters.
-syntax: |
+syntax: |-
   LTRIM(<string_expr_1> [, <string_expr_2>])
 arguments:
   - name: string_expr_1
@@ -13,12 +13,12 @@ arguments:
   - name: string_expr_2
     required: false
     description: An optional string expression to be trimmed from `string_expr_1`. If not set, the default is to trim whitespace.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Remove leading whitespace or characters
     description: In this example, the `LTRIM` function is used with various parameters inside a query.
-    query: |
+    query: |-
       SELECT VALUE {
         whitespaceStart: LTRIM("  AdventureWorks"),
         whitespaceStartEnd: LTRIM("  AdventureWorks  "),
@@ -29,7 +29,7 @@ examples:
         trimEntireTerm: LTRIM("AdventureWorks", "AdventureWorks"),
         trimEmptyString: LTRIM("AdventureWorks", "")
       }
-    result: |
+    result: |-
       [
         {
           "whitespaceStart": "AdventureWorks",

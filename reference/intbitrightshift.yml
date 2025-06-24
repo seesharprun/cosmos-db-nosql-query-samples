@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: INTBITRIGHTSHIFT
 group: mathematical
-description: |
+description: |-
   The `INTBITRIGHTSHIFT` function returns the result of a bitwise right shift operation on an integer value.
-syntax: |
+syntax: |-
   INTBITRIGHTSHIFT(<numeric_expr_1>, <numeric_expr_2>)
 arguments:
   - name: numeric_expr_1
@@ -12,17 +12,17 @@ arguments:
   - name: numeric_expr_2
     required: true
     description: The number of bits to shift.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Bitwise right shift
     description: In this example, the `INTBITRIGHTSHIFT` function is used to perform a bitwise right shift operation.
-    query: |
+    query: |-
       SELECT VALUE {
         shiftInteger: INTBITRIGHTSHIFT(16, 4),
         shiftDecimal: INTBITRIGHTSHIFT(16, 0.4)
       }
-    result: |
+    result: |-
       [
         {
           "shiftInteger": 1

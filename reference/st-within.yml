@@ -1,10 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: ST_WITHIN
 group: spatial
-description: |
+description: |-
   The `ST_WITHIN` function returns a boolean expression indicating whether the GeoJSON object specified in the first argument is within the GeoJSON object in the second argument.
 summary: The `ST_WITHIN` function returns a boolean indicating if one GeoJSON object is within another in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   ST_WITHIN(<spatial_expr_1>, <spatial_expr_2>)
 arguments:
   - name: spatial_expr_1
@@ -13,13 +13,13 @@ arguments:
   - name: spatial_expr_2
     required: true
     description: Any valid GeoJSON Point, Polygon, MultiPolygon or LineString expression.
-returns: |
+returns: |-
   Returns a boolean value.
 examples:
   - title: Check if a point is within a polygon
-    description: |
+    description: |-
       In this example, the `ST_WITHIN` function is used to determine if a GeoJSON Point is within a Polygon.
-    query: |
+    query: |-
       SELECT VALUE {
         isHeadquartersWithinCampus: ST_WITHIN({
             "type": "Point",
@@ -53,7 +53,7 @@ examples:
             ] ]
         })
       }
-    result: |
+    result: |-
       [
         {
           "isHeadquartersWithinCampus": true

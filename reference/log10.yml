@@ -2,26 +2,26 @@
 name: LOG10
 group: mathematical
 summary: An Azure Cosmos DB for NoSQL system function that returns the base-10 logarithm of the specified numeric expression.
-description: |
+description: |-
   The `LOG10` function returns the base-10 logarithm of the specified numeric expression.
-syntax: |
+syntax: |-
   LOG10(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Get base-10 logarithm of values
     description: In this example, the `LOG10` function is used to return the logarithm value of various values.
-    query: |
+    query: |-
       SELECT VALUE {
         logFiveBaseTen: LOG10(5),
         logTwoBaseTen: LOG10(2),
         logHundredBaseTen: LOG10(100)
       }
-    result: |
+    result: |-
       [
         {
           "logFiveBaseTen": 0.6989700043360189,

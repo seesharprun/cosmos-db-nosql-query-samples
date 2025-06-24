@@ -1,22 +1,22 @@
 ### YamlMime:NoSQLQueryReference
 name: ST_AREA
 group: spatial
-description: |
+description: |-
   The `ST_AREA` function returns the total area of a GeoJSON Polygon or MultiPolygon expression.
 summary: The `ST_AREA` function returns a numeric value representing the total area of a GeoJSON Polygon or MultiPolygon in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   ST_AREA(<spatial_expr>)
 arguments:
   - name: spatial_expr
     required: true
     description: Any valid GeoJSON Polygon or MultiPolygon expression.
-returns: |
+returns: |-
   Returns a numeric expression that enumerates the total area of a set of points.
 examples:
   - title: Calculate area of a polygon
-    description: |
+    description: |-
       In this example, the `ST_AREA` function is used to return the area of a GeoJSON polygon.
-    query: |
+    query: |-
       SELECT VALUE {
         areaPolygon: ST_AREA({
             "type": "Polygon",
@@ -29,7 +29,7 @@ examples:
             ] ]
         })
       }
-    result: |
+    result: |-
       [
         {
           "areaPolygon": 735970283.0522614

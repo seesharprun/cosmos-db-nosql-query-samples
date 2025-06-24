@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: NUMBERBIN
 group: mathematical
-description: |
+description: |-
   The `NUMBERBIN` function calculates the input value rounded to a multiple of the specified size.
-syntax: |
+syntax: |-
   NUMBERBIN(<numeric_expr> [, <bin_size>])
 arguments:
   - name: numeric_expr
@@ -12,12 +12,12 @@ arguments:
   - name: bin_size
     required: false
     description: A numeric value that specifies the bin size to use when rounding the value. This numeric value defaults to `1` if not specified.
-returns: |
+returns: |-
   Returns a numeric value.
 examples:
   - title: Bin a number with various bin sizes
     description: In this example, the `NUMBERBIN` function is used to round a number to various bin sizes.
-    query: |
+    query: |-
       SELECT VALUE {
         roundToNegativeHundreds: NUMBERBIN(37.752, -100),
         roundToTens: NUMBERBIN(37.752, 10),
@@ -26,7 +26,7 @@ examples:
         roundToOneTenths: NUMBERBIN(37.752, 0.1),
         roundToOneHundreds: NUMBERBIN(37.752, 0.01)
       }
-    result: |
+    result: |-
       [
         {
           "roundToNegativeHundreds": 100,

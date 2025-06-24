@@ -2,20 +2,20 @@
 name: SQRT
 group: mathematical
 summary: An Azure Cosmos DB for NoSQL system function that returns the square root of the specified numeric value.
-description: |
+description: |-
   The `SQRT` function returns the square root of the specified numeric value.
-syntax: |
+syntax: |-
   SQRT(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Calculate square roots
     description: In this example, the `SQRT` function is used to return the square roots of various numeric values.
-    query: |
+    query: |-
       SELECT VALUE {
         sqrtZero: SQRT(0),
         sqrtOne: SQRT(1),
@@ -23,7 +23,7 @@ examples:
         sqrtPrime: SQRT(17),
         sqrtTwentyFive: SQRT(25)
       }
-    result: |
+    result: |-
       [
         {
           "sqrtZero": 0,

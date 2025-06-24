@@ -2,20 +2,20 @@
 name: STRINGTOBOOLEAN
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string expression converted to a boolean.
-description: |
+description: |-
   The `STRINGTOBOOLEAN` function converts a string expression to a boolean.
-syntax: |
+syntax: |-
   STRINGTOBOOLEAN(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns a boolean value.
 examples:
   - title: Convert string to boolean
     description: In this example, the `STRINGTOBOOLEAN` function is used to parse various string values into booleans.
-    query: |
+    query: |-
       SELECT VALUE {
         parseBooleanString: STRINGTOBOOLEAN("true"),
         parseWithPrefix: STRINGTOBOOLEAN("true  "),
@@ -25,7 +25,7 @@ examples:
         parseUndefined: STRINGTOBOOLEAN(undefined),
         parseNull: STRINGTOBOOLEAN(null)
       }
-    result: |
+    result: |-
       [
         {
           "parseBooleanString": true,

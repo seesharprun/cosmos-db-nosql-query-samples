@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: POWER
 group: mathematical
-description: |
+description: |-
   The `POWER` function returns the value of the specified expression multipled by itself the given number of times.
-syntax: |
+syntax: |-
   POWER(<numeric_expr_1>, <numeric_expr_2>)
 arguments:
   - name: numeric_expr_1
@@ -12,12 +12,12 @@ arguments:
   - name: numeric_expr_2
     required: true
     description: A numeric expression indicating the power to raise `numeric_expr_1`.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Raise a number to a power
     description: In this example, the `POWER` function is used to raise numbers to various powers.
-    query: |
+    query: |-
       SELECT VALUE {
         oneFirstPower: POWER(1, 1),
         twoSquared: POWER(2, 2),
@@ -28,7 +28,7 @@ examples:
         nullCubed: POWER(null, 3),
         twoNullPower: POWER(2, null)
       }
-    result: |
+    result: |-
       [
         {
           "oneFirstPower": 1,

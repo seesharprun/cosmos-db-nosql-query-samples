@@ -1,22 +1,22 @@
 ### YamlMime:NoSQLQueryReference
 name: SIGN
 group: mathematical
-description: |
+description: |-
   The `SIGN` function returns the positive (+1), zero (0), or negative (-1) sign of the specified numeric expression.
 summary: The `SIGN` function returns the sign of a numeric value in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   SIGN(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Return sign of numbers
-    description: |
+    description: |-
       In this example, the `SIGN` function is used to return the sign of various numbers from -2 to 2.
-    query: |
+    query: |-
       SELECT VALUE {
         signNegativeTwo: SIGN(-2),
         signNegativeOne: SIGN(-1),
@@ -24,7 +24,7 @@ examples:
         signOne: SIGN(1),
         signTwo: SIGN(2)
       }
-    result: |
+    result: |-
       [
         {
           "signNegativeTwo": -1,

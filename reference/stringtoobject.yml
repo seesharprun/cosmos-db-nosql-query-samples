@@ -1,22 +1,22 @@
 ### YamlMime:NoSQLQueryReference
 name: STRINGTOOBJECT
 group: type-checking
-description: |
+description: |-
   The `STRINGTOOBJECT` function converts a string expression to an object.
 summary: The `STRINGTOOBJECT` function converts a string expression to an object in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   STRINGTOOBJECT(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns an object.
 examples:
   - title: Convert string to object
-    description: |
+    description: |-
       In this example, the `STRINGTOOBJECT` function is used to convert various string expressions to objects.
-    query: |
+    query: |-
       SELECT VALUE {
         parseEmptyObject: STRINGTOOBJECT("{}"),
         parseObjectWithProperty: STRINGTOOBJECT('{"isAvailable": true}'),
@@ -25,7 +25,7 @@ examples:
         parseUndefined: STRINGTONUMBER(undefined),
         parseNull: STRINGTONUMBER(null)
       }
-    result: |
+    result: |-
       [
         {
           "parseEmptyObject": {},

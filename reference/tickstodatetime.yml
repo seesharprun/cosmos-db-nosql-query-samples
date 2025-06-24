@@ -2,26 +2,26 @@
 name: TICKSTODATETIME
 group: date-and-time
 summary: An Azure Cosmos DB for NoSQL system function that returns the number of ticks as a date and time value.
-description: |
+description: |-
   The `TICKSTODATETIME` function converts the specified number of ticks to a date and time value.
-syntax: |
+syntax: |-
   TICKSTODATETIME(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a UTC date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
 examples:
   - title: Convert ticks to date and time
     description: In this example, the `TICKSTODATETIME` function is used to convert ticks to date and time values.
-    query: |
+    query: |-
       SELECT VALUE {
         parseTicks: TICKSTODATETIME(15973607943002652),
         parseUnixEpoch: TICKSTODATETIME(0),
         parseWindowsEpoch: TICKSTODATETIME(-116444736000000000)
       }
-    result: |
+    result: |-
       [
         {
           "parseTicks": "2020-08-13T23:19:54.3002652Z",

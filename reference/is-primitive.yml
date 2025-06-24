@@ -2,20 +2,20 @@
 name: IS_PRIMITIVE
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a primitive (string, boolean, numeric, or null).
-description: |
+description: |-
   The `IS_PRIMITIVE` function returns a boolean value indicating if the type of the specified expression is a primitive (string, boolean, numeric, or null).
-syntax: |
+syntax: |-
   IS_PRIMITIVE(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Check if value is primitive
     description: In this example, the `IS_PRIMITIVE` function is used to check various values to see if they're a primitive.
-    query: |
+    query: |-
       SELECT VALUE {
         isBooleanAPrimitive: IS_PRIMITIVE(true),
         isNumberAPrimitive: IS_PRIMITIVE(1),
@@ -27,7 +27,7 @@ examples:
         isObjectBooleanPropertyAPrimitive: IS_PRIMITIVE({ "onSale": false }.onSale),
         isUndefinedAPrimitive: IS_PRIMITIVE({}.category)
       }
-    result: |
+    result: |-
       [
         {
           "isBooleanAPrimitive": true,

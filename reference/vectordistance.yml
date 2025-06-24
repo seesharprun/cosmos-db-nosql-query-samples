@@ -2,9 +2,9 @@
 name: VECTORDISTANCE
 summary: An Azure Cosmos DB for NoSQL system function that returns the similarity score between two vectors for one or more items in a container.
 group: spatial
-description: |
+description: |-
   The `VECTORDISTANCE` function returns the similarity score between two specified vectors.
-syntax: |
+syntax: |-
   VECTORDISTANCE(<vector_expr_1>, <vector_expr_2>, <bool_expr>, <obj_expr>)
 arguments:
   - name: vector_expr_1
@@ -19,19 +19,19 @@ arguments:
   - name: obj_expr
     required: false
     description: An optional JSON formatted object literal used to specify options for the vector distance calculation. Valid items include `distanceFunction`, `dataType`, and `searchListSizeMultiplier`.
-returns: |
+returns: |-
   Returns a numeric expression that enumerates the similarity score between two expressions.
 examples:
   - title: Vector similarity search
     description: In this example, the `VECTORDISTANCE` function is used to return the similarity score between a document vector and a query vector.
-    query: |
+    query: |-
       SELECT
         c.name,
         VECTORDISTANCE(c.vector, [1,2,3]) AS SimilarityScore 
       FROM
         c
       ORDER BY VECTORDISTANCE(c.vector, [1,2,3]) AS SimilarityScore
-    result: |
+    result: |-
       [
         {
           "name": "document1",

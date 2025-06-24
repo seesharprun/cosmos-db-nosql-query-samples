@@ -2,20 +2,20 @@
 name: IS_ARRAY
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether an expression is an array.
-description: |
+description: |-
   The `IS_ARRAY` function returns a boolean value indicating if the type of the specified expression is an array.
-syntax: |
+syntax: |-
   IS_ARRAY(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Check if value is array
     description: In this example, the `IS_ARRAY` function is used to check objects of various types.
-    query: |
+    query: |-
       SELECT VALUE {
         booleanIsArray: IS_ARRAY(true),
         numberIsArray: IS_ARRAY(65),
@@ -27,7 +27,7 @@ examples:
         invalidObjectPropertyIsArray: IS_ARRAY({skus: [25344, 82947], vendors: null}.size),
         nullObjectPropertyIsArray: IS_ARRAY({skus: [25344, 82947], vendors: null}.vendor)
       }
-    result: |
+    result: |-
       [
         {
           "booleanIsArray": false,

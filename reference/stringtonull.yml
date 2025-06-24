@@ -1,22 +1,22 @@
 ### YamlMime:NoSQLQueryReference
 name: STRINGTONULL
 group: type-checking
-description: |
+description: |-
   The `STRINGTONULL` function converts a string expression to `null`.
 summary: The `STRINGTONULL` function converts a string expression to `null` in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   STRINGTONULL(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns a `null`.
 examples:
   - title: Convert string to null
-    description: |
+    description: |-
       In this example, the `STRINGTONULL` function is used to convert various string expressions to `null`.
-    query: |
+    query: |-
       SELECT VALUE {
         parseNullString: STRINGTONULL("null"),
         parseWithPrefix: STRINGTONULL("null  "),
@@ -27,7 +27,7 @@ examples:
         parseNull: STRINGTONULL(null),
         parseUndefined: STRINGTONULL(undefined)
       }
-    result: |
+    result: |-
       [
         {
           "parseNullString": null,

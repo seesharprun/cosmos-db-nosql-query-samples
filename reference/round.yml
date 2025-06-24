@@ -2,20 +2,20 @@
 name: ROUND
 group: mathematical
 summary: An Azure Cosmos DB for NoSQL system function that returns the number rounded to the closest integer.
-description: |
+description: |-
   The `ROUND` function returns a numeric value rounded to the closest integer value.
-syntax: |
+syntax: |-
   ROUND(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Round numbers to nearest integer
     description: In this example, positive and negative numbers are rounded to the nearest integer.
-    query: |
+    query: |-
       SELECT VALUE {
         roundTwoPointFour: ROUND(2.4),
         roundTwoPointSix: ROUND(2.6),
@@ -23,7 +23,7 @@ examples:
         roundNegativeTwoPointFour: ROUND(-2.4),
         roundNegativeTwoPointSix: ROUND(-2.6)
       }
-    result: |
+    result: |-
       [
         {
           "roundTwoPointFour": 2,

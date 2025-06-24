@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: RRF
 group: full-text-search
-description: |
+description: |-
   The `RRF` function returns a fused score by combining two or more scores provided by other functions.
-syntax: |
+syntax: |-
   RRF(<function1>, <function2>, ..., <weights>)
 arguments:
   - name: function1
@@ -15,40 +15,40 @@ arguments:
   - name: weights
     required: true
     description: An array of numbers defining an importance weight for each scoring function.
-returns: |
+returns: |-
   Returns a numeric value representing the fused score.
 examples:
   - title: Hybrid Search (vector similarity + BM25)
     description: In this example, Hybrid Search combines FullTextScore and VectorDistance.
-    query: |
+    query: |-
       SELECT TOP 10 *
       FROM c
       ORDER BY RANK RRF(FullTextScore(c.text, "keyword"), VectorDistance(c.vector, [1,2,3]))
-    result: |
+    result: |-
       -- Example result not available (see documentation)
   - title: Weighted Hybrid Search
     description: In this example, Hybrid Search uses weights for the scoring functions.
-    query: |
+    query: |-
       SELECT TOP 10 *
       FROM c
       ORDER BY RANK RRF(FullTextScore(c.text, "keyword"), VectorDistance(c.vector, [1,2,3]), [2,1])
-    result: |
+    result: |-
       -- Example result not available (see documentation)
   - title: Fusion with two FullTextScore functions
     description: In this example, two FullTextScore functions are fused.
-    query: |
+    query: |-
       SELECT TOP 10 *
       FROM c
       ORDER BY RANK RRF(FullTextScore(c.text, "keyword1"), FullTextScore(c.text, "keyword2"))
-    result: |
+    result: |-
       -- Example result not available (see documentation)
   - title: Fusion with two VectorDistance functions
     description: In this example, two VectorDistance functions are fused.
-    query: |
+    query: |-
       SELECT TOP 5 *
       FROM c
       ORDER BY RANK RRF(VectorDistance(c.vector1, [1,2,3]), VectorDistance(c.vector2, [2,2,4]))
-    result: |
+    result: |-
       -- Example result not available (see documentation)
 remarks:
   - This function requires enrollment in the Azure Cosmos DB NoSQL Full Text Search feature.

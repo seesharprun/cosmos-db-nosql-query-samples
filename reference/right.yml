@@ -2,9 +2,9 @@
 name: RIGHT
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a substring from the right side of a string.
-description: |
+description: |-
   The `RIGHT` function returns the right part of a string up to the specified number of characters.
-syntax: |
+syntax: |-
   RIGHT(<string_expr>, <numeric_expr>)
 arguments:
   - name: string_expr
@@ -13,12 +13,12 @@ arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression specifying the number of characters to extract from `string_expr`.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Get right part of string
     description: In this example, the `RIGHT` function is used to return the right part of the string `AdventureWorks` for various length values.
-    query: |
+    query: |-
       SELECT VALUE {
         lastZero: RIGHT("AdventureWorks", 0),
         lastOne: RIGHT("AdventureWorks", 1),
@@ -26,7 +26,7 @@ examples:
         fullLength: RIGHT("AdventureWorks", LENGTH("AdventureWorks")),
         beyondMaxLength: RIGHT("AdventureWorks", 100)
       }
-    result: |
+    result: |-
       [
         {
           "lastZero": "",

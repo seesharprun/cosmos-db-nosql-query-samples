@@ -2,9 +2,9 @@
 name: SUBSTRING
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a portion of a string using a starting position and length.
-description: |
+description: |-
   The `SUBSTRING` function returns part of a string expression starting at the specified position and of the specified length, or to the end of the string.
-syntax: |
+syntax: |-
   SUBSTRING(<string_expr>, <numeric_expr_1>, <numeric_expr_2>)
 arguments:
   - name: string_expr
@@ -16,19 +16,19 @@ arguments:
   - name: numeric_expr_2
     required: true
     description: A numeric expression to denote the maximum number of characters of `string_expr` to be returned.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Extract substrings from a string
     description: In this example, the `SUBSTRING` function is used to return substrings with various lengths and starting positions.
-    query: |
+    query: |-
       SELECT VALUE {
         substringPrefix: SUBSTRING("AdventureWorks", 0, 9),
         substringSuffix: SUBSTRING("AdventureWorks", 9, 5),
         substringTotalLength: SUBSTRING("AdventureWorks", 0, LENGTH("AdventureWorks")),
         substringEmptyString: SUBSTRING("AdventureWorks", 0, -1)
       }
-    result: |
+    result: |-
       [
         {
           "substringPrefix": "Adventure",

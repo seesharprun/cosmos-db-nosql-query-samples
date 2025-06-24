@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: OBJECTTOARRAY
 group: array
-description: |
+description: |-
   The `OBJECTTOARRAY` function converts field/value pairs in a JSON object to a JSON array.
-syntax: |
+syntax: |-
   OBJECTTOARRAY(<object_expr> [, <string_expr_1>, <string_expr_2>])
 arguments:
   - name: object_expr
@@ -15,18 +15,18 @@ arguments:
   - name: string_expr_2
     required: false
     description: A string expression with a name for the field representing the *value* portion of the original field/value pair.
-returns: |
+returns: |-
   Returns an array of elements with two fields, either `k` and `v` or custom-named fields.
 examples:
   - title: Convert object to array
     description: In this example, the `OBJECTTOARRAY` function is used to convert a JSON object to an array.
-    query: |
+    query: |-
       SELECT VALUE
         OBJECTTOARRAY({
           "a": "12345",
           "b": "67890"
         })
-    result: |
+    result: |-
       [
         [
           {

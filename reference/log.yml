@@ -2,9 +2,9 @@
 name: LOG
 group: mathematical
 summary: An Azure Cosmos DB for NoSQL system function that returns the natural logarithm of the specified numeric expression.
-description: |
+description: |-
   The `LOG` function returns the natural logarithm of the specified numeric expression.
-syntax: |
+syntax: |-
   LOG(<numeric_expr> [, <numeric_base>])
 arguments:
   - name: numeric_expr
@@ -13,17 +13,17 @@ arguments:
   - name: numeric_base
     required: false
     description: An optional numeric value that sets the base for the logarithm. If not set, the default value is the natural logarithm approximately equal to `2.718281828`.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Get logarithm of values
     description: In this example, the `LOG` function is used to return the logarithm value of various values.
-    query: |
+    query: |-
       SELECT VALUE {
         logFive: LOG(5),
         logTwoBaseTen: LOG(2, 10)
       }
-    result: |
+    result: |-
       [
         {
           "logFive": 1.6094379124341003,

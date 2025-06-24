@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: INTBITOR
 group: mathematical
-description: |
+description: |-
   The `INTBITOR` function returns the result of a bitwise inclusive OR operation on two integer values.
-syntax: |
+syntax: |-
   INTBITOR(<numeric_expr_1>, <numeric_expr_2>)
 arguments:
   - name: numeric_expr_1
@@ -12,19 +12,19 @@ arguments:
   - name: numeric_expr_2
     required: true
     description: The second numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Bitwise inclusive OR
     description: In this example, the `INTBITOR` function is used to perform a bitwise inclusive OR operation.
-    query: |
+    query: |-
       SELECT VALUE {
         inclusiveOr: INTBITOR(56, 100),
         inclusiveOrSame: INTBITOR(56, 56),
         inclusiveOrZero: INTBITOR(56, 0),
         inclusiveOrDecimal: INTBITOR(56, 0.1)
       }
-    result: |
+    result: |-
       [
         {
           "inclusiveOr": 124,

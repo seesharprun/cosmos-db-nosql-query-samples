@@ -2,9 +2,9 @@
 name: SUBQUERY
 summary: Subqueries allow you to nest queries within other queries for complex query statements in Azure Cosmos DB for NoSQL.
 group: clause
-description: |
+description: |-
   The `SUBQUERY` clause identifies a query nested within another query. Subqueries can be used for optimizing JOIN expressions, evaluating expensive expressions once and referencing them multiple times, and mimicking joins with external reference data. Only correlated subqueries are supported in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   (SELECT VALUE <expr> FROM <source> WHERE <condition>)
 arguments:
   - name: expr
@@ -16,13 +16,13 @@ arguments:
   - name: condition
     required: false
     description: An optional condition to filter the subquery results.
-returns: |
+returns: |-
   Returns a value or set of values depending on the subquery type (multi-value or scalar).
 examples:
   - title: Optimize self-join expressions
-    description: |
+    description: |-
       In this example, subqueries are used to optimize JOIN expressions by filtering joined array items before joining with the next expression.
-    query: |
+    query: |-
       SELECT VALUE
           COUNT(1)
       FROM
@@ -33,20 +33,20 @@ examples:
           (SELECT VALUE q FROM q IN p.onHandQuantities WHERE q.quantity BETWEEN 0 AND 10)
       JOIN 
           (SELECT VALUE s FROM s IN p.warehouseStock WHERE NOT s.backstock)
-    result: |
+    result: |-
       [
         25
       ]
   - title: Scalar subquery with aggregate
-    description: |
+    description: |-
       In this example, a scalar subquery is used to count all tags for each item.
-    query: |
+    query: |-
       SELECT
           p.name,
           (SELECT VALUE COUNT(1) FROM i IN p.inventory) AS locationCount
       FROM
           products p
-    result: |
+    result: |-
       [
         {
           "name": "Snow coat",

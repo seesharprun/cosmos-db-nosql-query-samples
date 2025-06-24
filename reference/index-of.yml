@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: INDEX-OF
 group: string
-description: |
+description: |-
   The `INDEX_OF` function returns the index of the first occurrence of a string.
-syntax: |
+syntax: |-
   INDEX_OF(<string_expr_1>, <string_expr_2> [, <numeric_expr>])
 arguments:
   - name: string_expr_1
@@ -15,12 +15,12 @@ arguments:
   - name: numeric_expr
     required: false
     description: An optional numeric expression that indicates where, in `string_expr_1`, to start the search. If not specified, the default value is `0`.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Find index of substring
     description: In this example, the `INDEX_OF` function is used to find the index of various substrings.
-    query: |
+    query: |-
       SELECT VALUE {
         indexOfFirstLetter: INDEX_OF("AdventureWorks", "A"),
         indexOfLastLetter: INDEX_OF("AdventureWorks", "s"),
@@ -32,7 +32,7 @@ examples:
         indexOfCustomStartNoMatch: INDEX_OF("AdventureWorks", "Adventure", 5),
         indexOfCaseSensitive: INDEX_OF("AdventureWorks", "aD")
       }
-    result: |
+    result: |-
       [
         {
           "indexOfFirstLetter": 0,

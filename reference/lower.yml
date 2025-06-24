@@ -2,20 +2,20 @@
 name: LOWER
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with uppercase characters converted to lowercase.
-description: |
+description: |-
   The `LOWER` function returns a string expression after converting uppercase character data to lowercase.
-syntax: |
+syntax: |-
   LOWER(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Convert string to lowercase
     description: In this example, the `LOWER` function is used to modify various strings.
-    query: |
+    query: |-
       SELECT VALUE {
         lowercase: LOWER("adventureworks"),
         uppercase: LOWER("ADVENTUREWORKS"),
@@ -23,7 +23,7 @@ examples:
         pascalCase: LOWER("AdventureWorks"),
         upperSnakeCase: LOWER("ADVENTURE_WORKS")
       }
-    result: |
+    result: |-
       [
         {
           "lowercase": "adventureworks",

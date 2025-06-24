@@ -1,10 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: STRINGSPLIT
 group: string
-description: |
+description: |-
   The `STRINGSPLIT` function returns an array of substrings obtained from separating the source string by the specified delimiter.
 summary: The `STRINGSPLIT` function returns an array of substrings obtained from separating the source string by the specified delimiter in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   STRINGSPLIT(<string_expr1>, <string_expr2>)
 arguments:
   - name: string_expr1
@@ -13,13 +13,13 @@ arguments:
   - name: string_expr2
     required: true
     description: The string used as the delimiter.
-returns: |
+returns: |-
   Returns an array expression.
 examples:
   - title: Split string into substrings
-    description: |
+    description: |-
       In this example, the `STRINGSPLIT` function is used to split a string into substrings using various delimiters.
-    query: |
+    query: |-
       SELECT VALUE {
         seperateOnLetter: STRINGSPLIT("Handlebar", "e"),
         seperateOnSymbol: STRINGSPLIT("CARBON_STEEL_BIKE_WHEEL", "_"),
@@ -29,7 +29,7 @@ examples:
         emptySeparatorString: STRINGSPLIT("Helmet", ""),
         emptySourceString: STRINGSPLIT("", "")
       }
-    result: |
+    result: |-
       [
         {
           "seperateOnLetter": [

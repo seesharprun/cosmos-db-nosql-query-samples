@@ -2,9 +2,9 @@
 name: REPLICATE
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string value repeated a specific number of times.
-description: |
+description: |-
   The `REPLICATE` function returns a string value repeated a specific number of times.
-syntax: |
+syntax: |-
   REPLICATE(<string_expr>, <numeric_expr>)
 arguments:
   - name: string_expr
@@ -13,16 +13,16 @@ arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Repeat string value
     description: In this example, the function builds a repeating string.
-    query: |
+    query: |-
       SELECT VALUE {
         catchPhrase: REPLICATE("Cosmic", 3)
       }
-    result: |
+    result: |-
       [
         {
           "catchPhrase": "CosmicCosmicCosmic"

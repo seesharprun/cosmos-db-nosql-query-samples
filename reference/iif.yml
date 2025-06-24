@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: IIF
 group: conditional
-description: |
+description: |-
   The `IIF` function returns one of two values, depending on whether the Boolean expression evaluates to true or false.
-syntax: |
+syntax: |-
   IIF(<boolean_expr>, <true_expr>, <false_expr>)
 arguments:
   - name: boolean_expr
@@ -15,12 +15,12 @@ arguments:
   - name: false_expr
     required: true
     description: The value returned if the Boolean expression evaluates to false.
-returns: |
+returns: |-
   Returns the value of `true_expr` if the Boolean expression is true; otherwise, returns the value of `false_expr`.
 examples:
   - title: Conditional evaluation
     description: In this example, the `IIF` function is used to return different values based on the Boolean expression.
-    query: |
+    query: |-
       SELECT VALUE {
         evalTrue: IIF(true, 123, 456),
         evalFalse: IIF(false, 123, 456),
@@ -29,7 +29,7 @@ examples:
         evalArrayNotTrue: IIF([1,2,3], 123, 456),
         evalObjectNotTrue: IIF({"name": "Alice", "age": 20}, 123, 456)
       }
-    result: |
+    result: |-
       [
         {
           "evalTrue": 123,

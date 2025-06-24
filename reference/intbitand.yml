@@ -1,9 +1,9 @@
 ### YamlMime:NoSQLQueryReference
 name: INTBITAND
 group: mathematical
-description: |
+description: |-
   The `INTBITAND` function returns a comparison of the bits of each operand using an inclusive AND operator.
-syntax: |
+syntax: |-
   INTBITAND(<int_expr_1>, <int_expr_2>)
 arguments:
   - name: int_expr_1
@@ -12,19 +12,19 @@ arguments:
   - name: int_expr_2
     required: true
     description: An integer expression, which is used as the right-hand operand.
-returns: |
+returns: |-
   Returns a 64-bit integer.
 examples:
   - title: Bitwise AND operation
     description: In this example, the `INTBITAND` function is used to perform a bitwise AND operation.
-    query: |
+    query: |-
       SELECT VALUE {
         compareNumbers: INTBITAND(15, 25),
         compareZero: INTBITAND(15, 0),
         compareSameNumber: INTBITAND(15, 15),
         compareDecimal: INTBITAND(15, 1.5)
       }
-    result: |
+    result: |-
       [
         {
           "compareNumbers": 9,

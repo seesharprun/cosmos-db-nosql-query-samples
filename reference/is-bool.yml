@@ -2,20 +2,20 @@
 name: IS_BOOL
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating whether an expression is a boolean.
-description: |
+description: |-
   The `IS_BOOL` function returns a boolean value indicating if the type of the specified expression is a boolean.
-syntax: |
+syntax: |-
   IS_BOOL(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Check if value is boolean
     description: In this example, the `IS_BOOL` function is used to check objects of various types.
-    query: |
+    query: |-
       SELECT VALUE {
         booleanIsBool: IS_BOOL(true),
         numberIsBool: IS_BOOL(65),
@@ -27,7 +27,7 @@ examples:
         invalidObjectPropertyIsBool: IS_BOOL({skus: [25344, 82947], vendors: null}.size),
         nullObjectPropertyIsBool: IS_BOOL({skus: [25344, 82947], vendors: null}.vendor)
       }
-    result: |
+    result: |-
       [
         {
           "booleanIsBool": true,

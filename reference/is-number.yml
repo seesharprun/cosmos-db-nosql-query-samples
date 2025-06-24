@@ -2,20 +2,20 @@
 name: IS_NUMBER
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a number.
-description: |
+description: |-
   The `IS_NUMBER` function returns a boolean value indicating if the type of the specified expression is a number.
-syntax: |
+syntax: |-
   IS_NUMBER(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Check if value is number
     description: In this example, the `IS_NUMBER` function is used to check various values to see if they're a number.
-    query: |
+    query: |-
       SELECT VALUE {
         isBooleanANumber: IS_NUMBER(true),
         isNumberANumber: IS_NUMBER(1),
@@ -26,7 +26,7 @@ examples:
         isObjectNumberPropertyANumber: IS_NUMBER({ "quantity": 0 }.quantity),
         isUndefinedANumber: IS_NUMBER({}.category)
       }
-    result: |
+    result: |-
       [
         {
           "isBooleanANumber": false,

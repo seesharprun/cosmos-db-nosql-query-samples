@@ -2,25 +2,25 @@
 name: LENGTH
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns the numeric length of a string expression.
-description: |
+description: |-
   The `LENGTH` function returns the number of characters in the specified string expression.
-syntax: |
+syntax: |-
   LENGTH(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Get length of string
     description: In this example, the `LENGTH` function is used to return the length of a static string.
-    query: |
+    query: |-
       SELECT VALUE {
         stringValue: LENGTH("AdventureWorks"),
         emptyString: LENGTH("")
       }
-    result: |
+    result: |-
       [
         {
           "stringValue": 14,

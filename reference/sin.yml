@@ -2,24 +2,24 @@
 name: SIN
 group: mathematical
 summary: An Azure Cosmos DB for NoSQL system function that returns the trigonometric sine of the specified angle.
-description: |
+description: |-
   The `SIN` function returns the trigonometric sine of the specified angle in radians.
-syntax: |
+syntax: |-
   SIN(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric expression.
 examples:
   - title: Calculate sine of an angle
     description: In this example, the `SIN` function is used to calculate the sine of a specified angle.
-    query: |
+    query: |-
       SELECT VALUE {
         sine: SIN(45.175643)
       }
-    result: |
+    result: |-
       [
         {
           "sine": 0.929607286611012

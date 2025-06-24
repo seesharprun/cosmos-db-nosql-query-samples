@@ -1,20 +1,20 @@
 ### YamlMime:NoSQLQueryReference
 name: ORDER-BY
 group: clause
-description: |
+description: |-
   The `ORDER BY` clause returns the sorted result set of a query based on one or more expressions.
-syntax: |
+syntax: |-
   ORDER BY <sort_specification>
 arguments:
   - name: sort_specification
     required: true
     description: Specifies a property or expression on which to sort the query result set. Multiple properties can be specified. The sequence of the sort properties defines the organization of the sorted result set.
-returns: |
+returns: |-
   Returns the sorted result set based on the specified sort specification.
 examples:
   - title: Sort employees by last name
     description: In this example, the `ORDER BY` clause is used to sort employees by their last name.
-    query: |
+    query: |-
       SELECT VALUE {
         firstName: e.name.first,
         lastName: e.name.last
@@ -25,7 +25,7 @@ examples:
         e.team = "Human resources"
       ORDER BY
         e.name.last
-    result: |
+    result: |-
       [
         {
           "firstName": "Casey",

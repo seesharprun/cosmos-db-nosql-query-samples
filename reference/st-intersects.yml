@@ -1,10 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: ST_INTERSECTS
 group: spatial
-description: |
+description: |-
   The `ST_INTERSECTS` function returns a boolean indicating whether the GeoJSON object specified in the first argument intersects the GeoJSON object in the second argument.
 summary: The `ST_INTERSECTS` function returns a boolean indicating if two GeoJSON objects intersect in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   ST_INTERSECTS(<spatial_expr_1>, <spatial_expr_2>)
 arguments:
   - name: spatial_expr_1
@@ -13,13 +13,13 @@ arguments:
   - name: spatial_expr_2
     required: true
     description: Any valid GeoJSON Point, Polygon, MultiPolygon or LineString expression.
-returns: |
+returns: |-
   Returns a boolean value.
 examples:
   - title: Check if two polygons intersect
-    description: |
+    description: |-
       In this example, the `ST_INTERSECTS` function is used to determine if two GeoJSON polygons intersect.
-    query: |
+    query: |-
       SELECT VALUE {
         highWayAndCampusIntersect: ST_INTERSECTS({
             "type": "Polygon",
@@ -71,7 +71,7 @@ examples:
             ] ]
         })
       }
-    result: |
+    result: |-
       [
         {
           "highWayAndCampusIntersect": true

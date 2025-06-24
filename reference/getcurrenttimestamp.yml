@@ -1,21 +1,21 @@
 ### YamlMime:NoSQLQueryReference
 name: GETCURRENTTIMESTAMP
 group: date-and-time
-description: |
+description: |-
   The `GETCURRENTTIMESTAMP` function returns the current timestamp in milliseconds since the Unix epoch.
-syntax: |
+syntax: |-
   GETCURRENTTIMESTAMP()
 arguments: []
-returns: |
+returns: |-
   Returns a numeric expression representing the current timestamp in milliseconds.
 examples:
   - title: Get the current timestamp
     description: In this example, the `GETCURRENTTIMESTAMP` function is used to return the current timestamp.
-    query: |
+    query: |-
       SELECT VALUE {
         currentTimestamp: GETCURRENTTIMESTAMP()
       }
-    result: |
+    result: |-
       [
         {
           "currentTimestamp": 1556916469065

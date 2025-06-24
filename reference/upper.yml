@@ -2,20 +2,20 @@
 name: UPPER
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string expression with lowercase characters converted to uppercase.
-description: |
+description: |-
   The `UPPER` function returns a string expression after converting lowercase character data to uppercase.
-syntax: |
+syntax: |-
   UPPER(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Convert strings to uppercase
     description: In this example, the `UPPER` function is used to convert various string cases to uppercase.
-    query: |
+    query: |-
       SELECT VALUE {
         lowercase: UPPER("adventureworks"),
         uppercase: UPPER("ADVENTUREWORKS"),
@@ -23,7 +23,7 @@ examples:
         pascalCase: UPPER("AdventureWorks"),
         upperSnakeCase: UPPER("ADVENTURE_WORKS")
       }
-    result: |
+    result: |-
       [
         {
           "lowercase": "ADVENTUREWORKS",

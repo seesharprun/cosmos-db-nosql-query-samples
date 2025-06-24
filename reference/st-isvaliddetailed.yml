@@ -1,22 +1,22 @@
 ### YamlMime:NoSQLQueryReference
 name: ST_ISVALIDDETAILED
 group: spatial
-description: |
+description: |-
   The `ST_ISVALIDDETAILED` function returns a JSON value containing a Boolean value if the specified GeoJSON Point, Polygon, or LineString expression is valid, and if invalid, the reason.
 summary: The `ST_ISVALIDDETAILED` function returns a JSON object indicating if a GeoJSON object is valid and, if not, the reason in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   ST_ISVALIDDETAILED(<spatial_expr>)
 arguments:
   - name: spatial_expr
     required: true
     description: Any valid GeoJSON Point, Polygon, or LineString expression.
-returns: |
+returns: |-
   Returns a JSON object containing a boolean value indicating if the specified GeoJSON point or polygon expression is valid. If invalid, the object additionally contains the reason as a string value.
 examples:
   - title: Check validity of GeoJSON objects
-    description: |
+    description: |-
       In this example, the `ST_ISVALIDDETAILED` function is used to check the validity of multiple GeoJSON objects.
-    query: |
+    query: |-
       SELECT VALUE {
         valid: ST_ISVALIDDETAILED({ 
             "type": "Point",
@@ -27,7 +27,7 @@ examples:
             "coordinates": [133.75682784306348, -184.38876194345323] 
         })
       }
-    result: |
+    result: |-
       [
         {
           "valid": {

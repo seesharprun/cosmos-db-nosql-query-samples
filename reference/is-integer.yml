@@ -2,20 +2,20 @@
 name: IS_INTEGER
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns a boolean indicating if a number is a 64-bit signed integer.
-description: |
+description: |-
   The `IS_INTEGER` function returns a boolean indicating if a number is a 64-bit signed integer. 64-bit signed integers range from `-9,223,372,036,854,775,808` to `9,223,372,036,854,775,807`. For more information, see [__int64](/cpp/cpp/int8-int16-int32-int64).
-syntax: |
+syntax: |-
   IS_INTEGER(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a boolean.
 examples:
   - title: Check if number is integer
     description: In this example, the `IS_INTEGER` function is demonstrated with various static values.
-    query: |
+    query: |-
       SELECT VALUE {
         smallDecimalValue: IS_INTEGER(3454.123),
         integerValue: IS_INTEGER(5523432),
@@ -23,7 +23,7 @@ examples:
         maxIntegerValue: IS_INTEGER(9223372036854775807),
         outOfRangeValue: IS_INTEGER(18446744073709551615)
       }
-    result: |
+    result: |-
       [
         {
           "smallDecimalValue": false,

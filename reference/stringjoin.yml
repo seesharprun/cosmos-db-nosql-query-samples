@@ -1,10 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: STRINGJOIN
 group: string
-description: |
+description: |-
   The `STRINGJOIN` function returns a string, which concatenates the elements of a specified array, using the specified separator between each element.
 summary: The `STRINGJOIN` function returns a string by concatenating the elements of an array using a specified separator in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   STRINGJOIN(<array_expr>, <string_expr>)
 arguments:
   - name: array_expr
@@ -13,13 +13,13 @@ arguments:
   - name: string_expr
     required: true
     description: A string expression to use as the separator.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Join array elements into a string
-    description: |
+    description: |-
       In this example, the `STRINGJOIN` function is used to combine multiple strings from an array using various separators.
-    query: |
+    query: |-
       SELECT VALUE {
         joinUsingSpaces: STRINGJOIN(["Iropa", "Mountain", "Bike"], " "),
         joinUsingEmptyString: STRINGJOIN(["Iropa", "Mountain", "Bike"], ""),
@@ -27,7 +27,7 @@ examples:
         joinUsingCharacter: STRINGJOIN(["6", "7", "4", "3"], "A"),
         joinUsingPhrase: STRINGJOIN(["Adventure", "LT"], "Works")
       }
-    result: |
+    result: |-
       [
         {
           "joinUsingSpaces": "Iropa Mountain Bike",

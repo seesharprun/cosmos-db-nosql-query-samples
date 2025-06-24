@@ -2,9 +2,9 @@
 name: REGEXMATCH
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that provides regular expression capabilities.
-description: |
+description: |-
   The `REGEXMATCH` function returns a boolean indicating whether the provided string matches the specified regular expression. Regular expressions are a concise and flexible notation for finding patterns of text.
-syntax: |
+syntax: |-
   REGEXMATCH(<string_expr_1>, <string_expr_2>[, <string_expr_3>])
 arguments:
   - name: string_expr_1
@@ -16,12 +16,12 @@ arguments:
   - name: string_expr_3
     required: false
     description: An optional string expression with the selected modifiers to use with the regular expression (`string_expr_2`). If not provided, the default is to run the regular expression match with no modifiers.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Regular expression matches with modifiers
     description: In this example, the `REGEXMATCH` function is used to match various patterns and modifiers.
-    query: |
+    query: |-
       SELECT VALUE {
         noModifiers: REGEXMATCH("abcd", "ABC"),
         caseInsensitive: REGEXMATCH("abcd", "ABC", "i"),
@@ -32,7 +32,7 @@ examples:
         containPrefix: REGEXMATCH("salt3824908", "salt{1}"),
         containsFiveLetterWordStartingWithS: REGEXMATCH("shame", "s....", "i")
       }
-    result: |
+    result: |-
       [
         {
           "noModifiers": false,

@@ -1,10 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: SELECT
 group: clause
-description: |
+description: |-
   The `SELECT` clause identifies fields to return in query results. It can project specific fields, use the VALUE keyword for scalar results, and supports DISTINCT and JSON projection.
 summary: The `SELECT` clause identifies fields to return in query results in Azure Cosmos DB for NoSQL.
-syntax: |
+syntax: |-
   SELECT <select_specification>
   <select_specification> ::= '*' | [DISTINCT] <object_property_list> | [DISTINCT] VALUE <scalar_expression> [[ AS ] value_alias]
   <object_property_list> ::= { <scalar_expression> [ [ AS ] property_alias ] } [ ,...n ]
@@ -12,15 +12,15 @@ arguments:
   - name: select_specification
     required: true
     description: Properties or value to be selected for the result set.
-returns: |
+returns: |-
   Returns the projected fields or values as specified.
 examples:
   - title: Select static string values
-    description: |
+    description: |-
       In this example, the `SELECT` clause is used to select two static string values and return an array with a single object containing both values.
-    query: |
+    query: |-
       SELECT "Adventure", "Works"
-    result: |
+    result: |-
       [
         {
           "$1": "Adventure",

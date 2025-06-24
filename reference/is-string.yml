@@ -2,20 +2,20 @@
 name: IS_STRING
 group: type-checking
 summary: An Azure Cosmos DB for NoSQL system function that returns true if the type of the specified expression is a string.
-description: |
+description: |-
   The `IS_STRING` function returns a boolean value indicating if the type of the specified expression is a string.
-syntax: |
+syntax: |-
   IS_STRING(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a boolean expression.
 examples:
   - title: Check if value is string
     description: In this example, the `IS_STRING` function is used to check various values to see if they're a string.
-    query: |
+    query: |-
       SELECT VALUE {
         isBooleanAString: IS_STRING(true),
         isNumberAString: IS_STRING(1),
@@ -27,7 +27,7 @@ examples:
         isObjectBooleanPropertyAString: IS_STRING({ "onSale": false }.onSale),
         isUndefinedAString: IS_STRING({}.category)
       }
-    result: |
+    result: |-
       [
         {
           "isBooleanAString": false,

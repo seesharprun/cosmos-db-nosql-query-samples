@@ -2,20 +2,20 @@
 name: TOSTRING
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a value converted to a string.
-description: |
+description: |-
   The `TOSTRING` function returns a string representation of a value.
-syntax: |
+syntax: |-
   TOSTRING(<expr>)
 arguments:
   - name: expr
     required: true
     description: Any expression.
-returns: |
+returns: |-
   Returns a string expression.
 examples:
   - title: Convert values to string
     description: In this example, the `TOSTRING` function is used to convert multiple scalar and object values to a string.
-    query: |
+    query: |-
       SELECT VALUE {
         integerToString: TOSTRING(125),
         floatToString: TOSTRING(0.1234),
@@ -27,7 +27,7 @@ examples:
         notANumberToString: TOSTRING(NaN),
         infinityToString: TOSTRING(Infinity)
       }
-    result: |
+    result: |-
       [
         {
           "integerToString": "125",

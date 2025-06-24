@@ -2,20 +2,20 @@
 name: STRINGTOARRAY
 group: string
 summary: An Azure Cosmos DB for NoSQL system function that returns a string expression converted to an array.
-description: |
+description: |-
   The `STRINGTOARRAY` function converts a string expression to an array.
-syntax: |
+syntax: |-
   STRINGTOARRAY(<string_expr>)
 arguments:
   - name: string_expr
     required: true
     description: A string expression.
-returns: |
+returns: |-
   Returns an array.
 examples:
   - title: Convert string to array
     description: In this example, the `STRINGTOARRAY` function is used to parse various string values into arrays.
-    query: |
+    query: |-
       SELECT VALUE {
         parseEmptyArray: STRINGTOARRAY("[]"),
         parseArray: STRINGTOARRAY('[ "coats", "gloves", "hats" ]'),
@@ -25,7 +25,7 @@ examples:
         parseUndefined: STRINGTOARRAY(undefined),
         parseNull: STRINGTOARRAY(null)
       }
-    result: |
+    result: |-
       [
         {
           "parseEmptyArray": [],

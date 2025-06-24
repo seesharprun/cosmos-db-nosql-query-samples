@@ -1,27 +1,27 @@
 ### YamlMime:NoSQLQueryReference
 name: MAX
 group: aggregation
-description: |
+description: |-
   The `MAX` function returns the maximum value of the specified expression.
-syntax: |
+syntax: |-
   MAX(<numeric_expr>)
 arguments:
   - name: numeric_expr
     required: true
     description: A numeric expression.
-returns: |
+returns: |-
   Returns a numeric scalar value.
 examples:
   - title: Maximum value for a property
     description: In this example, the `MAX` function is used to return the maximum value of the `price` property.
-    query: |
+    query: |-
       SELECT
         MAX(p.price) AS maxPrice
       FROM 
         products p
       WHERE
         p.category = "activity-bracelet"
-    result: |
+    result: |-
       [
         {
           "maxPrice": 71.76
