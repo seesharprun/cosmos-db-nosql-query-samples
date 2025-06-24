@@ -1,8 +1,0 @@
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Dictionary of Key-Value Pairs",
-  "type": "object",
-  "propertyNames": { "type": "string" },
-  "additionalProperties": { "type": "string" },
-  "minProperties": 1
-}

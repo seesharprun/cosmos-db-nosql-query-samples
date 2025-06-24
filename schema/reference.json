@@ -128,20 +128,7 @@
     "remarks": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "enum": [
-              "INCLUDE-RECOMMEND-RANGE-INDEX",
-              "INCLUDE-NOTIFY-NO-INDEX-USAGE",
-              "INCLUDE-NOTIFY-BINDING-STATIC",
-              "INCLUDE-DATE-FORMAT-ISO-8601-UNDEFINED",
-              "INCLUDE-DATE-FORMAT-ISO-8601-PARTS"
-            ]
-          }
-        ]
+        "type": "string"
       }
     },
     "related": {
