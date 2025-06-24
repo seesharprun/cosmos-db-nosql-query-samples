@@ -1,0 +1,55 @@
+name: DATETIMEPART
+group: date-and-time
+description: |-
+  The `DATETIMEPART` function returns the value of the specified date and time part for the provided date and time.
+syntax: |-
+  DATETIMEPART(<date_time_part>, <date_time>)
+arguments:
+  - name: date_time_part
+    required: true
+    description: A string representing a part of an ISO 8601 date format specification. This part is used to indicate which aspect of the date to extract and return.
+  - name: date_time
+    required: true
+    description: A Coordinated Universal Time (UTC) date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+returns: |-
+  Returns a numeric value that is a positive integer.
+examples:
+  - title: Extract date and time parts
+    description: In this example, the `DATETIMEPART` function is used to extract year, month, day, hour, minute, second, millisecond, microsecond, and nanosecond from a date.
+    query: |-
+      SELECT VALUE {
+        getYear: DATETIMEPART("yyyy", "2016-05-29T08:30:00.1301617"),
+        getMonth: DATETIMEPART("mm", "2016-05-29T08:30:00.1301617"),
+        getDay: DATETIMEPART("dd", "2016-05-29T08:30:00.1301617"),
+        getHour: DATETIMEPART("hh", "2016-05-29T08:30:00.1301617"),
+        getMinute: DATETIMEPART("mi", "2016-05-29T08:30:00.1301617"),
+        getSecond: DATETIMEPART("ss", "2016-05-29T08:30:00.1301617"),
+        getMillisecond: DATETIMEPART("ms", "2016-05-29T08:30:00.1301617"),
+        getMicrosecond: DATETIMEPART("mcs", "2016-05-29T08:30:00.1301617"),
+        getNanosecond: DATETIMEPART("ns", "2016-05-29T08:30:00.1301617")
+      }
+    result: |-
+      [
+        {
+          "getYear": 2016,
+          "getMonth": 5,
+          "getDay": 29,
+          "getHour": 8,
+          "getMinute": 30,
+          "getSecond": 0,
+          "getMillisecond": 130,
+          "getMicrosecond": 130161,
+          "getNanosecond": 130161700
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - |-
+    This function returns `undefined` for these reasons:
+      - The specified date and time part is invalid.
+      - The date and time isn't a valid **ISO 8601** date and time string.
+related:
+  - reference: datetimeadd.yml
+  - reference: datetimebin.yml
+  - reference: datetimediff.yml

@@ -11,35 +11,34 @@ arguments:
 returns: |-
   Returns a boolean expression.
 examples:
-  items:
-    - title: Check if values are null
-      description: In this example, the `IS_NULL` function is used to check various types for null values.
-      query: |-
-        SELECT VALUE {
-            booleanIsNull: IS_NULL(true),
-            numberIsNull: IS_NULL(15),
-            stringIsNull: IS_NULL("AdventureWorks"),
-            nullIsNull: IS_NULL(null),
-            objectIsNull: IS_NULL({price: 85.23}),
-            arrayIsNull: IS_NULL(["red", "blue", "yellow"]),
-            populatedObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.quantity),
-            invalidObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.size),
-            nullObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.vendor)
+  - title: Check if values are null
+    description: In this example, the `IS_NULL` function is used to check various types for null values.
+    query: |-
+      SELECT VALUE {
+        booleanIsNull: IS_NULL(true),
+        numberIsNull: IS_NULL(15),
+        stringIsNull: IS_NULL("AdventureWorks"),
+        nullIsNull: IS_NULL(null),
+        objectIsNull: IS_NULL({price: 85.23}),
+        arrayIsNull: IS_NULL(["red", "blue", "yellow"]),
+        populatedObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.quantity),
+        invalidObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.size),
+        nullObjectPropertyIsNull: IS_NULL({quantity: 25, vendor: null}.vendor)
+      }
+    result: |-
+      [
+        {
+          "booleanIsNull": false,
+          "numberIsNull": false,
+          "stringIsNull": false,
+          "nullIsNull": true,
+          "objectIsNull": false,
+          "arrayIsNull": false,
+          "populatedObjectPropertyIsNull": false,
+          "invalidObjectPropertyIsNull": false,
+          "nullObjectPropertyIsNull": true
         }
-      result: |-
-        [
-          {
-            "booleanIsNull": false,
-            "numberIsNull": false,
-            "stringIsNull": false,
-            "nullIsNull": true,
-            "objectIsNull": false,
-            "arrayIsNull": false,
-            "populatedObjectPropertyIsNull": false,
-            "invalidObjectPropertyIsNull": false,
-            "nullObjectPropertyIsNull": true
-          }
-        ]
+      ]
 remarks:
   - This function benefits from a range index.
 related:

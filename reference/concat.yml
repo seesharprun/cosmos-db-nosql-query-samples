@@ -1,0 +1,63 @@
+name: CONCAT
+group: string
+description: |-
+  The `CONCAT` function returns a string that is the result of concatenating multiple fields from a document.
+syntax: |-
+  CONCAT(<string_expr_1>, <string_expr_2> [, <string_expr_N>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: The first string expression in the list.
+  - name: string_expr_2
+    required: true
+    description: The second string expression in the list.
+  - name: string_expr_N
+    required: false
+    description: Optional string expression(s), which can contain a variable number of expressions up to the Nth item in the list.
+argumentsNote: |-
+  The `CONCAT` function requires at least two string expression arguments.
+returns: |-
+  Returns a string expression.
+examplesSample:
+  set: products
+  query: |-
+    SELECT
+      p.name,
+      p.category,
+      p.sku,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "gear-climb-ropes"
+examples:
+  - title: Concatenate strings
+    description: In this example, the `CONCAT` function is used to concatenate two arbitrary strings.
+    query: |-
+      SELECT VALUE
+        CONCAT("Ferpal", "Ropes")
+    result: |-
+      [
+        "FerpalRopes"
+      ]
+  - title: Concatenate product fields
+    description: In this example, the `CONCAT` function is used to concatenate fields from a product in the "heavy-coats" category.
+    query: |-
+      SELECT VALUE
+        CONCAT(p.sku, "-", p.detailCategory)
+      FROM
+        products p
+      WHERE
+        p.detailCategory = "gear-climb-ropes"
+    result: |-
+      [
+        "66403-gear-climb-ropes",
+        "66404-gear-climb-ropes",
+        "66400-gear-climb-ropes",
+        "66401-gear-climb-ropes",
+        "66402-gear-climb-ropes"
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: contains.yml

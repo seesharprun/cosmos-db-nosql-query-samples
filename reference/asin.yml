@@ -1,0 +1,32 @@
+name: ASIN
+group: mathematical
+description: |-
+  The `ASIN` function calculates the trigonometric arcsine of the specified numeric value. The arcsine is the angle, in radians, whose sine is the specified numeric expression.
+syntax: |-
+  ASIN(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Arcsine of a value
+    description: In this example, the `ASIN` function is used to calculate the arcsine of -1.
+    query: |-
+      SELECT VALUE {
+        arcsine: ACOS(-1)
+      }
+    result: |-
+      [
+        {
+          "arcsine": 3.141592653589793
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: acos.yml
+  - reference: atan.yml
+  - reference: sin.yml
+  - reference: cos.yml

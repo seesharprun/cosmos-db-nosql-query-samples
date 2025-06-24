@@ -1,0 +1,57 @@
+name: DATETIMEFROMPARTS
+group: date-and-time
+description: |-
+  The `DATETIMEFROMPARTS` function returns a date and time string value constructed from input numeric values for various date and time parts.
+syntax: |-
+  DATETIMEFROMPARTS(<numeric_year>, <numeric_month>, <numeric_day> [, <numeric_hour>] [, <numeric_minute>] [, <numeric_second>] [, <numeric_second_fraction>])
+arguments:
+  - name: numeric_year
+    required: true
+    description: A positive numeric integer value for the year (ISO 8601 format yyyy).
+  - name: numeric_month
+    required: true
+    description: A positive numeric integer value for the month (ISO 8601 format mm).
+  - name: numeric_day
+    required: true
+    description: A positive numeric integer value for the day (ISO 8601 format dd).
+  - name: numeric_hour
+    required: false
+    description: An optional positive numeric integer value for the hour (ISO 8601 format hh). If not specified, the default value is 0.
+  - name: numeric_minute
+    required: false
+    description: An optional positive numeric integer value for the minute (ISO 8601 format mm). If not specified, the default value is 0.
+  - name: numeric_second
+    required: false
+    description: An optional positive numeric integer value for the second (ISO 8601 format ss). If not specified, the default value is 0.
+  - name: numeric_second_fraction
+    required: false
+    description: An optional positive numeric integer value for the fractional of a second (ISO 8601 format fffffffZ). If not specified, the default value is 0.
+returns: |-
+  Returns a date and time string value.
+examples:
+  - title: Construct date and time from parts
+    description: In this example, the `DATETIMEFROMPARTS` function is used to construct date and time values from various arguments.
+    query: |-
+      SELECT VALUE {
+        constructMinArguments: DATETIMEFROMPARTS(2017, 4, 20),
+        constructMinEquivalent: DATETIMEFROMPARTS(2017, 4, 20, 0, 0, 0, 0),
+        constructAllArguments: DATETIMEFROMPARTS(2017, 4, 20, 13, 15, 20, 3456789),
+        constructPartialArguments: DATETIMEFROMPARTS(2017, 4, 20, 13, 15),
+        constructInvalidArguments: DATETIMEFROMPARTS(-2000, -1, -1)
+      }
+    result: |-
+      [
+        {
+          "constructMinArguments": "2017-04-20T00:00:00.0000000Z",
+          "constructMinEquivalent": "2017-04-20T00:00:00.0000000Z",
+          "constructAllArguments": "2017-04-20T13:15:20.3456789Z",
+          "constructPartialArguments": "2017-04-20T13:15:00.0000000Z"
+        }
+      ]
+remarks:
+  - If the specified integers would create an invalid date and time, the function returns `undefined`.
+related:
+  - reference: datetimefromparts.yml
+  - reference: datetimepart.yml
+  - reference: datetimetoticks.yml
+  - reference: datetimetotimestamp.yml

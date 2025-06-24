@@ -1,0 +1,79 @@
+name: CHOOSE
+group: array
+description: |-
+  The `CHOOSE` function returns the expression at the specified index of a list, or Undefined if the index exceeds the bounds of the list.
+syntax: |-
+  CHOOSE(<numeric_expr>, <expr_1> [, <expr_N>])
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression, which specifies the index used to get a specific expression in the list. The starting index of the list is `1`.
+  - name: expr_1
+    required: true
+    description: The first expression in the list.
+  - name: expr_N
+    required: false
+    description: Optional expression(s), which can contain a variable number of expressions up to the Nth item in the list.
+returns: |-
+  Returns an expression, which could be of any type.
+examplesSample:
+  set: products
+  query: |-
+    SELECT
+      p.name,
+      p.category,
+      p.sku,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "gear-hike-hydration-packs"
+examples:
+  - title: Choose from a list
+    description: In this example, the `CHOOSE` function is used to select the value at index 1.
+    query: |-
+      SELECT VALUE 
+        CHOOSE(1, "Vimero", "Hydration", "Pack")
+    result: |-
+      [
+        "Vimero"
+      ]
+  - title: Choose by index
+    description: In this example, the `CHOOSE` function is used to select values at different indexes.
+    query: |-
+      SELECT VALUE {
+        index_0: CHOOSE(0, "Mt.", "Hood", "Hydration", "Pack"),
+        index_1: CHOOSE(1, "Mt.", "Hood", "Hydration", "Pack"),
+        index_2: CHOOSE(2, "Mt.", "Hood", "Hydration", "Pack"),
+        index_3: CHOOSE(3, "Mt.", "Hood", "Hydration", "Pack"),
+        index_4: CHOOSE(4, "Mt.", "Hood", "Hydration", "Pack"),
+        index_5: CHOOSE(5, "Mt.", "Hood", "Hydration", "Pack")
+      }
+    result: |-
+      [
+        {
+          "index_1": "Mt.",
+          "index_2": "Hood",
+          "index_3": "Hydration",
+          "index_4": "Pack"
+        }
+      ]
+  - title: Choose field from product
+    description: In this example, the `CHOOSE` function is used to select the third field from products in the "short-fins" category.
+    query: |-
+      SELECT VALUE
+        CHOOSE(3, p.category, p.name, p.sku)
+      FROM
+        products p
+      WHERE
+        p.detailCategory = "gear-hike-hydration-packs"
+    result: |-
+      [
+        "69500",
+        "69501"
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function uses *one-based indexing*, meaning that the first item in the list is at index `1` instead of the typical zero-based indexing found in many programming languages.
+related:
+  - reference: array-length.yml

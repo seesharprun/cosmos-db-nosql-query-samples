@@ -1,0 +1,29 @@
+name: GETCURRENTTICKS
+group: date-and-time
+description: |-
+  The `GETCURRENTTICKS` function returns the current UTC time as the number of 100-nanosecond intervals (ticks) that have elapsed since 0001-01-01T00:00:00.0000000Z.
+syntax: |-
+  GETCURRENTTICKS()
+arguments: []
+returns: |-
+  Returns the current UTC time as a long integer (number of ticks).
+examples:
+  - title: Get current ticks
+    description: In this example, the `GETCURRENTTICKS` function is used to return the current UTC time as ticks.
+    query: |-
+      SELECT VALUE {
+        currentTicks: GETCURRENTTICKS()
+      }
+    result: |-
+      [
+        {
+          "currentTicks": 15973607943002652
+        }
+      ]
+remarks:
+  - The value returned is the number of 100-nanosecond intervals since 0001-01-01T00:00:00.0000000Z.
+related:
+  - reference: getcurrentdatetime.yml
+  - reference: getcurrentdatetimestatic.yml
+system:
+  - SKIP-VALIDATION

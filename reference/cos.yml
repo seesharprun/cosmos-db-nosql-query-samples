@@ -1,0 +1,32 @@
+name: COS
+group: mathematical
+description: |-
+  The `COS` function calculates the trigonometric cosine of the specified angle in radians.
+syntax: |-
+  COS(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Cosine of a value
+    description: In this example, the `COS` function is used to calculate the cosine of 14.78 radians.
+    query: |-
+      SELECT VALUE {
+        cosine: COS(14.78)
+      }
+    result: |-
+      [
+        {
+          "cosine": -0.5994654261946543
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: cot.yml
+  - reference: tan.yml
+  - reference: atan.yml
+  - reference: asin.yml

@@ -10,36 +10,35 @@ arguments:
     description: A numeric expression to calculate the average from.
 returns: |-
   Returns a numeric scalar value.
+examplesSample:
+  set: products
+  query: |-
+    SELECT
+      p.name,
+      p.price,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "apparel-accessories-watches"
 examples:
-  sample:
-    set: products
+  - title: Average value for a single property
+    description: In this example, the `AVG` function is used to average the values of the `price` property into a single aggregated value.
     query: |-
       SELECT
-        p.name,
-        p.price,
-        p.detailCategory
+        AVG(p.price) AS averagePrice
       FROM
         products p
       WHERE
         p.detailCategory = "apparel-accessories-watches"
-  items:
-    - title: Average value for a single property
-      description: In this example, the `AVG` function is used to average the values of the `price` property into a single aggregated value.
-      query: |-
-        SELECT
-          AVG(p.price) AS averagePrice
-        FROM
-          products p
-        WHERE
-          p.detailCategory = "apparel-accessories-watches"
-      result: |-
-        [
-          {
-            "averagePrice": 101.5
-          }
-        ]
+    result: |-
+      [
+        {
+          "averagePrice": 101.5
+        }
+      ]
 remarks:
-  - STATIC-RECOMMEND-RANGE-INDEX
+  - INCLUDE-RECOMMEND-RANGE-INDEX
   - If any arguments in `AVG` are string, boolean, or null; the entire aggregation system function returns `undefined`.
   - If any argument has an `undefined` value, that specific value isn't included in the `AVG` calculation.
 related:

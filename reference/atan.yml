@@ -1,0 +1,32 @@
+name: ATAN
+group: mathematical
+description: |-
+  The `ATAN` function calculates the trigonometric arctangent of the specified numeric value. The arctangent is the angle, in radians, whose tangent is the specified numeric expression.
+syntax: |-
+  ATAN(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Arctangent of a value
+    description: In this example, the `ATAN` function is used to calculate the arctangent of -45.01.
+    query: |-
+      SELECT VALUE {
+        arctangent: ATAN(-45.01)
+      }
+    result: |-
+      [
+        {
+          "arctangent": -1.5485826962062663
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: acos.yml
+  - reference: atn2.yml
+  - reference: sin.yml
+  - reference: cos.yml

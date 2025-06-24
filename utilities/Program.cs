@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Text.RegularExpressions;
 using AutoMapper;
 using Humanizer;
 using Microsoft.Azure.Cosmos;
@@ -111,73 +110,57 @@ await AnsiConsole.Live(tree)
         }
 
         foreach (NoSQLQueryReference reference in referenceDictionary.Values)
+        {
+            if (reference is not null)
             {
-                if (reference is not null)
+                ReferenceTemplateContext context = mapper.Map<ReferenceTemplateContext>(reference) with
                 {
-                    /*List<NoSQLQueryReferenceExample> examples = reference.Examples?.Items?.ToList() ?? [];
-
-                    if (reference.Examples?.Sample?.Query is not null && reference.Examples?.Items is not null)
+                    Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
+                    Resources = reference.Related?.Select(r => new ReferenceTemplateContextResource
                     {
-                        bool sampleSetHasFilter = Patterns.FilterMatchRegex().IsMatch(reference.Examples.Sample.Query);
+                        File = Path.ChangeExtension(r.Reference, extension: default),
+                        Title = referenceDictionary.TryGetValue(Path.GetFileNameWithoutExtension(r.Reference).ToLowerInvariant(), out NoSQLQueryReference? relatedReference) ? relatedReference.Name : "<error>",
+                    }) ?? [],
+                    RenderArguments = reference.Parameters?.Any() ?? false,
+                    RenderExamples = reference.Examples?.Items?.Any() ?? false,
+                    UseSample = reference.Examples?.Sample is not null,
+                    RenderRemarks = reference.Remarks?.Any() ?? false,
+                    RenderSummary = reference.Summary is not null,
+                    RemarksList = reference.Remarks?.Select(r => remarksDictionary.TryGetValue(r, out string? remark) ? remark : r) ?? [],
+                };
 
-                        if (sampleSetHasFilter)
-                        {
-                            string filter = Patterns.FilterMatchRegex().Match(reference.Examples.Sample.Query).Groups[1].Value.Trim();
-
-                            Regex filterPattern = new(@$"WHERE\s+{Regex.Escape(filter).Replace(@"\ ", @"\s+")}", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-                            examples = [.. reference.Examples.Items.Select(item => item with { Query = filterPattern.Replace(item.Query, string.Empty).Trim() })];
-                        }
-                    }*/
-
-                    ReferenceTemplateContext context = mapper.Map<ReferenceTemplateContext>(reference) with
+                if (context.UseSample && context.Examples?.Sample?.Query is not null)
+                {
+                    context = context with
                     {
-                        Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
-                        Resources = reference.Related?.Select(r => new ReferenceTemplateContextResource
-                        {
-                            File = Path.ChangeExtension(r.Reference, extension: default),
-                            Title = referenceDictionary.TryGetValue(Path.GetFileNameWithoutExtension(r.Reference).ToLowerInvariant(), out NoSQLQueryReference? relatedReference) ? relatedReference.Name : "<error>",
-                        }) ?? [],
-                        RenderArguments = reference.Parameters?.Any() ?? false,
-                        RenderExamples = reference.Examples?.Items?.Any() ?? false,
-                        UseSample = reference.Examples?.Sample is not null,
-                        RenderRemarks = reference.Remarks?.Any() ?? false,
-                        RenderSummary = reference.Summary is not null,
-                        RemarksList = reference.Remarks?.Select(r => remarksDictionary.TryGetValue(r, out string? remark) ? remark : r) ?? [],
+                        SampleJson = await container.GetResultJsonAsync(context.Examples.Sample.Query)
                     };
-
-                    if (context.UseSample && context.Examples?.Sample?.Query is not null)
-                    {
-                        context = context with
-                        {
-                            SampleJson = await container.GetResultJsonAsync(context.Examples.Sample.Query)
-                        };
-                    }
-
-                    string output = referenceRenderer(context);
-
-                    string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
-
-                    if (!Directory.Exists(outDir))
-                    {
-                        Directory.CreateDirectory(outDir);
-                    }
-
-                    string outFile = Path.Combine(outDir, $"{reference.Name.Transform(To.LowerCase).Kebaberize()}.md");
-
-                    string relativeOutFile = Path.GetRelativePath(outDir, outFile);
-
-                    TreeNode node = nodeDictionary[reference.Name.ToLowerInvariant()];
-                    node.AddNode($"[blue]Writing to [italic link]{relativeOutFile}[/][/]");
-                    console.Refresh();
-
-                    using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
-                    using StreamWriter fileWriter = new(fileStream);
-                    await fileWriter.WriteAsync(output);
-
-                    links.Add(($"{reference.Group}", reference.Name, relativeOutFile, reference.Description));
                 }
+
+                string output = referenceRenderer(context);
+
+                string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+
+                if (!Directory.Exists(outDir))
+                {
+                    Directory.CreateDirectory(outDir);
+                }
+
+                string outFile = Path.Combine(outDir, $"{reference.Name.Transform(To.LowerCase).Kebaberize()}.md");
+
+                string relativeOutFile = Path.GetRelativePath(outDir, outFile);
+
+                TreeNode node = nodeDictionary[reference.Name.ToLowerInvariant()];
+                node.AddNode($"[blue]Writing to [italic link]{relativeOutFile}[/][/]");
+                console.Refresh();
+
+                using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+                using StreamWriter fileWriter = new(fileStream);
+                await fileWriter.WriteAsync(output);
+
+                links.Add(($"{reference.Group}", reference.Name, relativeOutFile, reference.Description));
             }
+        }
 
         {
             TreeNode node = tree.AddNode("[green]Writing landing page...[/]");

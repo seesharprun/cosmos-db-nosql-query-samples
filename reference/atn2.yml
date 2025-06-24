@@ -1,0 +1,35 @@
+name: ATN2
+group: mathematical
+description: |-
+  The `ATN2` function calculates the principal value of the arctangent of `y/x`, expressed in radians.
+syntax: |-
+  ATN2(<numeric_expr_y>, <numeric_expr_x>)
+arguments:
+  - name: numeric_expr_y
+    required: true
+    description: A numeric expression for the `y` component.
+  - name: numeric_expr_x
+    required: true
+    description: A numeric expression for the `x` component.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Arctangent for y/x
+    description: In this example, the `ATN2` function is used to calculate the arctangent for the specified `x` and `y` components.
+    query: |-
+      SELECT VALUE {
+        arctangentInRadians: ATN2(35.175643, 129.44)
+      }
+    result: |-
+      [
+        {
+          "arctangentInRadians": 0.265344532064832
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: acos.yml
+  - reference: atan.yml
+  - reference: asin.yml
+  - reference: cos.yml

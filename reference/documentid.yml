@@ -1,0 +1,54 @@
+name: DOCUMENTID
+group: item
+description: |-
+  The `DOCUMENTID` function returns the unique document ID for a given item in the container. This can be used for filtering or retrieving the document's internal identifier.
+syntax: |-
+  DOCUMENTID(<item_expr>)
+arguments:
+  - name: item_expr
+    required: true
+    description: The item or alias representing the document.
+returns: |-
+  Returns the unique document ID as a numeric value.
+examples:
+  - title: Retrieve document ID
+    description: In this example, the `DOCUMENTID` function is used to get the internal document ID for each product.
+    query: |-
+      SELECT
+        p.id,
+        p._rid,
+        DOCUMENTID(p) AS documentId
+      FROM  
+        product p
+    result: |-
+      [
+        {
+          "id": "5741047452",
+          "_rid": "36ZyAPW+uN8NAAAAAAAAAA==",
+          "documentId": 13
+        }
+      ]
+  - title: Filter by document ID range
+    description: In this example, the `DOCUMENTID` function is used in a WHERE clause to filter documents by their internal ID.
+    query: |-
+      SELECT
+        p.id,
+        DOCUMENTID(p) AS documentId
+      FROM  
+        product p
+      WHERE
+        DOCUMENTID(p) >= 5 AND
+        DOCUMENTID(p) <= 15
+    result: |-
+      [
+        {
+          "id": "5720559175",
+          "documentId": 13
+        }
+      ]
+remarks:
+  - This function returns an integer value that is only unique within a single physical partition.
+related:
+  - reference: is-object.yml
+system:
+  - SKIP-VALIDATION

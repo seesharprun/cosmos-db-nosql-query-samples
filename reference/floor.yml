@@ -1,7 +1,7 @@
 name: FLOOR
 group: mathematical
 description: |-
-  The `FLOOR` function returns the largest integer less than or equal to the specified numeric expression.
+  The `FLOOR` function calculates the largest integer less than or equal to the specified numeric expression.
 syntax: |-
   FLOOR(<numeric_expr>)
 arguments:
@@ -11,27 +11,27 @@ arguments:
 returns: |-
   Returns a numeric expression.
 examples:
-  items:
-    - title: Floor of various numbers
-      description: In this example, the `FLOOR` function is used on positive, negative, and zero values.
-      query: |-
-        SELECT VALUE {
-            floorPostiveNumber: FLOOR(62.6),
-            floorNegativeNumber: FLOOR(-145.12),
-            floorSmallNumber: FLOOR(0.2989),
-            floorZero: FLOOR(0.0),
-            floorNull: FLOOR(null)
+  - title: Floor of various numbers
+    description: In this example, the `FLOOR` function is used on positive, negative, and zero values.
+    query: |-
+      SELECT VALUE {
+        floorPostiveNumber: FLOOR(62.6),
+        floorNegativeNumber: FLOOR(-145.12),
+        floorSmallNumber: FLOOR(0.2989),
+        floorZero: FLOOR(0.0),
+        floorNull: FLOOR(null)
+      }
+    result: |-
+      [
+        {
+          "floorPostiveNumber": 62,
+          "floorNegativeNumber": -146,
+          "floorSmallNumber": 0,
+          "floorZero": 0
         }
-      result: |-
-        [
-          {
-            "floorPostiveNumber": 62,
-            "floorNegativeNumber": -146,
-            "floorSmallNumber": 0,
-            "floorZero": 0
-          }
-        ]
+      ]
 remarks:
-  - This system function benefits from a range index.
+  - STATIC-RECOMMEND-RANGE-INDEX
 related:
-  - reference: avg.yml
+  - reference: ceiling.yml
+  - reference: round.yml

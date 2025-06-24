@@ -31,7 +31,8 @@
       ]
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^The `[A-Za-z0-9_]+` function (returns|calculates|converts) .*"
     },
     "summary": {
       "type": "string"
@@ -61,65 +62,64 @@
         "additionalProperties": false
       }
     },
+    "argumentsNote": {
+      "type": "string"
+    },
     "returns": {
+      "type": "string",
+      "pattern": "^Returns .*"
+    },
+    "returnsNote": {
       "type": "string"
     },
     "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "query",
+          "result"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "pattern": "^In this example, .*"
+          },
+          "query": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "additionalProperties": false
+    },
+    "examplesSample": {
       "type": "object",
       "required": [
-        "items"
+        "set",
+        "query"
       ],
       "properties": {
-        "sample": {
-          "type": "object",
-          "required": [
-            "set",
-            "query"
-          ],
-          "properties": {
-            "set": {
-              "type": "string",
-              "enum": [
-                "products",
-                "employees"
-              ]
-            },
-            "query": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
+        "set": {
+          "type": "string",
+          "enum": [
+            "products",
+            "employees"
+          ]
         },
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "title",
-              "description",
-              "query",
-              "result"
-            ],
-            "properties": {
-              "title": {
-                "type": "string"
-              },
-              "explanation": {
-                "type": "string"
-              },
-              "description": {
-                "type": "string",
-                "pattern": "^In this example, .*"
-              },
-              "query": {
-                "type": "string"
-              },
-              "result": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
-          }
+        "query": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -133,12 +133,15 @@
           },
           {
             "enum": [
-              "STATIC-RECOMMEND-RANGE-INDEX"
+              "INCLUDE-RECOMMEND-RANGE-INDEX",
+              "INCLUDE-NOTIFY-NO-INDEX-USAGE",
+              "INCLUDE-NOTIFY-BINDING-STATIC",
+              "INCLUDE-DATE-FORMAT-ISO-8601-UNDEFINED",
+              "INCLUDE-DATE-FORMAT-ISO-8601-PARTS"
             ]
           }
         ]
-      },
-      "description": "A list of remarks, each can be a custom string or one of the predefined enum values."
+      }
     },
     "related": {
       "type": "array",
@@ -154,6 +157,14 @@
           }
         },
         "additionalProperties": false
+      }
+    },
+    "system": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "SKIP-VALIDATION"
+        ]
       }
     }
   },

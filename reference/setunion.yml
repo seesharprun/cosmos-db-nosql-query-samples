@@ -1,7 +1,7 @@
 name: SETUNION
 group: array
 description: |-
-  The `SetUnion` function gathers expressions in two sets and returns a set of expressions containing all expressions in both sets with no duplicates.
+  The `SETUNION` function returns a set of expressions containing all expressions from two gathered sets with no duplicates.
 syntax: |-
   SetUnion(<array_expr_1>, <array_expr_2>)
 arguments:
@@ -14,50 +14,49 @@ arguments:
 returns: |-
   Returns an array of expressions.
 examples:
-  items:
-    - title: Union of static arrays
-      description: In this example, the `SetUnion` function is used with static arrays to demonstrate the union functionality.
-      query: |-
-        SELECT VALUE {
-            simpleUnion: SetUnion([1, 2, 3, 4], [3, 4, 5, 6]),
-            emptyUnion: SetUnion([1, 2, 3, 4], []),
-            duplicatesUnion: SetUnion([1, 2, 3, 4], [1, 1, 1, 1]),
-            unorderedUnion: SetUnion([1, 2, "A", "B"], ["A", 1])
+  - title: Union of static arrays
+    description: In this example, the `SetUnion` function is used with static arrays to demonstrate the union functionality.
+    query: |-
+      SELECT VALUE {
+        simpleUnion: SetUnion([1, 2, 3, 4], [3, 4, 5, 6]),
+        emptyUnion: SetUnion([1, 2, 3, 4], []),
+        duplicatesUnion: SetUnion([1, 2, 3, 4], [1, 1, 1, 1]),
+        unorderedUnion: SetUnion([1, 2, "A", "B"], ["A", 1])
+      }
+    result: |-
+      [
+        {
+          "simpleUnion": [1, 2, 3, 4, 5, 6],
+          "emptyUnion": [1,2,3,4],
+          "duplicatesUnion": [1,2,3,4],
+          "unorderedUnion": [1,2,"A","B"]
         }
-      result: |-
-        [
-          {
-            "simpleUnion": [1, 2, 3, 4, 5, 6],
-            "emptyUnion": [1,2,3,4],
-            "duplicatesUnion": [1,2,3,4],
-            "unorderedUnion": [1,2,"A","B"]
-          }
-        ]
-    - title: Union of array properties in documents
-      description: In this example, the function returns the union of two array properties as a new property.
-      query: |-
-        SELECT
-            p.name,
-            SetUnion(p.colors[0].values, p.colors[1].values) AS allColors
-        FROM
-            products p
-        WHERE
-            p.category = "seasonal-coats"
-      result: |-
-        [
-          {
-            "name": "Malsca coat",
-            "allColors": [
-              "Cutty Sark",
-              "Horizon",
-              "Russet",
-              "Fuscous",
-              "Tacha"
-            ]
-          }
-        ]
-remarks:
+      ]
+  - title: Union of array properties in documents
+    description: In this example, the function returns the union of two array properties as a new property.
+    query: |-
+      SELECT
+        p.name,
+        SetUnion(p.colors[0].values, p.colors[1].values) AS allColors
+      FROM
+        products p
+      WHERE
+        p.category = "seasonal-coats"
+    result: |-
+      [
+        {
+          "name": "Malsca coat",
+          "allColors": [
+            "Cutty Sark",
+            "Horizon",
+            "Russet",
+            "Fuscous",
+            "Tacha"
+          ]
+        }
+      ]
+remarks:  
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
   - This function doesn't return duplicates.
-  - This function doesn't use the index.
 related:
   - reference: array-contains.yml

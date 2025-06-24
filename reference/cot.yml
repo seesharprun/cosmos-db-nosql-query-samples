@@ -1,0 +1,32 @@
+name: COT
+group: mathematical
+description: |-
+  The `COT` function calculates the trigonometric cotangent of the specified angle in radians.
+syntax: |-
+  COT(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Cotangent of a value
+    description: In this example, the `COT` function is used to calculate the cotangent of 124.1332 radians.
+    query: |-
+      SELECT VALUE {
+        cotangent: COT(124.1332)
+      }
+    result: |-
+      [
+        {
+          "cotangent": -0.040311998371148884
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: cos.yml
+  - reference: sin.yml
+  - reference: asin.yml
+  - reference: atan.yml

@@ -1,0 +1,45 @@
+name: CONTAINS
+group: string
+description: |-
+  The `CONTAINS` function returns a boolean indicating whether the first string expression contains the second string expression.
+syntax: |-
+  CONTAINS(<string_expr_1>, <string_expr_2> [, <bool_expr>])
+arguments:
+  - name: string_expr_1
+    required: true
+    description: The first string to search.
+  - name: string_expr_2
+    required: true
+    description: The second string to find.
+  - name: bool_expr
+    required: false
+    description: Optional boolean value for ignoring case. When set to `true`, `CONTAINS` performs a case-insensitive search. When `unspecified`, this value defaults to `false`.
+returns: |-
+  Returns a boolean expression.
+examples:
+  - title: Contains string examples
+    description: In this example, the `CONTAINS` function is used to check for substrings in a string.
+    query: |-
+      SELECT VALUE {
+        containsPrefix: CONTAINS("AdventureWorks", "Adventure"), 
+        containsSuffix: CONTAINS("AdventureWorks", "Works"),
+        containsWrongCase: CONTAINS("AdventureWorks", "adventure"), 
+        containsWrongCaseValidateCase: CONTAINS("AdventureWorks", "adventure", false), 
+        containsWrongCaseIgnoreCase: CONTAINS("AdventureWorks", "works", true),
+        containsMismatch: CONTAINS("AdventureWorks", "Contoso")
+      }
+    result: |-
+      [
+        {
+          "containsPrefix": true,
+          "containsSuffix": true,
+          "containsWrongCase": false,
+          "containsWrongCaseValidateCase": false,
+          "containsWrongCaseIgnoreCase": true,
+          "containsMismatch": false
+        }
+      ]
+remarks:
+  - This function performs a full scan.
+related:
+  - reference: concat.yml

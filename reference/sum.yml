@@ -10,34 +10,33 @@ arguments:
     description: A numeric expression to sum.
 returns: |-
   Returns a numeric scalar value.
+examplesSample:
+  set: products
+  query: |-
+    SELECT 
+      p.name,
+      p.quantity,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "gear-hike-backpacks"
 examples:
-  sample:
-    set: products
+  - title: Sum values for a single property
+    description: In this example, the `SUM` function is used to sum the values of the `quantity` property into a single aggregated value.
     query: |-
-      SELECT 
-        p.name,
-        p.quantity,
-        p.detailCategory
+      SELECT VALUE
+        SUM(p.quantity)
       FROM
         products p
       WHERE
         p.detailCategory = "gear-hike-backpacks"
-  items:
-    - title: Sum values for a single property
-      description: In this example, the `SUM` function is used to sum the values of the `quantity` property into a single aggregated value.
-      query: |-
-        SELECT VALUE
-          SUM(p.quantity)
-        FROM
-          products p
-        WHERE
-          p.detailCategory = "gear-hike-backpacks"
-      result: |-
-        [
-          617
-        ]
+    result: |-
+      [
+        617
+      ]
 remarks:
-  - STATIC-RECOMMEND-RANGE-INDEX
+  - INCLUDE-RECOMMEND-RANGE-INDEX
   - If any arguments in `SUM` are string, boolean, or null; the entire aggregate system function returns `undefined`.
   - If any individual argument has an `undefined` value, that value isn't included in the `SUM` calculation.
 related:

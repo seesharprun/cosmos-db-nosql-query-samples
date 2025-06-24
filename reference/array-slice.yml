@@ -1,0 +1,89 @@
+name: ARRAY_SLICE
+group: array
+description: |-
+  The `ARRAY_SLICE` function returns a subset of an array expression using the index and length specified.
+syntax: |-
+  ARRAY_SLICE(<array_expr>, <numeric_expr_1> [, <numeric_expr_2>])
+arguments:
+  - name: array_expr
+    required: true
+    description: An array expression.
+  - name: numeric_expr_1
+    required: true
+    description: A numeric expression indicating the index where to begin the array for the subset. Optionally, negative values can be used to specify the starting index relative to the last element of the array.
+  - name: numeric_expr_2
+    required: false
+    description: An optional numeric expression indicating the maximum length of elements in the resulting array.
+returns: |-
+  Returns an array expression.
+examples:
+  - title: Array slice examples
+    description: In this example, the `ARRAY_SLICE` function is used to get subsets of an array.
+    query: |-
+      SELECT VALUE {
+        sliceFromStart: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], 0),
+        sliceFromSecond: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], 1),
+        sliceFromLast: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], -1),
+        sliceFromSecondToLast: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], -2),
+        sliceThreeFromStart: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], 0, 3),
+        sliceTwelveFromStart: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], 0, 12),
+        sliceFiveFromThird: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], 3, 5),
+        sliceOneFromSecondToLast: ARRAY_SLICE(["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf"], -2, 1)
+      }
+    result: |-
+      [
+        {
+          "sliceFromStart": [
+            "Alpha",
+            "Bravo",
+            "Charlie",
+            "Delta",
+            "Echo",
+            "Foxtrot",
+            "Golf"
+          ],
+          "sliceFromSecond": [
+            "Bravo",
+            "Charlie",
+            "Delta",
+            "Echo",
+            "Foxtrot",
+            "Golf"
+          ],
+          "sliceFromLast": [
+            "Golf"
+          ],
+          "sliceFromSecondToLast": [
+            "Foxtrot",
+            "Golf"
+          ],
+          "sliceThreeFromStart": [
+            "Alpha",
+            "Bravo",
+            "Charlie"
+          ],
+          "sliceTwelveFromStart": [
+            "Alpha",
+            "Bravo",
+            "Charlie",
+            "Delta",
+            "Echo",
+            "Foxtrot",
+            "Golf"
+          ],
+          "sliceFiveFromThird": [
+            "Delta",
+            "Echo",
+            "Foxtrot",
+            "Golf"
+          ],
+          "sliceOneFromSecondToLast": [
+            "Foxtrot"
+          ]
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: array-length.yml
+  - reference: array-concat.yml

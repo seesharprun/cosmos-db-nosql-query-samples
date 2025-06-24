@@ -1,0 +1,56 @@
+name: DATETIMEBIN
+group: date-and-time
+description: |-
+  The `DATETIMEBIN` function returns a date and time string value that is the result of binning (or rounding) a part of the provided date and time string.
+syntax: |-
+  DATETIMEBIN(<date_time>, <date_time_part> [, <bin_size>] [, <bin_start_date_time>])
+arguments:
+  - name: date_time
+    required: true
+    description: A Coordinated Universal Time (UTC) date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+  - name: date_time_part
+    required: true
+    description: A string representing a part of an ISO 8601 date format specification. This part is used to indicate which aspect of the date to bin.
+  - name: bin_size
+    required: false
+    description: An optional numeric value specifying the size of the bin. If not specified, the default value is `1`.
+  - name: bin_start_date_time
+    required: false
+    description: An optional UTC date and time string in the ISO 8601 format. If not specified, the default value is the Unix epoch `1970-01-01T00:00:00.000000Z`.
+returns: |-
+  Returns a date and time string value.
+examples:
+  - title: Bin date and time values
+    description: In this example, the `DATETIMEBIN` function is used to bin a date and time by day, hour, second, and with custom bin sizes and start dates.
+    query: |-
+      SELECT VALUE {
+        binDay: DATETIMEBIN("2021-01-08T18:35:00.0000000", "dd"),
+        binHour: DATETIMEBIN("2021-01-08T18:35:00.0000000", "hh"),
+        binSecond: DATETIMEBIN("2021-01-08T18:35:00.0000000", "ss"),
+        binFiveHours: DATETIMEBIN("2021-01-08T18:35:00.0000000", "hh", 5),
+        binSevenDaysUnixEpoch: DATETIMEBIN("2021-01-08T18:35:00.0000000", "dd", 7),
+        binSevenDaysWindowsEpoch: DATETIMEBIN("2021-01-08T18:35:00.0000000", "dd", 7, "1601-01-01T00:00:00.0000000")
+      }
+    result: |-
+      [
+        {
+          "binDay": "2021-01-08T00:00:00.0000000Z",
+          "binHour": "2021-01-08T18:00:00.0000000Z",
+          "binSecond": "2021-01-08T18:35:00.0000000Z",
+          "binFiveHours": "2021-01-08T15:00:00.0000000Z",
+          "binSevenDaysUnixEpoch": "2021-01-07T00:00:00.0000000Z",
+          "binSevenDaysWindowsEpoch": "2021-01-04T00:00:00.0000000Z"
+        }
+      ]
+remarks:
+  - |-
+    This function returns `undefined` for these reasons:
+    - The specified date and time part is invalid.
+    - The bin size value isn't a valid integer, is zero, or is negative.
+    - The date and time in either argument isn't a valid **ISO 8601** date and time string.
+    - The date and time for the bin start precedes the year `1601``, the Windows epoch.
+  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+related:
+  - reference: datetimeadd.yml
+  - reference: datetimediff.yml
+  - reference: datetimepart.yml

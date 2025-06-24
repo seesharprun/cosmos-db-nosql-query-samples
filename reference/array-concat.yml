@@ -17,22 +17,28 @@ arguments:
 returns: |-
   Returns an array expression.
 examples:
-  items:
-    - title: Concatenate two arrays
-      description: In this example, the `ARRAY_CONCAT` function concatenates two arrays.
-      query: |-
-        SELECT ARRAY_CONCAT(["apples", "strawberries"], ["bananas"]) AS arrayConcat
-      result: |-
-        [
-          {
-            "arrayConcat": [
-              "apples",
-              "strawberries",
-              "bananas"
-            ]
-          }
-        ]
+  - title: Concatenate two arrays
+    description: In this example, the `ARRAY_CONCAT` function concatenates two arrays.
+    query: |-
+      SELECT
+        ARRAY_CONCAT([
+            "backpacks",
+            "daypacks"
+          ], [
+            "hippacks"
+          ]) AS gearList
+    result: |-
+      [
+        {
+          "gearList": [
+            "backpacks",
+            "daypacks",
+            "hippacks"
+          ]
+        }
+      ]
 remarks:
-  - This function doesn't utilize the index.
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
 related:
   - reference: array-slice.yml
+  - reference: array-length.yml

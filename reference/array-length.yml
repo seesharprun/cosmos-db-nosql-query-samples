@@ -1,0 +1,33 @@
+name: ARRAY_LENGTH
+group: array
+description: |-
+  The `ARRAY_LENGTH` function returns the number of elements in the specified array expression.
+syntax: |-
+  ARRAY_LENGTH(<array_expr>)
+arguments:
+  - name: array_expr
+    required: true
+    description: An array expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Array length examples
+    description: In this example, the `ARRAY_LENGTH` function is used to get the length of various arrays.
+    query: |-
+      SELECT VALUE {
+        length: ARRAY_LENGTH([70, 86, 92, 99, 85, 90, 82]),
+        emptyLength: ARRAY_LENGTH([]),
+        nullLength: ARRAY_LENGTH(null)
+      }
+    result: |-
+      [
+        {
+          "length": 7,
+          "emptyLength": 0
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: array-slice.yml
+  - reference: array-concat.yml

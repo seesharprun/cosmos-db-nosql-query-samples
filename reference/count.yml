@@ -10,58 +10,57 @@ arguments:
     description: A scalar expression to count.
 returns: |-
   Returns a numeric scalar value.
+examplesSample:
+  set: products
+  query: |-
+    SELECT
+      p.name,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "gear-cycle-helmets"
 examples:
-  sample:
-    set: products
+  - title: Count using a scalar value and an expression
+    description: In this example, COUNT is used with a scalar and an expression. Both return `1`.
     query: |-
-        SELECT
-            p.name,
-            p.detailCategory
-        FROM
-            products p
-        WHERE
-          p.detailCategory = "gear-cycle-helmets"
-  items:
-    - title: Count using a scalar value and an expression
-      description: In this example, COUNT is used with a scalar and an expression. Both return 1.
-      query: |-
-        SELECT VALUE {
-            countScalar: COUNT(1),
-            countExpression: COUNT(2 + 3)
+      SELECT VALUE {
+        countScalar: COUNT(1),
+        countExpression: COUNT(2 + 3)
+      }
+    result: |-
+      [
+        {
+          "countScalar": 1,
+          "countExpression": 1
         }
-      result: |-
-        [
-          {
-            "countScalar": 1,
-            "countExpression": 1
-          }
-        ]
-    - title: Count occurrences of a field
-      description: In this example, the function counts the number of times the `name` field occurs in filtered data.
-      query: |-
-        SELECT VALUE
-            COUNT(p.name)
-        FROM
-            products p
-        WHERE
-          p.detailCategory = "gear-cycle-helmets"
-      result: |-
-        [
-          10
-        ]
-    - title: Count all items
-      description: In this example, the function is used to count every item within a container that matches the filter.
-      query: |-
-        SELECT VALUE
-            COUNT(1)
-        FROM
-            products p
-        WHERE
-          p.detailCategory = "gear-cycle-helmets"
-      result: |-
-        [
-          10
-        ]
+      ]
+  - title: Count occurrences of a field
+    description: In this example, the function counts the number of times the `name` field occurs in filtered data.
+    query: |-
+      SELECT VALUE
+        COUNT(p.name)
+      FROM
+        products p
+      WHERE
+        p.detailCategory = "gear-cycle-helmets"
+    result: |-
+      [
+        10
+      ]
+  - title: Count all items
+    description: In this example, the function is used to count every item within a container that matches the filter.
+    query: |-
+      SELECT VALUE
+        COUNT(1)
+      FROM
+        products p
+      WHERE
+        p.detailCategory = "gear-cycle-helmets"
+    result: |-
+      [
+        10
+      ]
 remarks:
   - This function benefits from a range index for any properties in the query's filter.
 related:

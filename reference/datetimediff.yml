@@ -1,0 +1,60 @@
+name: DATETIMEDIFF
+group: date-and-time
+description: |-
+  The `DATETIMEDIFF` function returns the difference, as a signed integer, of the specified date and time part between two date and time values.
+syntax: |-
+  DATETIMEDIFF(<date_time_part>, <start_date_time>, <end_date_time>)
+arguments:
+  - name: date_time_part
+    required: true
+    description: A string representing a part of an ISO 8601 date format specification. This part is used to indicate which aspect of the date to compare.
+  - name: start_date_time
+    required: true
+    description: A Coordinated Universal Time (UTC) date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+  - name: end_date_time
+    required: true
+    description: A Coordinated Universal Time (UTC) date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+returns: |-
+  Returns a numeric value that is a signed integer.
+examples:
+  - title: Date and time difference
+    description: In this example, the `DATETIMEDIFF` function is used to calculate the difference between two dates in years, months, days, hours, and seconds.
+    query: |-
+      SELECT VALUE {
+        diffPastYears: DATETIMEDIFF("yyyy", "2019-02-04T16:00:00.0000000", "2018-03-05T05:00:00.0000000"),
+        diffPastMonths: DATETIMEDIFF("mm", "2019-02-04T16:00:00.0000000", "2018-03-05T05:00:00.0000000"),
+        diffPastDays: DATETIMEDIFF("dd", "2019-02-04T16:00:00.0000000", "2018-03-05T05:00:00.0000000"),
+        diffPastHours: DATETIMEDIFF("hh", "2019-02-04T16:00:00.0000000", "2018-03-05T05:00:00.0000000"),
+        diffPastSeconds: DATETIMEDIFF("ss", "2019-02-04T16:00:00.0000000", "2018-03-05T05:00:00.0000000"),
+        diffFutureYears: DATETIMEDIFF("yyyy", "2018-03-05T05:00:00.0000000", "2019-02-04T16:00:00.0000000"),
+        diffFutureMonths: DATETIMEDIFF("mm", "2018-03-05T05:00:00.0000000", "2019-02-04T16:00:00.0000000"),
+        diffFutureDays: DATETIMEDIFF("dd", "2018-03-05T05:00:00.0000000", "2019-02-04T16:00:00.0000000"),
+        diffFutureHours: DATETIMEDIFF("hh", "2018-03-05T05:00:00.0000000", "2019-02-04T16:00:00.0000000"),
+        diffFutureSeconds: DATETIMEDIFF("ss", "2018-03-05T05:00:00.0000000", "2019-02-04T16:00:00.0000000")
+      }
+    result: |-
+      [
+        {
+          "diffPastYears": -1,
+          "diffPastMonths": -11,
+          "diffPastDays": -336,
+          "diffPastHours": -8075,
+          "diffPastSeconds": -29070000,
+          "diffFutureYears": 1,
+          "diffFutureMonths": 11,
+          "diffFutureDays": 336,
+          "diffFutureHours": 8075,
+          "diffFutureSeconds": 29070000
+        }
+      ]
+remarks:
+  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - |-
+    This function returns `undefined` for these reasons:
+    - The specified date and time part is invalid.
+    - The date and time in either start or end argument isn't a valid **ISO 8601** date and time string.
+  - The function always returns a signed integer value. The function returns a measurement of the number of boundaries crossed for the specified date and time part, not a measurement of the time interval.
+related:
+  - reference: datetimeadd.yml
+  - reference: datetimebin.yml
+  - reference: datetimepart.yml

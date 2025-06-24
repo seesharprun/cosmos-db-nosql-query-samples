@@ -1,0 +1,36 @@
+name: GETCURRENTDATETIME
+group: date-and-time
+description: |-
+  The `GETCURRENTDATETIME` function returns the current UTC (Coordinated Universal Time) date and time as an **ISO 8601** string.
+syntax: |-
+  GETCURRENTDATETIME()
+arguments: []
+returns: |-
+  Returns the current UTC date and time string value in the **round-trip (ISO 8601)** format.
+returnsNote: |-
+  For more information on the round-trip format, see [.NET round-trip format](/dotnet/standard/base-types/standard-date-and-time-format-strings#the-round-trip-o-o-format-specifier).
+
+  For more information on the ISO 8601 format, see [ISO 8601 standard](https://wikipedia.org/wiki/ISO_8601).
+examples:
+  - title: Get current UTC date and time
+    description: In this example, the `GETCURRENTDATETIME` function is used to return the current UTC date and time.
+    query: |-
+      SELECT VALUE {
+        currentUtcDateTime: GETCURRENTDATETIME()
+      }
+    result: |-
+      [
+        {
+          "currentUtcDateTime": "2019-05-03T20:36:17.1234567Z"
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function is nondeterministic.
+  - The result returned is UTC (Coordinated Universal Time) with precision of seven digits and an accuracy of 100 nanoseconds.
+  - If you need to compare values to the current time, obtain the current time before query execution and use that constant string value in the `WHERE` clause.
+related:
+  - reference: getcurrentdatetimestatic.yml
+  - reference: getcurrentticks.yml
+system:
+  - SKIP-VALIDATION

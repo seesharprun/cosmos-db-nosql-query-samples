@@ -1,0 +1,58 @@
+name: DATETIMEADD
+group: date-and-time
+description: |-
+  The `DATETIMEADD` function returns a date and time string value that is the result of adding a specified number value to the provided date and time string.
+syntax: |-
+  DATETIMEADD(<date_time_part>, <numeric_expr>, <date_time>)
+arguments:
+  - name: date_time_part
+    required: true
+    description: A string representing a part of an ISO 8601 date format specification. This part is used to indicate which aspect of the date to modify by the related numeric expression.
+  - name: numeric_expr
+    required: true
+    description: A numeric expression resulting in a signed integer.
+  - name: date_time
+    required: true
+    description: A Coordinated Universal Time (UTC) date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+returns: |-
+  Returns a UTC date and time string in the ISO 8601 format `YYYY-MM-DDThh:mm:ss.fffffffZ`.
+examples:
+  - title: Add and subtract date parts
+    description: In this example, the `DATETIMEADD` function is used to add and subtract years, months, days, and hours from a date.
+    query: |-
+      SELECT VALUE {
+        addOneYear: DATETIMEADD("yyyy", 1, "2020-07-03T00:00:00.0000000"),
+        addOneMonth: DATETIMEADD("mm", 1, "2020-07-03T00:00:00.0000000"),
+        addOneDay: DATETIMEADD("dd", 1, "2020-07-03T00:00:00.0000000"),
+        addOneHour: DATETIMEADD("hh", 1, "2020-07-03T00:00:00.0000000"),
+        subtractOneYear: DATETIMEADD("yyyy", -1, "2020-07-03T00:00:00.0000000"),
+        subtractOneMonth: DATETIMEADD("mm", -1, "2020-07-03T00:00:00.0000000"),
+        subtractOneDay: DATETIMEADD("dd", -1, "2020-07-03T00:00:00.0000000"),
+        subtractOneHour: DATETIMEADD("hh", -1, "2020-07-03T00:00:00.0000000"),
+        modifySecondsExpression: DATETIMEADD("ss", 5 * -5, "2020-07-03T00:00:00.0000000")
+      }
+    result: |-
+      [
+        {
+          "addOneYear": "2021-07-03T00:00:00.0000000Z",
+          "addOneMonth": "2020-08-03T00:00:00.0000000Z",
+          "addOneDay": "2020-07-04T00:00:00.0000000Z",
+          "addOneHour": "2020-07-03T01:00:00.0000000Z",
+          "subtractOneYear": "2019-07-03T00:00:00.0000000Z",
+          "subtractOneMonth": "2020-06-03T00:00:00.0000000Z",
+          "subtractOneDay": "2020-07-02T00:00:00.0000000Z",
+          "subtractOneHour": "2020-07-02T23:00:00.0000000Z",
+          "modifySecondsExpression": "2020-07-02T23:59:35.0000000Z"
+        }
+      ]
+remarks:
+  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - |-
+    This function returns `undefined` for these reasons:
+      - The specified date and time part is invalid.
+      - The numeric expression isn't a valid integer.
+      - The date and time in the argument isn't a valid ISO 8601 date and time string.
+related:
+  - reference: datetimebin.yml
+  - reference: datetimediff.yml
+  - reference: datetimepart.yml

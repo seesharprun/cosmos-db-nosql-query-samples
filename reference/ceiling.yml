@@ -1,0 +1,34 @@
+name: CEILING
+group: mathematical
+description: |-
+  The `CEILING` function calculates the smallest integer value greater than or equal to the specified numeric expression.
+syntax: |-
+  CEILING(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Ceiling of numbers
+    description: In this example, the `CEILING` function is used on positive, negative, and zero values.
+    query: |-
+      SELECT VALUE {
+        ceilingPositiveInteger: CEILING(123.45), 
+        ceilingNegativeInteger: CEILING(-45.72),
+        ceilingZero: CEILING(0)
+      }
+    result: |-
+      [
+        {
+          "ceilingPositiveInteger": 124,
+          "ceilingNegativeInteger": -45,
+          "ceilingZero": 0
+        }
+      ]
+remarks:
+  - INCLUDE-RECOMMEND-RANGE-INDEX
+related:
+  - reference: floor.yml
+  - reference: round.yml

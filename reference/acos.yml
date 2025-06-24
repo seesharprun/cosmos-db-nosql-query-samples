@@ -1,0 +1,32 @@
+name: ACOS
+group: mathematical
+description: |-
+  The `ACOS` function calculates the trigonometric arccosine of the specified numeric value. The arccosine is the angle, in radians, whose cosine is the specified numeric expression.
+syntax: |-
+  ACOS(<numeric_expr>)
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression.
+returns: |-
+  Returns a numeric expression.
+examples:
+  - title: Arccosine of a value
+    description: In this example, the `ACOS` function is used to calculate the arccosine of -1.
+    query: |-
+      SELECT VALUE { 
+        arccosine: ACOS(-1) 
+      }
+    result: |-
+      [
+        {
+          "arccosine": 3.141592653589793
+        }
+      ]
+remarks:
+  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+related:
+  - reference: asin.yml
+  - reference: atan.yml
+  - reference: sin.yml
+  - reference: cos.yml
