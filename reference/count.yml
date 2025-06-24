@@ -14,13 +14,13 @@ examples:
   sample:
     set: products
     query: |-
-      SELECT
-        p.name,
-        p.category
-      FROM
-        products p
-      WHERE
-        p.category = "socks"
+        SELECT
+            p.name,
+            p.detailCategory
+        FROM
+            products p
+        WHERE
+          p.detailCategory = "gear-cycle-helmets"
   items:
     - title: Count using a scalar value and an expression
       description: In this example, COUNT is used with a scalar and an expression. Both return 1.
@@ -44,21 +44,23 @@ examples:
         FROM
             products p
         WHERE
-            p.category = "socks"
+          p.detailCategory = "gear-cycle-helmets"
       result: |-
         [
-          2
+          10
         ]
-    - title: Count all items in a container
-      description: In this example, the function is used to count every item within a container.
+    - title: Count all items
+      description: In this example, the function is used to count every item within a container that matches the filter.
       query: |-
         SELECT VALUE
             COUNT(1)
         FROM
-            items
+            products p
+        WHERE
+          p.detailCategory = "gear-cycle-helmets"
       result: |-
         [
-          3
+          10
         ]
 remarks:
   - This function benefits from a range index for any properties in the query's filter.

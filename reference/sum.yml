@@ -14,27 +14,27 @@ examples:
   sample:
     set: products
     query: |-
-      SELECT
+      SELECT 
         p.name,
         p.quantity,
-        p.category
+        p.detailCategory
       FROM
         products p
       WHERE
-        p.category = "hiking-bags"
+        p.detailCategory = "gear-hike-backpacks"
   items:
     - title: Sum values for a single property
       description: In this example, the `SUM` function is used to sum the values of the `quantity` property into a single aggregated value.
       query: |-
         SELECT VALUE
-            SUM(p.quantity)
+          SUM(p.quantity)
         FROM
-            products p
+          products p
         WHERE
-            p.category = "hiking-bags"
+          p.detailCategory = "gear-hike-backpacks"
       result: |-
         [
-          50
+          617
         ]
 remarks:
   - STATIC-RECOMMEND-RANGE-INDEX

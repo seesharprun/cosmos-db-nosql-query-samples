@@ -16,8 +16,8 @@ examples:
     query: |-
       SELECT
         p.name,
-        p.category,
-        p.price
+        p.price,
+        p.detailCategory
       FROM
         products p
       WHERE

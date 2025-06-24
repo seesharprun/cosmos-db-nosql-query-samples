@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 using AutoMapper;
+using Humanizer;
 using Microsoft.Azure.Cosmos;
 using Spectre.Console;
 using Stubble.Compilation;
@@ -63,11 +65,11 @@ CosmosClientOptions options = new()
         IgnoreNullValues = true,
         PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase,
     },
-    ConnectionMode = ConnectionMode.Gateway,
-    AllowBulkExecution = false,
+    //ConnectionMode = ConnectionMode.Gateway,
+    AllowBulkExecution = true,
     MaxRetryWaitTimeOnRateLimitedRequests = TimeSpan.FromSeconds(30),
     MaxRetryAttemptsOnRateLimitedRequests = 30,
-    ServerCertificateCustomValidationCallback = (_, _, _) => true
+    //ServerCertificateCustomValidationCallback = (_, _, _) => true
 };
 
 using CosmosClient client = new("AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==", options);
@@ -102,60 +104,80 @@ await AnsiConsole.Live(tree)
             NoSQLQueryReference reference = yamlDeserializer.Deserialize<NoSQLQueryReference>(yamlReader)
                 ?? throw new InvalidOperationException($"Failed to deserialize resource '{resource}'.");
 
-            referenceDictionary.Add(reference.Name.ToLowerInvariant(), reference);
+            string referenceName = Patterns.FileNameToReferenceRegex().Match(resource).Groups[1].Value.Transform(To.LowerCase);
+            referenceDictionary.Add(referenceName, reference);
 
             nodeDictionary.Add(reference.Name.ToLowerInvariant(), node);
         }
 
         foreach (NoSQLQueryReference reference in referenceDictionary.Values)
-        {
-            ReferenceTemplateContext context = mapper.Map<ReferenceTemplateContext>(reference) with
             {
-                Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
-                Resources = reference.Related?.Select(r => new ReferenceTemplateContextResource
+                if (reference is not null)
                 {
-                    File = Path.ChangeExtension(r.Reference, extension: default),
-                    Title = referenceDictionary.TryGetValue(Path.GetFileNameWithoutExtension(r.Reference).ToLowerInvariant(), out NoSQLQueryReference? relatedReference) ? relatedReference.Name : string.Empty,
-                }) ?? [],
-                RenderArguments = reference.Parameters?.Any() ?? false,
-                RenderExamples = reference.Examples?.Items?.Any() ?? false,
-                UseSample = reference.Examples?.Sample is not null,
-                RenderRemarks = reference.Remarks?.Any() ?? false,
-                RenderSummary = reference.Summary is not null,
-                RemarksList = reference.Remarks?.Select(r => remarksDictionary.TryGetValue(r, out string? remark) ? remark : r) ?? [],
-            };
+                    /*List<NoSQLQueryReferenceExample> examples = reference.Examples?.Items?.ToList() ?? [];
 
-            if (context.UseSample && context.Examples?.Sample?.Query is not null)
-            {
-                context = context with
-                {
-                    SampleJson = await container.GetResultJsonAsync(context.Examples.Sample.Query)
-                };
+                    if (reference.Examples?.Sample?.Query is not null && reference.Examples?.Items is not null)
+                    {
+                        bool sampleSetHasFilter = Patterns.FilterMatchRegex().IsMatch(reference.Examples.Sample.Query);
+
+                        if (sampleSetHasFilter)
+                        {
+                            string filter = Patterns.FilterMatchRegex().Match(reference.Examples.Sample.Query).Groups[1].Value.Trim();
+
+                            Regex filterPattern = new(@$"WHERE\s+{Regex.Escape(filter).Replace(@"\ ", @"\s+")}", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+                            examples = [.. reference.Examples.Items.Select(item => item with { Query = filterPattern.Replace(item.Query, string.Empty).Trim() })];
+                        }
+                    }*/
+
+                    ReferenceTemplateContext context = mapper.Map<ReferenceTemplateContext>(reference) with
+                    {
+                        Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
+                        Resources = reference.Related?.Select(r => new ReferenceTemplateContextResource
+                        {
+                            File = Path.ChangeExtension(r.Reference, extension: default),
+                            Title = referenceDictionary.TryGetValue(Path.GetFileNameWithoutExtension(r.Reference).ToLowerInvariant(), out NoSQLQueryReference? relatedReference) ? relatedReference.Name : "<error>",
+                        }) ?? [],
+                        RenderArguments = reference.Parameters?.Any() ?? false,
+                        RenderExamples = reference.Examples?.Items?.Any() ?? false,
+                        UseSample = reference.Examples?.Sample is not null,
+                        RenderRemarks = reference.Remarks?.Any() ?? false,
+                        RenderSummary = reference.Summary is not null,
+                        RemarksList = reference.Remarks?.Select(r => remarksDictionary.TryGetValue(r, out string? remark) ? remark : r) ?? [],
+                    };
+
+                    if (context.UseSample && context.Examples?.Sample?.Query is not null)
+                    {
+                        context = context with
+                        {
+                            SampleJson = await container.GetResultJsonAsync(context.Examples.Sample.Query)
+                        };
+                    }
+
+                    string output = referenceRenderer(context);
+
+                    string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+
+                    if (!Directory.Exists(outDir))
+                    {
+                        Directory.CreateDirectory(outDir);
+                    }
+
+                    string outFile = Path.Combine(outDir, $"{reference.Name.Transform(To.LowerCase).Kebaberize()}.md");
+
+                    string relativeOutFile = Path.GetRelativePath(outDir, outFile);
+
+                    TreeNode node = nodeDictionary[reference.Name.ToLowerInvariant()];
+                    node.AddNode($"[blue]Writing to [italic link]{relativeOutFile}[/][/]");
+                    console.Refresh();
+
+                    using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+                    using StreamWriter fileWriter = new(fileStream);
+                    await fileWriter.WriteAsync(output);
+
+                    links.Add(($"{reference.Group}", reference.Name, relativeOutFile, reference.Description));
+                }
             }
-
-            string output = referenceRenderer(context);
-
-            string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
-
-            if (!Directory.Exists(outDir))
-            {
-                Directory.CreateDirectory(outDir);
-            }
-
-            string outFile = Path.Combine(outDir, $"{reference.Name.ToLowerInvariant()}.md");
-
-            string relativeOutFile = Path.GetRelativePath(outDir, outFile);
-
-            TreeNode node = nodeDictionary[reference.Name.ToLowerInvariant()];
-            node.AddNode($"[blue]Writing to [italic link]{relativeOutFile}[/][/]");
-            console.Refresh();
-
-            using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
-            using StreamWriter fileWriter = new(fileStream);
-            await fileWriter.WriteAsync(output);
-
-            links.Add(($"{reference.Group}", reference.Name, relativeOutFile, reference.Description));
-        }
 
         {
             TreeNode node = tree.AddNode("[green]Writing landing page...[/]");
@@ -163,6 +185,7 @@ await AnsiConsole.Live(tree)
 
             LandingTemplateContext context = new()
             {
+                Title = "Query language reference",
                 Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
                 Groups = links
                     .GroupBy(r => r.Group)
@@ -237,7 +260,7 @@ await AnsiConsole.Live(tree)
                 Directory.CreateDirectory(outDir);
             }
 
-            string outFile = Path.Combine(outDir, "TOC.yml");
+            string outFile = Path.Combine(outDir, "toc.yml");
 
             string relativeOutFile = Path.GetRelativePath(outDir, outFile);
 
