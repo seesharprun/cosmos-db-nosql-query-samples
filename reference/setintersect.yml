@@ -57,7 +57,7 @@ examples:
       ]
 remarks:
   - This function doesn't return duplicates.
-  - This function doesn't use the index.
+  - This function doesn't utilize the index.
   - SKIP-VALIDATION
 related:
   - reference: array-contains.yml

@@ -43,7 +43,7 @@ examples:
 system:
   - SKIP-VALIDATION
 remarks:
-  - INCLUDE-NOTIFY-BINDING-STATIC
+  - Static versions of system functions only get their respective values once during binding, rather than execute repeatedly in the runtime as is the case for the nonstatic versions of the same functions.
 related:
   - reference: getcurrentticks.yml
   - reference: getcurrenttimestampstatic.yml

@@ -34,7 +34,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-RECOMMEND-RANGE-INDEX
+  - This function benefits from the use of a range index. For more information, see [range indexes](/azure/cosmos-db/index-policy#includeexclude-strategy).
   - The rounding operation performed follows midpoint rounding away from zero. If the input is a numeric expression which falls exactly between two integers, the result is the closest integer value away from 0. For example `-6.5 to -7, -0.5 to -1, 0.5 to 1, 6.5 to 7`.
 related:
   - reference: ceiling.yml

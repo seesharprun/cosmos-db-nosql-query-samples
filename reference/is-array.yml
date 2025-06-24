@@ -42,7 +42,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-RECOMMEND-RANGE-INDEX
+  - This function benefits from the use of a range index. For more information, see [range indexes](/azure/cosmos-db/index-policy#includeexclude-strategy).
 related:
   - reference: is-object.yml
   - reference: is-bool.yml

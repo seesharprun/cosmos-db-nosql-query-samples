@@ -25,7 +25,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
 related:
   - reference: cot.yml
   - reference: tan.yml

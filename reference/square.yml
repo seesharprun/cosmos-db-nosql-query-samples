@@ -34,7 +34,7 @@ examples:
         }
       ]
 remarks:
-  - This function doesn't use the index.
+  - This function doesn't utilize the index.
 related:
   - reference: sqrt.yml
   - reference: power.yml

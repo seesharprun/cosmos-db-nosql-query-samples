@@ -38,7 +38,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
   - String expressions are parsed as a JSON number expression.
   - Numbers in JSON must be an integer or a floating point.
   - If the expression can't be converted, the function returns `undefined`.

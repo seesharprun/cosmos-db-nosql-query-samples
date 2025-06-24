@@ -28,7 +28,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
 related:
   - reference: array-slice.yml
   - reference: array-concat.yml

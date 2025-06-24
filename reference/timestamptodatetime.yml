@@ -30,7 +30,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-DATE-FORMAT-ISO-8601-UNDEFINED
+  - This function returns `undefined` if the date and time isn't a valid **ISO 8601** date and time string.
 related:
   - reference: tickstodatetime.yml
   - reference: datetimefromparts.yml

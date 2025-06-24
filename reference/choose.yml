@@ -74,7 +74,7 @@ examples:
         "69501"
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
   - This function uses *one-based indexing*, meaning that the first item in the list is at index `1` instead of the typical zero-based indexing found in many programming languages.
 related:
   - reference: array-length.yml

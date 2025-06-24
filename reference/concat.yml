@@ -59,6 +59,6 @@ examples:
         "66402-gear-climb-ropes"
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
 related:
   - reference: contains.yml

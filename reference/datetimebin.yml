@@ -50,7 +50,19 @@ remarks:
     - The bin size value isn't a valid integer, is zero, or is negative.
     - The date and time in either argument isn't a valid **ISO 8601** date and time string.
     - The date and time for the bin start precedes the year `1601``, the Windows epoch.
-  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - |-
+    The **ISO 8601** date format specifies valid date and time parts to use with this function:
+    | | Format |
+    | --- | --- |
+    | **Year** | `year`, `yyyy`, `yy` |
+    | **Month** | `month`, `mm`, `m` |
+    | **Day** | `day`, `dd`, `d` |
+    | **Hour** | `hour`, `hh` |
+    | **Minute** | `minute`, `mi`, `n` |
+    | **Second** | `second`, `ss`, `s` |
+    | **Millisecond** | `millisecond`, `ms` |
+    | **Microsecond** | `microsecond`, `mcs` |
+    | **Nanosecond** | `nanosecond`, `ns` |
 related:
   - reference: datetimeadd.yml
   - reference: datetimediff.yml

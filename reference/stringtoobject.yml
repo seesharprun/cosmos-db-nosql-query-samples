@@ -40,7 +40,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
   - If the expression can't be converted, the function returns `undefined`.
   - Nested string values must be written with double quotes to be valid.
 related:

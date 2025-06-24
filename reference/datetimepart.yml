@@ -44,8 +44,20 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
-  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - This function doesn't utilize the index.
+  - |-
+    The **ISO 8601** date format specifies valid date and time parts to use with this function:
+    | | Format |
+    | --- | --- |
+    | **Year** | `year`, `yyyy`, `yy` |
+    | **Month** | `month`, `mm`, `m` |
+    | **Day** | `day`, `dd`, `d` |
+    | **Hour** | `hour`, `hh` |
+    | **Minute** | `minute`, `mi`, `n` |
+    | **Second** | `second`, `ss`, `s` |
+    | **Millisecond** | `millisecond`, `ms` |
+    | **Microsecond** | `microsecond`, `mcs` |
+    | **Nanosecond** | `nanosecond`, `ns` |
   - |-
     This function returns `undefined` for these reasons:
       - The specified date and time part is invalid.

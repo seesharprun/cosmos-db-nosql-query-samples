@@ -49,7 +49,19 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-DATE-FORMAT-ISO-8601-PARTS
+  - |-
+    The **ISO 8601** date format specifies valid date and time parts to use with this function:
+    | | Format |
+    | --- | --- |
+    | **Year** | `year`, `yyyy`, `yy` |
+    | **Month** | `month`, `mm`, `m` |
+    | **Day** | `day`, `dd`, `d` |
+    | **Hour** | `hour`, `hh` |
+    | **Minute** | `minute`, `mi`, `n` |
+    | **Second** | `second`, `ss`, `s` |
+    | **Millisecond** | `millisecond`, `ms` |
+    | **Microsecond** | `microsecond`, `mcs` |
+    | **Nanosecond** | `nanosecond`, `ns` |
   - |-
     This function returns `undefined` for these reasons:
     - The specified date and time part is invalid.

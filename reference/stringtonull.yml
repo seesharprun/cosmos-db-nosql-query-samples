@@ -37,7 +37,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
   - If the expression can't be converted, the function returns `undefined`.
 related:
   - reference: stringtoboolean.yml

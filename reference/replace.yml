@@ -32,7 +32,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
 related:
   - reference: substring.yml
   - reference: replicate.yml

@@ -25,8 +25,8 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
-  - INCLUDE-DATE-FORMAT-ISO-8601-UNDEFINED
+  - This function doesn't utilize the index.
+  - This function returns `undefined` if the date and time isn't a valid **ISO 8601** date and time string.
 related:
   - reference: datetimefromparts.yml
   - reference: datetimetotimestamp.yml

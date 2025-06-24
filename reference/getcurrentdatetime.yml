@@ -26,7 +26,7 @@ examples:
         }
       ]
 remarks:
-  - INCLUDE-NOTIFY-NO-INDEX-USAGE
+  - This function doesn't utilize the index.
   - This function is nondeterministic.
   - The result returned is UTC (Coordinated Universal Time) with precision of seven digits and an accuracy of 100 nanoseconds.
   - If you need to compare values to the current time, obtain the current time before query execution and use that constant string value in the `WHERE` clause.
