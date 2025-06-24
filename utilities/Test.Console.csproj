@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <NoWarn>CA1050;CA1822</NoWarn>
+    <UserSecretsId>ae9edd28-3e89-4f3a-b971-b7cc56befaad</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
