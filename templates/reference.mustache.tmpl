@@ -6,10 +6,10 @@ ms.date: {{ date }}
 
 # `{{{ name }}}` (NoSQL query)
 
-{{ description }}
+{{& description }}
 {{ #renderSummary }}
 
-{{ summary }}
+{{& summary }}
 {{ /renderSummary }}
 
 ## Syntax
@@ -24,13 +24,13 @@ ms.date: {{ date }}
 | | Description |
 | --- | --- |
 {{ #arguments }}
-| **`{{{ name }}}`** | {{ description }} |
+| **`{{{ name }}}`** | {{& description }} |
 {{ /arguments }}
 {{ /renderArguments }}
 
 ## Return types
 
-{{ returns }}
+{{& returns }}
 {{ #renderExamples }}
 
 ## Examples
@@ -44,16 +44,16 @@ Consider this sample set of documents within the `{{ examples.sample.set }}` col
 {{{ sampleJson }}}
 ```
 {{ /useSample }}
-{{ #examples.items }}
+{{ #examples }}
 
 ### {{ title }}
 {{ #explanation }}
 
-{{ explanation }}
+{{& explanation }}
 {{ /explanation }}
 {{ #description }}
 
-{{ description }}
+{{& description }}
 {{ /description }}
 
 ```nosql
@@ -63,20 +63,20 @@ Consider this sample set of documents within the `{{ examples.sample.set }}` col
 ```json
 {{{ result }}}
 ```
-{{ /examples.items }}
+{{ /examples }}
 {{ /renderExamples }}
 {{ #renderRemarks }}
 
 ## Remarks
 
-{{ #remarksList }}
-- {{ . }}
-{{ /remarksList }}
+{{ #remarks }}
+- {{& . }}
+{{ /remarks }}
 {{ /renderRemarks }}
 
 ## Related content
 
 - [NoSQL query reference](index.md)
 {{ #resources }}
-- [`{{{ title }}}`]({{ file }}.md)
+- [`{{ title }}`]({{ file }}.md)
 {{ /resources }}
