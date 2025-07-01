@@ -1,5 +1,5 @@
 ### YamlMime:NoSQLQueryReference
-name: ORDER-BY-RANK
+name: ORDER BY RANK
 group: clause
 description: |-
   The `ORDER BY RANK` clause returns the sorted result set of a query based on the rank of scoring functions.

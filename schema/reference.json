@@ -28,12 +28,13 @@
         "spatial",
         "string",
         "type-checking",
-        "clause"
+        "clause",
+        "keyword"
       ]
     },
     "description": {
       "type": "string",
-      "pattern": "^The `[A-Za-z0-9\\s_]+` (function|clause|keyword) (returns|calculates|converts|identifies|collects) .*"
+      "pattern": "^The `[A-Za-z0-9\\s_]+` (function|clause|keyword) (returns|calculates|converts|identifies|collects|evaluates) .*"
     },
     "summary": {
       "type": "string"

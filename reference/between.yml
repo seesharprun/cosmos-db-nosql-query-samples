@@ -1,0 +1,77 @@
+### YamlMime:NoSQLQueryReference
+name: BETWEEN
+group: keyword
+description: |-
+  The `BETWEEN` keyword evaluates to a boolean indicating whether the target value is between two specified values, inclusive.
+summary: |-
+  You can use the BETWEEN keyword with a WHERE clause to express queries that filters results against ranges of string or numerical values.
+syntax: |-
+  <numeric_expr> BETWEEN <numeric_expr_lower_bound> AND <numeric_expr_upper_bound>
+arguments:
+  - name: numeric_expr
+    required: true
+    description: A numeric expression to evaluate.
+  - name: numeric_expr_lower_bound
+    required: true
+    description: A numeric expression that defines the inclusive lower bound of the range.
+  - name: numeric_expr_upper_bound
+    required: true
+    description: A numeric expression that defines the inclusive upper bound of the range.
+returns: |-
+  Returns a boolean value.
+examplesSample:
+  set: products
+  query: |-
+    SELECT
+      p.name,
+      p.price,
+      p.detailCategory
+    FROM
+      products p
+    WHERE
+      p.detailCategory = "apparel-accessories-beanies"
+examples:
+  - title: Filter within a range of values
+    description: In this example, the `BETWEEN` keyword is used to filter products within a specific price range. The range is inclusive of the lower and upper bounds.
+    query: |-
+      SELECT VALUE
+        p.name
+      FROM
+        products p
+      WHERE
+        (p.price BETWEEN 0 AND 40) AND
+        p.detailCategory = "apparel-accessories-beanies"
+    result: |-
+      [
+        "Benki Hat",
+        "Jontra Hat"
+      ]
+  - title: Evaluate price range for each product
+    description: In this example, the `BETWEEN` keyword is used to evaluate whether each product's price falls within a specific range by using the keyword in the `SELECT` clause. The result includes the product name and a boolean indicating if the price is within the range.
+    query: |-
+      SELECT
+        p.name,
+        (p.price BETWEEN 10 AND 20) AS lowPrice
+      FROM
+        products p
+      WHERE
+        p.detailCategory = "apparel-accessories-beanies"
+    result: |-
+      [
+        {
+          "name": "Minet Hat",
+          "lowPrice": false
+        },
+        {
+          "name": "Klinto Hat",
+          "lowPrice": false
+        },
+        {
+          "name": "Benki Hat",
+          "lowPrice": false
+        },
+        {
+          "name": "Jontra Hat",
+          "lowPrice": false
+        }
+      ]

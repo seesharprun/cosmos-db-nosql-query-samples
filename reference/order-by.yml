@@ -1,5 +1,5 @@
 ### YamlMime:NoSQLQueryReference
-name: ORDER-BY
+name: ORDER BY
 group: clause
 description: |-
   The `ORDER BY` clause returns the sorted result set of a query based on one or more expressions.

@@ -35,6 +35,8 @@ enum NoSQLQueryReferenceGroup
 
     Clause,
 
+    Keyword,
+
     Conditional,
 
     DateAndTime,

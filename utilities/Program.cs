@@ -1,5 +1,5 @@
-﻿using System.Configuration;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Text;
 using AutoMapper;
 using Humanizer;
 using Microsoft.Azure.Cosmos;
@@ -30,6 +30,7 @@ IDeserializer yamlDeserializer = new DeserializerBuilder()
 ISerializer yamlSerializer = new SerializerBuilder()
     .WithNamingConvention(CamelCaseNamingConvention.Instance)
     .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
+    .WithIndentedSequences()
     .Build();
 
 using Stream referenceTemplateStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.templates.reference.mustache.tmpl")
@@ -39,12 +40,26 @@ using StreamReader referenceTemplateReader = new(referenceTemplateStream);
 
 string referenceTemplateMustache = await referenceTemplateReader.ReadToEndAsync();
 
-using Stream landingTemplateStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.templates.landing.mustache.tmpl")
+using Stream functionsLandingTemplateStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.templates.functions.mustache.tmpl")
     ?? throw new FileNotFoundException("Template file not found in embedded resources. Ensure the template is correctly embedded in the assembly and named \"utilities.templates.landing.mustache.tmpl\".");
 
-using StreamReader landingTemplateReader = new(landingTemplateStream);
+using StreamReader functionsLandingTemplateReader = new(functionsLandingTemplateStream);
 
-string landingTemplateMustache = await landingTemplateReader.ReadToEndAsync();
+string functionsLandingTemplateMustache = await functionsLandingTemplateReader.ReadToEndAsync();
+
+using Stream clausesLandingTemplateStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.templates.clauses.mustache.tmpl")
+    ?? throw new FileNotFoundException("Template file not found in embedded resources. Ensure the template is correctly embedded in the assembly and named \"utilities.templates.landing.mustache.tmpl\".");
+
+using StreamReader clausesLandingTemplateReader = new(clausesLandingTemplateStream);
+
+string clausesLandingTemplateMustache = await clausesLandingTemplateReader.ReadToEndAsync();
+
+using Stream keywordsLandingTemplateStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("utilities.templates.keywords.mustache.tmpl")
+    ?? throw new FileNotFoundException("Template file not found in embedded resources. Ensure the template is correctly embedded in the assembly and named \"utilities.templates.keywords.mustache.tmpl\".");
+
+using StreamReader keywordsLandingTemplateReader = new(keywordsLandingTemplateStream);
+
+string keywordsLandingTemplateMustache = await keywordsLandingTemplateReader.ReadToEndAsync();
 
 StubbleCompilationRenderer compiler = new StubbleCompilationBuilder()
     .Configure(settings =>
@@ -55,7 +70,11 @@ StubbleCompilationRenderer compiler = new StubbleCompilationBuilder()
 
 Func<ReferenceTemplateContext, string> referenceRenderer = await compiler.CompileAsync<ReferenceTemplateContext>(referenceTemplateMustache);
 
-Func<LandingTemplateContext, string> landingRenderer = await compiler.CompileAsync<LandingTemplateContext>(landingTemplateMustache);
+Func<LandingTemplateContextGrouped, string> functionsLandingRenderer = await compiler.CompileAsync<LandingTemplateContextGrouped>(functionsLandingTemplateMustache);
+
+Func<LandingTemplateContextFlattened, string> clausesLandingRenderer = await compiler.CompileAsync<LandingTemplateContextFlattened>(clausesLandingTemplateMustache);
+
+Func<LandingTemplateContextFlattened, string> keywordsLandingRenderer = await compiler.CompileAsync<LandingTemplateContextFlattened>(keywordsLandingTemplateMustache);
 
 CosmosClientOptions options = new()
 {
@@ -162,14 +181,14 @@ await AnsiConsole.Live(tree)
         }
 
         {
-            TreeNode node = tree.AddNode("[green]Writing landing page...[/]");
+            TreeNode node = tree.AddNode("[green]Writing landing pages...[/]");
             console.Refresh();
 
-            LandingTemplateContext context = new()
+            LandingTemplateContextGrouped functionsLandingContext = new()
             {
-                Title = "Query language reference",
                 Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
                 Groups = links
+                    .Where(r => r.Group != nameof(NoSQLQueryReferenceGroup.Clause) && r.Group != nameof(NoSQLQueryReferenceGroup.Keyword))
                     .GroupBy(r => r.Group)
                     .Select(g => new LandingTemplateContextGroup
                     {
@@ -183,28 +202,99 @@ await AnsiConsole.Live(tree)
                     })
             };
 
-            string output = landingRenderer(context);
+            string functionsMarkdown = functionsLandingRenderer(functionsLandingContext);
 
-            string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+            string functionsOutDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
 
-            if (!Directory.Exists(outDir))
+            if (!Directory.Exists(functionsOutDir))
             {
-                Directory.CreateDirectory(outDir);
+                Directory.CreateDirectory(functionsOutDir);
             }
 
-            string outFile = Path.Combine(outDir, "index.md");
+            string functionsOutFile = Path.Combine(functionsOutDir, "functions.md");
 
-            string relativeOutFile = Path.GetRelativePath(outDir, outFile);
+            string functionsRelativeOutFile = Path.GetRelativePath(functionsOutDir, functionsOutFile);
 
-            node.AddNode($"[blue]Writing to [italic link]{relativeOutFile}[/][/]");
+            node.AddNode($"[blue]Writing to [italic link]{functionsRelativeOutFile}[/][/]");
             console.Refresh();
 
-            using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
-            using StreamWriter fileWriter = new(fileStream);
-            await fileWriter.WriteAsync(output);
+            using FileStream functionsFileStream = File.Open(functionsOutFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using StreamWriter functionsFileWriter = new(functionsFileStream);
+            await functionsFileWriter.WriteAsync(functionsMarkdown);
+
+            string clausesSlug = nameof(NoSQLQueryReferenceGroup.Clause).Pluralize().Transform(To.LowerCase);
+
+            LandingTemplateContextFlattened clausesLandingContext = new()
+            {
+                Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
+                Links = links
+                    .Where(r => r.Group == nameof(NoSQLQueryReferenceGroup.Clause))
+                    .Select(r => new LandingTemplateContextLink
+                    {
+                        Title = r.Title,
+                        File = r.File,
+                        Description = r.Description
+                    })
+            };
+
+            string clausesMarkdown = clausesLandingRenderer(clausesLandingContext);
+
+            string clausesOutDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+
+            if (!Directory.Exists(clausesOutDir))
+            {
+                Directory.CreateDirectory(clausesOutDir);
+            }
+
+            string clausesOutFile = Path.Combine(clausesOutDir, $"{clausesSlug}.md");
+
+            string relativeClausesOutFile = Path.GetRelativePath(clausesOutDir, clausesOutFile);
+
+            node.AddNode($"[blue]Writing to [italic link]{relativeClausesOutFile}[/][/]");
+            console.Refresh();
+
+            using FileStream clausesFileStream = File.Open(clausesOutFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using StreamWriter clausesFileWriter = new(clausesFileStream);
+            await clausesFileWriter.WriteAsync(clausesMarkdown);
+
+            string keywordsSlug = nameof(NoSQLQueryReferenceGroup.Keyword).Pluralize().Transform(To.LowerCase);
+
+            LandingTemplateContextFlattened keywordsLandingContext = new()
+            {
+                Date = $"{DateTime.UtcNow.Date:MM/dd/yyyy}",
+                Links = links
+                    .Where(r => r.Group == nameof(NoSQLQueryReferenceGroup.Keyword))
+                    .Select(r => new LandingTemplateContextLink
+                    {
+                        Title = r.Title,
+                        File = r.File,
+                        Description = r.Description
+                    })
+            };
+
+            string keywordsMarkdown = keywordsLandingRenderer(keywordsLandingContext);
+
+            string keywordsOutDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+
+            if (!Directory.Exists(keywordsOutDir))
+            {
+                Directory.CreateDirectory(keywordsOutDir);
+            }
+
+            string keywordsOutFile = Path.Combine(keywordsOutDir, $"{keywordsSlug}.md");
+
+            string relativeKeywordsOutFile = Path.GetRelativePath(keywordsOutDir, keywordsOutFile);
+
+            node.AddNode($"[blue]Writing to [italic link]{relativeKeywordsOutFile}[/][/]");
+            console.Refresh();
+
+            using FileStream keywordsFileStream = File.Open(keywordsOutFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using StreamWriter keywordsFileWriter = new(keywordsFileStream);
+            await keywordsFileWriter.WriteAsync(keywordsMarkdown);
         }
 
         {
+
             TreeNode node = tree.AddNode("[green]Writing table of contents (TOC)...[/]");
             console.Refresh();
 
@@ -214,9 +304,10 @@ await AnsiConsole.Live(tree)
                     new NavigationContextItem
                     {
                         Name = "Functions documentation",
-                        Href = "index.md"
+                        Href = "../functions.md"
                     },
                     ..links
+                        .Where(r => r.Group != nameof(NoSQLQueryReferenceGroup.Clause) && r.Group != nameof(NoSQLQueryReferenceGroup.Keyword))
                         .GroupBy(r => r.Group)
                         .Select(g => new NavigationContextItem
                         {
@@ -227,15 +318,18 @@ await AnsiConsole.Live(tree)
                                 DisplayName = string.Join(
                                     ", ", (r.Title, r.Group).GetDisplayNames()
                                 ),
-                                Href = r.File,
+                                Href = $"../{r.File}"
                             }),
                         })
                 ]
             };
 
-            string output = yamlSerializer.Serialize(context.Items);
+            string yaml = yamlSerializer.Serialize(context);
+            StringBuilder output = new();
+            output.AppendLine("### YamlMime:TOC");
+            output.Append(yaml);
 
-            string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out");
+            string outDir = Path.Combine(Directory.GetCurrentDirectory(), "out", "functions");
 
             if (!Directory.Exists(outDir))
             {
@@ -251,6 +345,98 @@ await AnsiConsole.Live(tree)
 
             using FileStream fileStream = File.Open(outFile, FileMode.Create, FileAccess.Write, FileShare.Read);
             using StreamWriter fileWriter = new(fileStream);
-            await fileWriter.WriteAsync(output);
+            await fileWriter.WriteAsync(output.ToString());
+
+            string clausesSlug = nameof(NoSQLQueryReferenceGroup.Clause).Pluralize().Transform(To.LowerCase);
+
+            NavigationContext clausesContext = new()
+            {
+                Items = [
+                    new NavigationContextItem
+                    {
+                        Name = $"{clausesSlug.Titleize()} documentation",
+                        Href = $"../{clausesSlug}.md"
+                    },
+                    ..links
+                        .Where(r => r.Group == nameof(NoSQLQueryReferenceGroup.Clause))
+                        .Select(r => new NavigationContextItem
+                        {
+                            Name = r.Title,
+                            DisplayName = string.Join(
+                                ", ", (r.Title, r.Group).GetDisplayNames()
+                            ),
+                            Href = $"../{r.File}"
+                        })
+                ]
+            };
+
+            string clausesYaml = yamlSerializer.Serialize(clausesContext);
+            StringBuilder clausesOutput = new();
+            clausesOutput.AppendLine("### YamlMime:TOC");
+            clausesOutput.Append(clausesYaml);
+
+            string clausesOutDir = Path.Combine(Directory.GetCurrentDirectory(), "out", $"{clausesSlug}");
+
+            if (!Directory.Exists(clausesOutDir))
+            {
+                Directory.CreateDirectory(clausesOutDir);
+            }
+
+            string clausesOutFile = Path.Combine(clausesOutDir, "toc.yml");
+
+            string relativeClausesOutFile = Path.GetRelativePath(clausesOutDir, clausesOutFile);
+
+            node.AddNode($"[blue]Writing to [italic link]{relativeClausesOutFile}[/][/]");
+            console.Refresh();
+
+            using FileStream clausesFileStream = File.Open(clausesOutFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using StreamWriter clausesFileWriter = new(clausesFileStream);
+            await clausesFileWriter.WriteAsync(clausesOutput.ToString());
+
+            string keywordsSlug = nameof(NoSQLQueryReferenceGroup.Keyword).Pluralize().Transform(To.LowerCase);
+
+            NavigationContext keywordsContext = new()
+            {
+                Items = [
+                    new NavigationContextItem
+                    {
+                        Name = $"{keywordsSlug.Titleize()} documentation",
+                        Href = $"../{keywordsSlug}.md"
+                    },
+                    ..links
+                        .Where(r => r.Group == nameof(NoSQLQueryReferenceGroup.Keyword))
+                        .Select(r => new NavigationContextItem
+                        {
+                            Name = r.Title,
+                            DisplayName = string.Join(
+                                ", ", (r.Title, r.Group).GetDisplayNames()
+                            ),
+                            Href = $"../{r.File}"
+                        })
+                ]
+            };
+
+            string keywordsYaml = yamlSerializer.Serialize(keywordsContext);
+            StringBuilder keywordsOutput = new();
+            keywordsOutput.AppendLine("### YamlMime:TOC");
+            keywordsOutput.Append(keywordsYaml);
+
+            string keywordsOutDir = Path.Combine(Directory.GetCurrentDirectory(), "out", $"{keywordsSlug}");
+
+            if (!Directory.Exists(keywordsOutDir))
+            {
+                Directory.CreateDirectory(keywordsOutDir);
+            }
+
+            string keywordsOutFile = Path.Combine(keywordsOutDir, "toc.yml");
+
+            string relativeKeywordsOutFile = Path.GetRelativePath(keywordsOutDir, keywordsOutFile);
+
+            node.AddNode($"[blue]Writing to [italic link]{relativeKeywordsOutFile}[/][/]");
+            console.Refresh();
+
+            using FileStream keywordsFileStream = File.Open(keywordsOutFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using StreamWriter keywordsFileWriter = new(keywordsFileStream);
+            await keywordsFileWriter.WriteAsync(keywordsOutput.ToString());
         }
     });

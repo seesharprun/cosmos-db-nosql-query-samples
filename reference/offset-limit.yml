@@ -1,5 +1,5 @@
 ### YamlMime:NoSQLQueryReference
-name: OFFSET-LIMIT
+name: OFFSET LIMIT
 group: clause
 description: |-
   The `OFFSET LIMIT` clause returns a subset of the result set by skipping a specified number of results and then taking a specified number of results.

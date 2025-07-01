@@ -43,15 +43,37 @@ examples:
   - title: FROM clause with container alias
     description: In this example, the `FROM` clause is used to specify the current container as a source, give it a unique name, and then alias it. The alias is then used to project specific fields in the query results.
     query: |-
-      -- Example query not available (script file missing)
+      SELECT VALUE 
+        p.name
+      FROM
+        products p
     result: |-
-      -- Example result not available (script file missing)
+      [
+        "Joller Kid's Jacket",
+        "Codlier Kid's Jacket",
+        ...
+      ]
   - title: FROM clause with subroot as source
-    description: In this example, the `FROM` clause is used to enumerate only a subtree in each item, using an array or object subroot as a source.
+    description: In this example, the `FROM` clause can also reduce the source to a smaller subset. To enumerate only a subtree in each item, the subroot can become the source. An array or object subroot can be used as a source.
     query: |-
-      -- Example query not available (script file missing)
+      SELECT VALUE
+        s
+      FROM
+        products.sizes s
     result: |-
-      -- Example result not available (script file missing)
+      [
+        {
+          "key": "65",
+          "description": "6.5",
+          "order": 0
+        },
+        {
+          "key": "75",
+          "description": "7.5",
+          "order": 1
+        },
+        ...
+      ]
 remarks:
   - All aliases provided or inferred in the `<from_source>`(s) must be unique.
   - If a container expression accesses properties or array elements and that value doesn't exist, that value is ignored and not processed further.
@@ -62,3 +84,5 @@ remarks:
 related:
   - reference: select.yml
   - reference: where.yml
+system:
+  - SKIP-VALIDATION

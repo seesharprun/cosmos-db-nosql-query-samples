@@ -1,5 +1,5 @@
 ### YamlMime:NoSQLQueryReference
-name: GROUP-BY
+name: GROUP BY
 group: clause
 description: |-
   The `GROUP BY` clause collects rows that have the same values into summary rows.

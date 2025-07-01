@@ -1,10 +1,15 @@
-record LandingTemplateContext
+record LandingTemplateContextGrouped
 {
-    public required string Title { get; init; }
-
     public required string Date { get; init; }
 
     public required IEnumerable<LandingTemplateContextGroup> Groups { get; init; }
+}
+
+record LandingTemplateContextFlattened
+{
+    public required string Date { get; init; }
+
+    public required IEnumerable<LandingTemplateContextLink> Links { get; init; }
 }
 
 record LandingTemplateContextGroup

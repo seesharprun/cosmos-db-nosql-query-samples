@@ -13,7 +13,7 @@ ctrf/
 ctrf/**/*.json
 
 # Template output
-out/
+out*/
 
 # dotenv files
 .env

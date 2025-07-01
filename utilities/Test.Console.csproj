@@ -27,8 +27,14 @@
     <EmbeddedResource Include="../templates/reference.mustache.tmpl">
       <LogicalName>utilities.templates.reference.mustache.tmpl</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="../templates/landing.mustache.tmpl">
-      <LogicalName>utilities.templates.landing.mustache.tmpl</LogicalName>
+    <EmbeddedResource Include="../templates/functions.mustache.tmpl">
+      <LogicalName>utilities.templates.functions.mustache.tmpl</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="../templates/clauses.mustache.tmpl">
+      <LogicalName>utilities.templates.clauses.mustache.tmpl</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="../templates/keywords.mustache.tmpl">
+      <LogicalName>utilities.templates.keywords.mustache.tmpl</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
