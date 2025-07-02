@@ -9,10 +9,10 @@ syntax: |-
 arguments:
   - name: vector_expr_1
     required: true
-    description: An one-dimensional array of `float32` or smaller.
+    description: A one-dimensional array of `float32` or smaller.
   - name: vector_expr_2
     required: true
-    description: An one-dimensional array of `float32` or smaller.
+    description: A one-dimensional array of `float32` or smaller.
   - name: bool_expr
     required: false
     description: An optional boolean specifying how the computed value is used in an ORDER BY expression. If `true`, then brute force is used. A value of `false` uses any index defined on the vector property, if it exists. Default value is `false`.
@@ -43,7 +43,7 @@ examples:
         }
       ]
 remarks:
-  - If a multi-dimension array is provided for `vector_expr_1` or `vector_expr_2`, the function will not return a `SimularityScore` value and will not return an error.
+  - If a multi-dimensional array is provided for `vector_expr_1` or `vector_expr_2`, the function doesn't return a `SimilarityScore` value and doesn't return an error.
 system:
   - SKIP-VALIDATION
 related:
