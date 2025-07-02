@@ -2,7 +2,9 @@
 name: DOCUMENTID
 group: item
 description: |-
-  The `DOCUMENTID` function returns the unique document ID for a given item in the container. This can be used for filtering or retrieving the document's internal identifier.
+  The `DOCUMENTID` function returns the unique document ID for a given item in the container.
+summary: |-
+  This can be used for filtering or retrieving the document's internal identifier.
 syntax: |-
   DOCUMENTID(<item_expr>)
 arguments:

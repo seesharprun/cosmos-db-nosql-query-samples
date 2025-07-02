@@ -1,9 +1,10 @@
 ### YamlMime:NoSQLQueryReference
 name: SUBQUERY
-summary: Subqueries allow you to nest queries within other queries for complex query statements in Azure Cosmos DB for NoSQL.
 group: clause
 description: |-
-  The `SUBQUERY` clause identifies a query nested within another query. Subqueries can be used for optimizing JOIN expressions, evaluating expensive expressions once and referencing them multiple times, and mimicking joins with external reference data. Only correlated subqueries are supported in Azure Cosmos DB for NoSQL.
+  The `SUBQUERY` clause identifies a query nested within another query.
+summary: |-
+  Subqueries can be used for optimizing JOIN expressions, evaluating expensive expressions once and referencing them multiple times, and mimicking joins with external reference data. Only correlated subqueries are supported in Azure Cosmos DB for NoSQL.
 syntax: |-
   (SELECT VALUE <expr> FROM <source> WHERE <condition>)
 arguments:
