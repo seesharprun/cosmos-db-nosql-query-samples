@@ -33,7 +33,7 @@ static partial class CosmosExtensions
 static partial class StringExtensions
 {
     internal static string GetHeader(this string title) =>
-        $"{title.Humanize().Transform(To.TitleCase)} functions";
+        $"{title.Humanize().Transform(To.SentenceCase)} functions";
 
     internal static string[] GetDisplayNames(this (string Title, string Group) item)
     {
